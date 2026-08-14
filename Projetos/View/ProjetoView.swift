@@ -22,7 +22,6 @@ struct ProjetoView: View {
                         .rect(cornerRadius: 25)
                 )
         }
-        .navigationTitle(projeto.nome ?? "Projeto sem nome")
         
         .alert("Dia selecionado", isPresented: $isShowingAlert, presenting: selectedDate) { details in
             Button("OK", role: .cancel) { }
@@ -30,7 +29,9 @@ struct ProjetoView: View {
             Text(details.formatted())
         }
         
-        
+        .navigationTitle(projeto.nome ?? "Projeto sem nome")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbarTitleDisplayMode(.inlineLarge)
         
     }
 }

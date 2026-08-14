@@ -16,36 +16,44 @@ struct HomeView: View {
     var projects: FetchedResults<Projeto>
 
     var body: some View {
-        VStack {
-            ForEach(projects) { projeto in
-                NavigationLink(projeto.nome ?? "Projeto sem nome") {
-                    ProjetoView(projeto: projeto)
+        NavigationStack {
+            ScrollView {
+                VStack {
+                    ForEach(projects) { projeto in
+                        NavigationLink(projeto.nome ?? "Projeto sem nome", value: projeto)
+                    }
+                }
+                .padding()
+                    
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("", systemImage: "plus") {
+                            let projeto = Projeto(context: moc)
+                            
+                            projeto.nome = "Projeto 1"
+                            projeto.id_projeto = UUID()
+                            projeto.cor = "red"
+                            projeto.inicio = Date()
+                            projeto.fim = Calendar.current.date(
+                                byAdding: .month,
+                                value: 1,
+                                to: Date()
+                            )!
+                            
+                            try? moc.save()
+                            
+                        }
+                    }
                 }
             }
-        }
-        .padding()
-
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button("", systemImage: "plus") {
-                    let projeto = Projeto(context: moc)
-
-                    projeto.nome = "Projeto 1"
-                    projeto.id_projeto = UUID()
-                    projeto.cor = "red"
-                    projeto.inicio = Date()
-                    projeto.fim = Calendar.current.date(
-                        byAdding: .month,
-                        value: 1,
-                        to: Date()
-                    )!
-
-                    try? moc.save()
-
-                }
+            
+            .navigationDestination(for: Projeto.self) {project in
+                    ProjetoView(projeto: project)
             }
+    
+            .navigationTitle("Projetos")
+            .toolbarTitleDisplayMode(.inlineLarge)
         }
-        .navigationTitle("Projetos")
     }
 }
 
