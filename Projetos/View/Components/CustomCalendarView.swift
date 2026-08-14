@@ -12,8 +12,8 @@ import SwiftUI
 
 struct CustomCalendarView: View {
     
-    let calendar = Calendar.current
-    let daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    private let calendar = Calendar.current
+    private let daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     
     let daySelect: (_ selectedDate: Date) -> Void;
     
@@ -108,6 +108,10 @@ struct CustomCalendarView: View {
                         }
                 }
             }
+            
+            Divider()
+                
+            DatePicker(selection: .constant(Date()), label: { Text("Prazo Final") })
         }
         .padding()
     }
