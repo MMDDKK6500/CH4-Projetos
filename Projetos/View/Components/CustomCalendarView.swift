@@ -5,10 +5,11 @@
 //  Posted by kitchen800
 //  Retrieved 2026-08-13, License - CC BY-SA 4.0
 //
-//  Edited by João Duque Nardelli Wandermuren on 13/08/26.
+//  Edited by João Duque Nardelli Wandermuren
 //
 
 import SwiftUI
+internal import CoreData
 
 struct CustomCalendarView: View {
     
@@ -17,10 +18,17 @@ struct CustomCalendarView: View {
     
     let daySelect: (_ selectedDate: Date) -> Void;
     
+    let projeto: Projeto
+    
     @State private var selectedDate: Date = Date()
+    @State var endDate: Date
 
-    init(daySelect: @escaping (_ selectedDate: Date) -> Void) {
+    init(daySelect: @escaping (_ selectedDate: Date) -> Void, projeto: Projeto) {
         self.daySelect = daySelect
+        self.projeto = projeto
+        
+        endDate = projeto.fim!
+        
     }
     
     var body: some View {
@@ -111,7 +119,15 @@ struct CustomCalendarView: View {
             
             Divider()
                 
-            DatePicker(selection: .constant(Date()), label: { Text("Prazo Final") })
+            DatePicker(selection: $endDate,
+                label: {
+                    Text("Prazo Final")
+                }
+            )
+            .onChange(of: endDate) {
+                projeto.fim = endDate
+                try? projeto.managedObjectContext!.save()
+            }
         }
         .padding()
     }

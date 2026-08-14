@@ -17,13 +17,16 @@ struct HomeView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack {
+//            ScrollView {
+                List {
                     ForEach(projects) { projeto in
                         NavigationLink(projeto.nome ?? "Projeto sem nome", value: projeto)
                     }
+                    Section(header: Text("top 10 seções")) {
+                        Text("a")
+                    }
                 }
-                .padding()
+//                .padding()
                     
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
@@ -45,7 +48,7 @@ struct HomeView: View {
                         }
                     }
                 }
-            }
+//            }
             
             .navigationDestination(for: Projeto.self) {project in
                     ProjetoView(projeto: project)

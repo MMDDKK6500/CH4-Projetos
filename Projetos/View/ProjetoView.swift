@@ -17,7 +17,7 @@ struct ProjetoView: View {
     
     var body: some View {
         VStack {
-            CustomCalendarView(daySelect: showAlert)
+            CustomCalendarView(daySelect: showAlert, projeto: projeto)
                 .glassEffect(in:
                         .rect(cornerRadius: 25)
                 )
