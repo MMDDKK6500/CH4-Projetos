@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProjetoView: View {
+struct ProjectView: View {
     
     @State private var birthday = Date()
     @State private var isShowingAlert = false
@@ -34,7 +34,7 @@ struct ProjetoView: View {
     }
 }
 
-extension ProjetoView {
+extension ProjectView {
     func showAlert(_ date: Date) {
         selectedDate = date
         isShowingAlert.toggle()

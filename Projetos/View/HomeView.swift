@@ -51,7 +51,7 @@ struct HomeView: View {
 //            }
             
             .navigationDestination(for: Project.self) {project in
-                    ProjetoView(projeto: project)
+                    ProjectView(projeto: project)
             }
     
             .navigationTitle("Projetos")
