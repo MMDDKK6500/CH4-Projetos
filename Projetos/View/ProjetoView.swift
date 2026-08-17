@@ -13,14 +13,12 @@ struct ProjetoView: View {
     @State private var isShowingAlert = false
     @State private var selectedDate: Date = Date()
     
-    let projeto: Projeto
+    let projeto: Project
     
     var body: some View {
         VStack {
             CustomCalendarView(daySelect: showAlert, projeto: projeto)
-                .glassEffect(in:
-                        .rect(cornerRadius: 25)
-                )
+                .glassEffect(in: .rect(cornerRadius: 25.0))
         }
         
         .alert("Dia selecionado", isPresented: $isShowingAlert, presenting: selectedDate) { details in
@@ -29,7 +27,7 @@ struct ProjetoView: View {
             Text(details.formatted())
         }
         
-        .navigationTitle(projeto.nome ?? "Projeto sem nome")
+        .navigationTitle(projeto.name ?? "Projeto sem nome")
         .navigationBarTitleDisplayMode(.inline)
         .toolbarTitleDisplayMode(.inlineLarge)
         

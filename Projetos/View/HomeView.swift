@@ -13,14 +13,14 @@ struct HomeView: View {
     @Environment(\.managedObjectContext) var moc
 
     @FetchRequest(sortDescriptors: [])
-    var projects: FetchedResults<Projeto>
+    var projects: FetchedResults<Project>
 
     var body: some View {
         NavigationStack {
 //            ScrollView {
                 List {
-                    ForEach(projects) { projeto in
-                        NavigationLink(projeto.nome ?? "Projeto sem nome", value: projeto)
+                    ForEach(projects) { project in
+                        NavigationLink(project.name ?? "Projeto sem nome", value: project)
                     }
                     Section(header: Text("top 10 seções")) {
                         Text("a")
@@ -31,13 +31,13 @@ struct HomeView: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("", systemImage: "plus") {
-                            let projeto = Projeto(context: moc)
+                            let projeto = Project(context: moc)
                             
-                            projeto.nome = "Projeto 1"
-                            projeto.id_projeto = UUID()
-                            projeto.cor = "red"
-                            projeto.inicio = Date()
-                            projeto.fim = Calendar.current.date(
+                            projeto.name = "Projeto 1"
+                            projeto.id_project = UUID()
+                           // projeto.color =
+                            projeto.start = Date()
+                            projeto.end = Calendar.current.date(
                                 byAdding: .month,
                                 value: 1,
                                 to: Date()
@@ -50,7 +50,7 @@ struct HomeView: View {
                 }
 //            }
             
-            .navigationDestination(for: Projeto.self) {project in
+            .navigationDestination(for: Project.self) {project in
                     ProjetoView(projeto: project)
             }
     

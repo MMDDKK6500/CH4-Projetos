@@ -18,16 +18,16 @@ struct CustomCalendarView: View {
     
     let daySelect: (_ selectedDate: Date) -> Void;
     
-    let projeto: Projeto
+    let projeto: Project
     
     @State private var selectedDate: Date = Date()
     @State var endDate: Date
 
-    init(daySelect: @escaping (_ selectedDate: Date) -> Void, projeto: Projeto) {
+    init(daySelect: @escaping (_ selectedDate: Date) -> Void, projeto: Project) {
         self.daySelect = daySelect
         self.projeto = projeto
         
-        endDate = projeto.fim!
+        endDate = projeto.end!
         
     }
     
@@ -125,7 +125,7 @@ struct CustomCalendarView: View {
                 }
             )
             .onChange(of: endDate) {
-                projeto.fim = endDate
+                projeto.end = endDate
                 try? projeto.managedObjectContext!.save()
             }
         }
