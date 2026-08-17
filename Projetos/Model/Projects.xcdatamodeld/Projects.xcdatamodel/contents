@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="24902" systemVersion="25G76" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
-    <entity name="Attatchment" representedClassName="Attatchment" syncable="YES"/>
+    <entity name="AttatchmentNote" representedClassName="AttatchmentNote" syncable="YES">
+        <attribute name="id_attatchment" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="image" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <relationship name="note" maxCount="1" deletionRule="Nullify" destinationEntity="Note"/>
+    </entity>
+    <entity name="AttatchmentTask" representedClassName="AttatchmentNote" syncable="YES" codeGenerationType="class">
+        <attribute name="id_attatchment" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="image" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <relationship name="task" maxCount="1" deletionRule="Nullify" destinationEntity="Task"/>
+    </entity>
     <entity name="Note" representedClassName="Note" syncable="YES">
-        <attribute name="color" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" customClassName="UIColor"/>
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="id_note" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="text" optional="YES" attributeType="String"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project"/>
+        <attribute name="color" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" customClassName="UIColor"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id_note" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="text" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <relationship name="project" maxCount="1" deletionRule="Nullify" destinationEntity="Project"/>
     </entity>
     <entity name="Project" representedClassName="Project" syncable="YES">
         <attribute name="color" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" customClassName="UIColor"/>
