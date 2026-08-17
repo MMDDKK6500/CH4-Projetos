@@ -2,7 +2,7 @@
 //  Task+CoreDataProperties.swift
 //  Projetos
 //
-//  Created by Maria Clara Fernandes Bessa on 17/08/26.
+//  Created by João Duque Nardelli Wandermuren on 17/08/26.
 //
 //
 
