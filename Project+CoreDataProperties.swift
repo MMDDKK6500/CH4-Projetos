@@ -18,11 +18,11 @@ extension Project {
         return NSFetchRequest<Project>(entityName: "Project")
     }
 
-    @NSManaged public var color: Int16
     @NSManaged public var end: Date?
     @NSManaged public var id_project: UUID?
     @NSManaged public var name: String?
     @NSManaged public var start: Date?
+    @NSManaged public var descriptionText: String?
 
 }
 

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+internal import CoreData
 
 struct SheetNewProject: View {
     
@@ -13,9 +14,12 @@ struct SheetNewProject: View {
     @State private var descriptionProject: String = ""
     @State private var startDate: Date = Date()
     @State private var endDate: Date = Date()
-    @State private var addPhoto: Bool = false
+//    @State private var addPhoto: Bool = false
+    
+    @State private var createError: Bool = false
     
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.managedObjectContext) private var moc
     
     var body: some View {
         NavigationStack {
@@ -24,7 +28,7 @@ struct SheetNewProject: View {
                 HStack{
                     Spacer()
                     Button {
-                        //Colocar a selecao de imagens assim que o usuario clicar
+                        //TODO: Colocar a selecao de imagens assim que o usuario clicar
                     } label: {
                         Image(systemName: "photo.badge.plus")
                             .font(.title.bold())
@@ -70,14 +74,40 @@ struct SheetNewProject: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("", systemImage: "xmark", role: .cancel) { dismiss() }
+                    Button("", systemImage: "xmark", role: .cancel) {
+                        
+                        dismiss()
+                        
+                    }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("", systemImage: "checkmark", role: .confirm) { dismiss() }
+                    Button("", systemImage: "checkmark", role: .confirm) {
+                        
+                        if (titleProject.isEmpty) {
+                            createError.toggle()
+                        } else {
+                            
+                            let projeto = Project(context: moc)
+                            
+                            projeto.name = titleProject
+                            projeto.descriptionText = descriptionProject
+                            projeto.id_project = UUID()
+                            projeto.start = startDate
+                            projeto.end = endDate
+                            
+                            try? moc.save()
+                            
+                            dismiss()
+                        }
+                    }
                 }
             }
             .presentationDragIndicator(.visible)
-            
+            .alert("Error", isPresented: $createError) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text("Please insert a name for the project")
+            }
         }
     }
 }

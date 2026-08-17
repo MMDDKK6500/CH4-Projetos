@@ -14,6 +14,8 @@ struct HomeView: View {
 
     @FetchRequest(sortDescriptors: [])
     var projects: FetchedResults<Project>
+    
+    @State var newProject = false
 
     var body: some View {
         NavigationStack {
@@ -31,20 +33,7 @@ struct HomeView: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("", systemImage: "plus") {
-                            let projeto = Project(context: moc)
-                            
-                            projeto.name = "Projeto 1"
-                            projeto.id_project = UUID()
-                           // projeto.color =
-                            projeto.start = Date()
-                            projeto.end = Calendar.current.date(
-                                byAdding: .month,
-                                value: 1,
-                                to: Date()
-                            )!
-                            
-                            try? moc.save()
-                            
+                            newProject.toggle()
                         }
                     }
                 }
@@ -56,6 +45,10 @@ struct HomeView: View {
     
             .navigationTitle("Projetos")
             .toolbarTitleDisplayMode(.inlineLarge)
+            
+            .sheet(isPresented: $newProject) {
+                SheetNewProject()
+            }
         }
     }
 }

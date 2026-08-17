@@ -5,7 +5,7 @@
         <attribute name="image" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <relationship name="note" maxCount="1" deletionRule="Nullify" destinationEntity="Note"/>
     </entity>
-    <entity name="AttatchmentTask" representedClassName="AttatchmentNote" syncable="YES" codeGenerationType="class">
+    <entity name="AttatchmentTask" representedClassName="AttatchmentNote" syncable="YES">
         <attribute name="id_attatchment" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="image" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <relationship name="task" maxCount="1" deletionRule="Nullify" destinationEntity="Task"/>
@@ -19,7 +19,7 @@
         <relationship name="project" maxCount="1" deletionRule="Nullify" destinationEntity="Project"/>
     </entity>
     <entity name="Project" representedClassName="Project" syncable="YES">
-        <attribute name="color" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" customClassName="UIColor"/>
+        <attribute name="descriptionText" attributeType="String"/>
         <attribute name="end" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id_project" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
@@ -30,7 +30,7 @@
         <attribute name="data" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id_task" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="text" attributeType="String"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
         <relationship name="project" maxCount="1" deletionRule="Nullify" destinationEntity="Project"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
