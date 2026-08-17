@@ -7,30 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		607534FE3033751200CB60D5 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607534FA3033751200CB60D5 /* Task+CoreDataClass.swift */; };
-		607534FF3033751200CB60D5 /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607534F63033751200CB60D5 /* Note+CoreDataClass.swift */; };
-		607535003033751200CB60D5 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607534FB3033751200CB60D5 /* Task+CoreDataProperties.swift */; };
-		607535013033751200CB60D5 /* Attatchment+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607534F53033751200CB60D5 /* Attatchment+CoreDataProperties.swift */; };
-		607535023033751200CB60D5 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607534FD3033751200CB60D5 /* User+CoreDataProperties.swift */; };
-		607535033033751200CB60D5 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607534F93033751200CB60D5 /* Project+CoreDataProperties.swift */; };
-		607535043033751200CB60D5 /* Attatchment+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607534F43033751200CB60D5 /* Attatchment+CoreDataClass.swift */; };
-		607535053033751200CB60D5 /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607534F73033751200CB60D5 /* Note+CoreDataProperties.swift */; };
-		607535063033751200CB60D5 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607534FC3033751200CB60D5 /* User+CoreDataClass.swift */; };
-		607535073033751200CB60D5 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607534F83033751200CB60D5 /* Project+CoreDataClass.swift */; };
+		6075353E30338ABB00CB60D5 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6075353D30338ABB00CB60D5 /* User+CoreDataProperties.swift */; };
+		6075353F30338ABB00CB60D5 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6075353830338ABB00CB60D5 /* Project+CoreDataClass.swift */; };
+		6075354030338ABB00CB60D5 /* Attatchment+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6075353530338ABB00CB60D5 /* Attatchment+CoreDataProperties.swift */; };
+		6075354130338ABB00CB60D5 /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6075353730338ABB00CB60D5 /* Note+CoreDataProperties.swift */; };
+		6075354230338ABB00CB60D5 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6075353A30338ABB00CB60D5 /* Task+CoreDataClass.swift */; };
+		6075354330338ABB00CB60D5 /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6075353630338ABB00CB60D5 /* Note+CoreDataClass.swift */; };
+		6075354430338ABB00CB60D5 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6075353C30338ABB00CB60D5 /* User+CoreDataClass.swift */; };
+		6075354530338ABB00CB60D5 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6075353930338ABB00CB60D5 /* Project+CoreDataProperties.swift */; };
+		6075354630338ABB00CB60D5 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6075353B30338ABB00CB60D5 /* Task+CoreDataProperties.swift */; };
+		6075354730338ABB00CB60D5 /* Attatchment+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6075353430338ABB00CB60D5 /* Attatchment+CoreDataClass.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		604EEECF302E4C2C009A0F94 /* Projetos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Projetos.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		607534F43033751200CB60D5 /* Attatchment+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attatchment+CoreDataClass.swift"; sourceTree = "<group>"; };
-		607534F53033751200CB60D5 /* Attatchment+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attatchment+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		607534F63033751200CB60D5 /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = "<group>"; };
-		607534F73033751200CB60D5 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		607534F83033751200CB60D5 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
-		607534F93033751200CB60D5 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		607534FA3033751200CB60D5 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
-		607534FB3033751200CB60D5 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		607534FC3033751200CB60D5 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
-		607534FD3033751200CB60D5 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		6075353430338ABB00CB60D5 /* Attatchment+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attatchment+CoreDataClass.swift"; sourceTree = "<group>"; };
+		6075353530338ABB00CB60D5 /* Attatchment+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attatchment+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		6075353630338ABB00CB60D5 /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = "<group>"; };
+		6075353730338ABB00CB60D5 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		6075353830338ABB00CB60D5 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
+		6075353930338ABB00CB60D5 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		6075353A30338ABB00CB60D5 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
+		6075353B30338ABB00CB60D5 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		6075353C30338ABB00CB60D5 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
+		6075353D30338ABB00CB60D5 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -55,16 +55,16 @@
 		604EEEC6302E4C2C009A0F94 = {
 			isa = PBXGroup;
 			children = (
-				607534F43033751200CB60D5 /* Attatchment+CoreDataClass.swift */,
-				607534F53033751200CB60D5 /* Attatchment+CoreDataProperties.swift */,
-				607534F63033751200CB60D5 /* Note+CoreDataClass.swift */,
-				607534F73033751200CB60D5 /* Note+CoreDataProperties.swift */,
-				607534F83033751200CB60D5 /* Project+CoreDataClass.swift */,
-				607534F93033751200CB60D5 /* Project+CoreDataProperties.swift */,
-				607534FA3033751200CB60D5 /* Task+CoreDataClass.swift */,
-				607534FB3033751200CB60D5 /* Task+CoreDataProperties.swift */,
-				607534FC3033751200CB60D5 /* User+CoreDataClass.swift */,
-				607534FD3033751200CB60D5 /* User+CoreDataProperties.swift */,
+				6075353430338ABB00CB60D5 /* Attatchment+CoreDataClass.swift */,
+				6075353530338ABB00CB60D5 /* Attatchment+CoreDataProperties.swift */,
+				6075353630338ABB00CB60D5 /* Note+CoreDataClass.swift */,
+				6075353730338ABB00CB60D5 /* Note+CoreDataProperties.swift */,
+				6075353830338ABB00CB60D5 /* Project+CoreDataClass.swift */,
+				6075353930338ABB00CB60D5 /* Project+CoreDataProperties.swift */,
+				6075353A30338ABB00CB60D5 /* Task+CoreDataClass.swift */,
+				6075353B30338ABB00CB60D5 /* Task+CoreDataProperties.swift */,
+				6075353C30338ABB00CB60D5 /* User+CoreDataClass.swift */,
+				6075353D30338ABB00CB60D5 /* User+CoreDataProperties.swift */,
 				604EEED1302E4C2C009A0F94 /* Projetos */,
 				604EEED0302E4C2C009A0F94 /* Products */,
 			);
@@ -152,16 +152,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607534FE3033751200CB60D5 /* Task+CoreDataClass.swift in Sources */,
-				607534FF3033751200CB60D5 /* Note+CoreDataClass.swift in Sources */,
-				607535003033751200CB60D5 /* Task+CoreDataProperties.swift in Sources */,
-				607535013033751200CB60D5 /* Attatchment+CoreDataProperties.swift in Sources */,
-				607535023033751200CB60D5 /* User+CoreDataProperties.swift in Sources */,
-				607535033033751200CB60D5 /* Project+CoreDataProperties.swift in Sources */,
-				607535043033751200CB60D5 /* Attatchment+CoreDataClass.swift in Sources */,
-				607535053033751200CB60D5 /* Note+CoreDataProperties.swift in Sources */,
-				607535063033751200CB60D5 /* User+CoreDataClass.swift in Sources */,
-				607535073033751200CB60D5 /* Project+CoreDataClass.swift in Sources */,
+				6075353E30338ABB00CB60D5 /* User+CoreDataProperties.swift in Sources */,
+				6075353F30338ABB00CB60D5 /* Project+CoreDataClass.swift in Sources */,
+				6075354030338ABB00CB60D5 /* Attatchment+CoreDataProperties.swift in Sources */,
+				6075354130338ABB00CB60D5 /* Note+CoreDataProperties.swift in Sources */,
+				6075354230338ABB00CB60D5 /* Task+CoreDataClass.swift in Sources */,
+				6075354330338ABB00CB60D5 /* Note+CoreDataClass.swift in Sources */,
+				6075354430338ABB00CB60D5 /* User+CoreDataClass.swift in Sources */,
+				6075354530338ABB00CB60D5 /* Project+CoreDataProperties.swift in Sources */,
+				6075354630338ABB00CB60D5 /* Task+CoreDataProperties.swift in Sources */,
+				6075354730338ABB00CB60D5 /* Attatchment+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,7 +296,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 22R33Q56Q6;
+				DEVELOPMENT_TEAM = 5PRN865UP6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Challenge 4";
@@ -335,7 +335,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 5PRN865UP6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Challenge 4";

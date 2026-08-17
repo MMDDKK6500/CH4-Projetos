@@ -8,7 +8,7 @@
 
 public import Foundation
 public import CoreData
-import UIKit
+
 
 public typealias ProjectCoreDataPropertiesSet = NSSet
 
@@ -18,7 +18,7 @@ extension Project {
         return NSFetchRequest<Project>(entityName: "Project")
     }
 
-    @NSManaged public var color: UIColor?
+    @NSManaged public var color: Int16
     @NSManaged public var end: Date?
     @NSManaged public var id_project: UUID?
     @NSManaged public var name: String?
