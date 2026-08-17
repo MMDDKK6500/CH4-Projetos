@@ -2,13 +2,13 @@
 //  Task+CoreDataProperties.swift
 //  Projetos
 //
-//  Created by Maria Clara Fernandes Bessa on 17/08/26.
+//  Created by João Duque Nardelli Wandermuren on 17/08/26.
 //
 //
 
 public import Foundation
 public import CoreData
-
+import UIKit
 
 public typealias TaskCoreDataPropertiesSet = NSSet
 
@@ -18,7 +18,7 @@ extension Task {
         return NSFetchRequest<Task>(entityName: "Task")
     }
 
-    @NSManaged public var color: Int16
+    @NSManaged public var color: UIColor?
     @NSManaged public var data: Date?
     @NSManaged public var id_task: UUID?
     @NSManaged public var text: String?
