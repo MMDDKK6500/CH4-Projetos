@@ -2,7 +2,7 @@
 //  Note+CoreDataProperties.swift
 //  Projetos
 //
-//  Created by João Duque Nardelli Wandermuren on 17/08/26.
+//  Created by João Duque Nardelli Wandermuren on 18/08/26.
 //
 //
 

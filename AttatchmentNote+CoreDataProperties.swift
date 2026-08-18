@@ -2,7 +2,7 @@
 //  AttatchmentNote+CoreDataProperties.swift
 //  Projetos
 //
-//  Created by João Duque Nardelli Wandermuren on 17/08/26.
+//  Created by João Duque Nardelli Wandermuren on 18/08/26.
 //
 //
 
@@ -15,12 +15,12 @@ public typealias AttatchmentNoteCoreDataPropertiesSet = NSSet
 extension AttatchmentNote {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<AttatchmentNote> {
-        return NSFetchRequest<AttatchmentNote>(entityName: "AttatchmentTask")
+        return NSFetchRequest<AttatchmentNote>(entityName: "AttatchmentNote")
     }
 
     @NSManaged public var id_attatchment: UUID?
     @NSManaged public var image: Data?
-    @NSManaged public var task: Task?
+    @NSManaged public var note: Note?
 
 }
 
