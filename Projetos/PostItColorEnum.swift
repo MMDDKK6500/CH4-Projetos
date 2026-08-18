@@ -15,6 +15,10 @@ enum PostItColorEnum: String {
     case green = "GreenNote"
     case pink = "PinkNote"
     
+    init(imageName: String) {
+            self = PostItColorEnum(rawValue: imageName) ?? .purple
+        }
+    
     var tagBackgroundColor: Color {
             switch self {
             case .pink: return Color.Pink.subtitle
@@ -26,7 +30,4 @@ enum PostItColorEnum: String {
             }
         }
     
-    init(imageName: String) {
-            self = PostItColorEnum(rawValue: imageName) ?? .purple 
-        }
 }

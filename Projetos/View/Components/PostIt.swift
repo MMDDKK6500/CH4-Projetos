@@ -36,7 +36,7 @@ var body: some View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(15)
                         
-                        TagPostIt(imageName: "PinkNote", status: .toDo)
+                        TagPostIt(imageName: task.imageNote , status: .toDo)
                             .frame(maxWidth: .infinity, alignment: .trailing)
                             .padding(.horizontal, 20)
                     }
@@ -52,7 +52,7 @@ var body: some View {
 #Preview {
     PostIt(
         task: PostItViewModel(
-            imageNote: "PinkNote",
+            imageNote: "YellowNote",
             taskName: "Protótipo de Alta",
             statusDay: "Hoje",
             descriptionTask: "Entregar protótipo de alta fidelidade para os mentores.",
