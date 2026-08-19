@@ -8,11 +8,44 @@
 import SwiftUI
 
 struct SheetOnBoarding: View {
+@Environment(\.dismiss) private var dismiss
+        
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            
+            ZStack {
+                Color("geralBackground")
+                    .ignoresSafeArea()
+                
+                VStack(spacing: 60) {
+                    Spacer()
+                    
+                    Text("Descubra tudo que o Zip oferece")
+                        .font(.largeTitle.bold())
+                        .multilineTextAlignment(.center)
+                    
+                    //Spacer()
+                    TextOnBoarding(text: "Organize seus prazos e encontros. Visualize as datas importantes do projeto e saiba o que vem pela frente.", icon: "calendar")
+                    TextOnBoarding(text: "Não deixe nenhuma tarefa para trás. Crie lembretes para acompanhar o que precisa ser feito e quando.", icon: "checklist")
+                    TextOnBoarding(text: "Registre suas ideias e informações. Anote detalhes, referências e tudo o que for importante para o projeto.", icon: "pencil.line")
+                    
+                    Spacer()
+                    
+                    PrincipalButton(action: {})
+                    
+                }
+                .padding(18)
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .presentationDragIndicator(.visible)
+            
+            }
+        }
     }
-}
 
 #Preview {
     SheetOnBoarding()
+        .sheet(isPresented: .constant(true)) {
+            SheetOnBoarding()
+        }
 }
