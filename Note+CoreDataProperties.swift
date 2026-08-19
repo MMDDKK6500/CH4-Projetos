@@ -8,7 +8,7 @@
 
 public import Foundation
 public import CoreData
-
+import SwiftUI
 
 public typealias NoteCoreDataPropertiesSet = NSSet
 
@@ -18,7 +18,7 @@ extension Note {
         return NSFetchRequest<Note>(entityName: "Note")
     }
 
-    @NSManaged public var color: Int16
+    @NSManaged public var color: Int64
     @NSManaged public var date: Date?
     @NSManaged public var id_note: UUID?
     @NSManaged public var text: String?
@@ -28,5 +28,7 @@ extension Note {
 }
 
 extension Note : Identifiable {
-
+    func getColorPalette() -> CoreDataColor {
+        return CoreDataColor(rawValue: Int(color))!
+    }
 }

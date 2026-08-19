@@ -27,7 +27,11 @@ struct HomeView: View {
                 VStack(spacing: 10) {
                     // https://stackoverflow.com/questions/60866380/swiftui-if-inside-foreach-loop
                     ForEach(projects.filter { $0.favorite == true }) {project in
-                        ProjectComponentView(project: project)
+                        NavigationLink {
+                            ProjectView(project: project)
+                        } label: {
+                            ProjectComponentView(project: project)
+                        }
                     }
                     LazyVGrid(
                         columns: [
@@ -38,7 +42,11 @@ struct HomeView: View {
                         spacing: 10
                     ) {
                         ForEach(projects.filter { $0.favorite == false }) {project in
-                            ProjectComponentView(project: project)
+                            NavigationLink {
+                                ProjectView(project: project)
+                            } label: {
+                                ProjectComponentView(project: project)
+                            }
                         }
                     }
                 }
@@ -50,21 +58,11 @@ struct HomeView: View {
                     Button("", systemImage: "plus") {
                         newProject.toggle()
                     }
-                    Menu {
-                        Text("Projetos visíveis:")
-                        Divider()
-                        Toggle("Projetos Atuais", isOn: $showCurrentProjects)
-                        Toggle("Projetos Passados", isOn: $showOldProjects)
-                        Toggle("Projetos Futuros", isOn: $showFutureProjects)
-                    } label: {
-                        Label("", systemImage: "line.3.horizontal.decrease")
-                    }
                 }
             }
-            .controlGroupStyle(.palette)
 
             .navigationDestination(for: Project.self) { project in
-                ProjectView(projeto: project)
+                ProjectView(project: project)
             }
 
             .navigationTitle("Meus Projetos")

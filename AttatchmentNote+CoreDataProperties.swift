@@ -15,12 +15,12 @@ public typealias AttatchmentNoteCoreDataPropertiesSet = NSSet
 extension AttatchmentNote {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<AttatchmentNote> {
-        return NSFetchRequest<AttatchmentNote>(entityName: "AttatchmentNote")
+        return NSFetchRequest<AttatchmentNote>(entityName: "AttatchmentTask")
     }
 
     @NSManaged public var id_attatchment: UUID?
     @NSManaged public var image: Data?
-    @NSManaged public var note: Note?
+    @NSManaged public var task: Task?
 
 }
 

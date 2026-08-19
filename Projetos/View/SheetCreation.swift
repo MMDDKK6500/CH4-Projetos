@@ -11,6 +11,8 @@ struct SheetCreation: View {
     
     @State private var segmented = 0
     
+    let project: Project
+    
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -31,7 +33,7 @@ struct SheetCreation: View {
                     .padding(.horizontal)
                     
                     if segmented == 0 {
-                        NewTask()
+                        NewTask(project: project)
                     } else {
                         NewNote()
                     }
@@ -39,23 +41,7 @@ struct SheetCreation: View {
             }
             .navigationTitle(segmented == 0 ? "Nova Tarefa" : "Nova Anotação")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("", systemImage: "xmark", role: .cancel) { dismiss() }
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("", systemImage: "checkmark", role: .confirm) { dismiss() }
-                }
-            }
             .presentationDragIndicator(.visible)
         }
     }
 }
-
-#Preview {
-    SheetCreation()
-        .sheet(isPresented: .constant(true)) {
-            SheetCreation()
-        }
-}
-

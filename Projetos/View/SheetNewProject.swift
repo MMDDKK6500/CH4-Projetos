@@ -14,6 +14,8 @@ struct SheetNewProject: View {
     @State private var descriptionProject: String = ""
     @State private var startDate: Date = Date()
     @State private var endDate: Date = Date()
+    @State private var isFavorite: Bool = false
+    
 //    @State private var addPhoto: Bool = false
     
     @State private var createError: Bool = false
@@ -57,7 +59,7 @@ struct SheetNewProject: View {
                     HStack {
                         Text("Favoritar")
                         Spacer()
-                        Favorite()
+                        Favorite(isFavorite: $isFavorite)
                     }
                     HStack {
                         Text("Começa")
@@ -92,10 +94,15 @@ struct SheetNewProject: View {
                             projeto.name = titleProject
                             projeto.descriptionText = descriptionProject
                             projeto.id_project = UUID()
+                            projeto.favorite = isFavorite
                             projeto.start = startDate
                             projeto.end = endDate
                             
-                            try? moc.save()
+                            do {
+                                try moc.save()
+                            } catch {
+                                fatalError("Error saving context \(error)")
+                            }
                             
                             dismiss()
                         }

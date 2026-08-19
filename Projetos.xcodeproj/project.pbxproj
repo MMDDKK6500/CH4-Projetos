@@ -7,30 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		604BB1B93034EC8F00755A2E /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604BB1B23034EC8F00755A2E /* Note+CoreDataProperties.swift */; };
-		604BB1BA3034EC8F00755A2E /* AttatchmentNote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604BB1B03034EC8F00755A2E /* AttatchmentNote+CoreDataProperties.swift */; };
-		604BB1BB3034EC8F00755A2E /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604BB1B63034EC8F00755A2E /* Task+CoreDataProperties.swift */; };
-		604BB1BC3034EC8F00755A2E /* AttatchmentNote+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604BB1AF3034EC8F00755A2E /* AttatchmentNote+CoreDataClass.swift */; };
-		604BB1BD3034EC8F00755A2E /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604BB1B33034EC8F00755A2E /* Project+CoreDataClass.swift */; };
-		604BB1BE3034EC8F00755A2E /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604BB1B53034EC8F00755A2E /* Task+CoreDataClass.swift */; };
-		604BB1BF3034EC8F00755A2E /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604BB1B83034EC8F00755A2E /* User+CoreDataProperties.swift */; };
-		604BB1C03034EC8F00755A2E /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604BB1B73034EC8F00755A2E /* User+CoreDataClass.swift */; };
-		604BB1C13034EC8F00755A2E /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604BB1B43034EC8F00755A2E /* Project+CoreDataProperties.swift */; };
-		604BB1C23034EC8F00755A2E /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604BB1B13034EC8F00755A2E /* Note+CoreDataClass.swift */; };
+		60733DF730355111008537B4 /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60733DEE30355111008537B4 /* Note+CoreDataClass.swift */; };
+		60733DF830355111008537B4 /* AttatchmentNote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60733DED30355111008537B4 /* AttatchmentNote+CoreDataProperties.swift */; };
+		60733DFA30355111008537B4 /* AttatchmentNote+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60733DEC30355111008537B4 /* AttatchmentNote+CoreDataClass.swift */; };
+		60733DFD30355111008537B4 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60733DF430355111008537B4 /* User+CoreDataClass.swift */; };
+		60733DFE30355111008537B4 /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60733DEF30355111008537B4 /* Note+CoreDataProperties.swift */; };
+		60733DFF30355111008537B4 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60733DF530355111008537B4 /* User+CoreDataProperties.swift */; };
+		60733E0230356359008537B4 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60733E0030356359008537B4 /* Project+CoreDataClass.swift */; };
+		60733E0330356359008537B4 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60733E0130356359008537B4 /* Project+CoreDataProperties.swift */; };
+		60733E0630356BCF008537B4 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60733E0430356BCF008537B4 /* Task+CoreDataClass.swift */; };
+		60733E0730356BCF008537B4 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60733E0530356BCF008537B4 /* Task+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		604BB1AF3034EC8F00755A2E /* AttatchmentNote+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttatchmentNote+CoreDataClass.swift"; sourceTree = "<group>"; };
-		604BB1B03034EC8F00755A2E /* AttatchmentNote+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttatchmentNote+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		604BB1B13034EC8F00755A2E /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = "<group>"; };
-		604BB1B23034EC8F00755A2E /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		604BB1B33034EC8F00755A2E /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
-		604BB1B43034EC8F00755A2E /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		604BB1B53034EC8F00755A2E /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
-		604BB1B63034EC8F00755A2E /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		604BB1B73034EC8F00755A2E /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
-		604BB1B83034EC8F00755A2E /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		604EEECF302E4C2C009A0F94 /* Projetos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Projetos.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		60733DEC30355111008537B4 /* AttatchmentNote+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttatchmentNote+CoreDataClass.swift"; sourceTree = "<group>"; };
+		60733DED30355111008537B4 /* AttatchmentNote+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttatchmentNote+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		60733DEE30355111008537B4 /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = "<group>"; };
+		60733DEF30355111008537B4 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		60733DF430355111008537B4 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
+		60733DF530355111008537B4 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		60733E0030356359008537B4 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
+		60733E0130356359008537B4 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		60733E0430356BCF008537B4 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
+		60733E0530356BCF008537B4 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -55,16 +55,16 @@
 		604EEEC6302E4C2C009A0F94 = {
 			isa = PBXGroup;
 			children = (
-				604BB1AF3034EC8F00755A2E /* AttatchmentNote+CoreDataClass.swift */,
-				604BB1B03034EC8F00755A2E /* AttatchmentNote+CoreDataProperties.swift */,
-				604BB1B13034EC8F00755A2E /* Note+CoreDataClass.swift */,
-				604BB1B23034EC8F00755A2E /* Note+CoreDataProperties.swift */,
-				604BB1B33034EC8F00755A2E /* Project+CoreDataClass.swift */,
-				604BB1B43034EC8F00755A2E /* Project+CoreDataProperties.swift */,
-				604BB1B53034EC8F00755A2E /* Task+CoreDataClass.swift */,
-				604BB1B63034EC8F00755A2E /* Task+CoreDataProperties.swift */,
-				604BB1B73034EC8F00755A2E /* User+CoreDataClass.swift */,
-				604BB1B83034EC8F00755A2E /* User+CoreDataProperties.swift */,
+				60733E0430356BCF008537B4 /* Task+CoreDataClass.swift */,
+				60733E0530356BCF008537B4 /* Task+CoreDataProperties.swift */,
+				60733E0030356359008537B4 /* Project+CoreDataClass.swift */,
+				60733E0130356359008537B4 /* Project+CoreDataProperties.swift */,
+				60733DEC30355111008537B4 /* AttatchmentNote+CoreDataClass.swift */,
+				60733DED30355111008537B4 /* AttatchmentNote+CoreDataProperties.swift */,
+				60733DEE30355111008537B4 /* Note+CoreDataClass.swift */,
+				60733DEF30355111008537B4 /* Note+CoreDataProperties.swift */,
+				60733DF430355111008537B4 /* User+CoreDataClass.swift */,
+				60733DF530355111008537B4 /* User+CoreDataProperties.swift */,
 				604EEED1302E4C2C009A0F94 /* Projetos */,
 				604EEED0302E4C2C009A0F94 /* Products */,
 			);
@@ -152,16 +152,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				604BB1B93034EC8F00755A2E /* Note+CoreDataProperties.swift in Sources */,
-				604BB1BA3034EC8F00755A2E /* AttatchmentNote+CoreDataProperties.swift in Sources */,
-				604BB1BB3034EC8F00755A2E /* Task+CoreDataProperties.swift in Sources */,
-				604BB1BC3034EC8F00755A2E /* AttatchmentNote+CoreDataClass.swift in Sources */,
-				604BB1BD3034EC8F00755A2E /* Project+CoreDataClass.swift in Sources */,
-				604BB1BE3034EC8F00755A2E /* Task+CoreDataClass.swift in Sources */,
-				604BB1BF3034EC8F00755A2E /* User+CoreDataProperties.swift in Sources */,
-				604BB1C03034EC8F00755A2E /* User+CoreDataClass.swift in Sources */,
-				604BB1C13034EC8F00755A2E /* Project+CoreDataProperties.swift in Sources */,
-				604BB1C23034EC8F00755A2E /* Note+CoreDataClass.swift in Sources */,
+				60733DF730355111008537B4 /* Note+CoreDataClass.swift in Sources */,
+				60733DF830355111008537B4 /* AttatchmentNote+CoreDataProperties.swift in Sources */,
+				60733DFA30355111008537B4 /* AttatchmentNote+CoreDataClass.swift in Sources */,
+				60733DFD30355111008537B4 /* User+CoreDataClass.swift in Sources */,
+				60733DFE30355111008537B4 /* Note+CoreDataProperties.swift in Sources */,
+				60733DFF30355111008537B4 /* User+CoreDataProperties.swift in Sources */,
+				60733E0630356BCF008537B4 /* Task+CoreDataClass.swift in Sources */,
+				60733E0730356BCF008537B4 /* Task+CoreDataProperties.swift in Sources */,
+				60733E0230356359008537B4 /* Project+CoreDataClass.swift in Sources */,
+				60733E0330356359008537B4 /* Project+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
