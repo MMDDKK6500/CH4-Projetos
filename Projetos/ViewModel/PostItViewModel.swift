@@ -19,13 +19,27 @@ class PostItViewModel {
         self.task = task
     
         if Calendar.current.isDate(task.start!, inSameDayAs: task.end!) {
+            
+            if task.isAllDay {
+                self.subtitle = "Hoje"
+                return
+            }
+             
             self.subtitle = task.start!.formatted(.dateTime.month(.abbreviated).day())
             + " " +
             task.start!.formatted(.dateTime.hour().minute())
             + " - " +
             task.end!.formatted(.dateTime.hour().minute())
+        } else if task.isAllDay {
+            self.subtitle = task.start!.formatted(.dateTime.month(.abbreviated).day()) + " - " + task.end!.formatted(.dateTime.month(.abbreviated).day())
         } else {
-            self.subtitle = "a"
+            self.subtitle = task.start!.formatted(.dateTime.month(.abbreviated).day())
+            + " " +
+            task.start!.formatted(.dateTime.hour().minute())
+            + " - " +
+            task.end!.formatted(.dateTime.month(.abbreviated).day())
+            + " " +
+            task.end!.formatted(.dateTime.hour().minute())
         }
         
     }

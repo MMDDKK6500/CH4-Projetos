@@ -21,6 +21,7 @@ extension Task {
     @NSManaged public var color: Int64
     @NSManaged public var end: Date?
     @NSManaged public var id_task: UUID?
+    @NSManaged public var isAllDay: Bool
     @NSManaged public var start: Date?
     @NSManaged public var status: Int64
     @NSManaged public var text: String?
