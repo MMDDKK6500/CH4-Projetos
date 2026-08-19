@@ -15,11 +15,11 @@ enum TaskStatus: Int, CaseIterable {
     var toString : String {
         switch self {
             case .toDo:
-            return "To Do"
+            return "A Fazer"
         case .inProgress:
-            return "In Progress"
+            return "Em Andamento"
         case .completed:
-            return "Completed"
+            return "Concluído"
         }
     }
 }

@@ -13,6 +13,12 @@ struct ProjectView: View {
     @State private var isShowingAlert = false
     @State private var selectedDate: Date = Date()
     @State private var creatingNewTask: Bool = false
+    
+    @State private var segmented = 0
+    
+    var filteredTasks: [Task] {
+            tasks.filter { Int($0.status) == segmented } //Devolve array somente com o tipo da task passada no segmented
+        }
 
     let project: Project
 
@@ -31,9 +37,21 @@ struct ProjectView: View {
 
     var body: some View {
         ScrollView {
-            VStack {
+            VStack (alignment: .leading, spacing: 40){
                 CustomCalendarView(daySelect: showAlert, projeto: project)
                     .glassEffect(in: .rect(cornerRadius: 25.0))
+                
+                Text("Tarefas do projeto \(project.name ?? "criado")")
+                    .font(.title2.bold())
+                
+                Picker ("", selection: $segmented) {
+                    Text("A Fazer").tag(0)
+                    Text("Em Andamento").tag(1)
+                    Text("Concluído").tag(2)
+                }
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
+                
                 
                 LazyVGrid(
                     columns: [
@@ -43,8 +61,8 @@ struct ProjectView: View {
                     alignment: .center,
                     spacing: 10
                 ) {
-                    ForEach(tasks) { task in
-                        PostIt(task: task)
+                    ForEach(filteredTasks) { task in
+                    PostIt(task: task)
                     }
                 }
                 Spacer()

@@ -9,17 +9,21 @@ import SwiftUI
 
 struct NewNote: View {
     
-    @State private var titleTask: String = ""
-    @State private var descriptionTask: String = ""
+    @State private var titleNote: String
+    @State private var descriptionNote: String = ""
+    
+    init(initialTitle: String = "") {
+            _titleNote = State(initialValue: initialTitle)
+        }
     
     var body: some View {
         Form {
             Section (header: Text("Título da Anotação")){
-                TextField("Título", text: $titleTask)
+                TextField("Título", text: $titleNote)
             }
             
             Section (header: Text("Descrição da Anotação")){
-                TextField("Digite aqui o conteúdo da sua anotação.", text: $descriptionTask, axis: .vertical)
+                TextField("Digite aqui o conteúdo da sua anotação.", text: $descriptionNote, axis: .vertical)
                     .lineLimit(10...10)
                 
             }
