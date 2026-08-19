@@ -7,6 +7,7 @@
 
 import SwiftUI
 internal import CoreData
+import PhotosUI
 
 struct SheetNewProject: View {
     
@@ -16,7 +17,11 @@ struct SheetNewProject: View {
     @State private var endDate: Date = Date()
     @State private var isFavorite: Bool = false
     
-//    @State private var addPhoto: Bool = false
+    @State var image: Image?
+    
+    @State var imageData: Data?
+    
+    @State var photoSelection: PhotosPickerItem?
     
     @State private var createError: Bool = false
     
@@ -29,18 +34,33 @@ struct SheetNewProject: View {
             Form {
                 HStack{
                     Spacer()
-                    Button {
-                        //TODO: Colocar a selecao de imagens assim que o usuario clicar
-                    } label: {
-                        Image(systemName: "photo.badge.plus")
-                            .font(.title.bold())
-                            .foregroundStyle(Color.lightBlue)
-                            .frame(width: 200, height: 200)
-                            .background (
-                                RoundedRectangle(cornerRadius: 25)
-                                .fill(Color.white)
-                                .shadow(color: Color.black.opacity(0.1), radius: 20, x: 0, y: 0)
-                            )
+                    PhotosPicker(selection: $photoSelection, matching: .images) {
+                        Group {
+                            if let image {
+                                 image
+                                     .resizable()
+                                     .scaledToFill()
+                                     .frame(width: 200, height: 200)
+                                     .clipShape(
+                                        RoundedRectangle(cornerRadius: 26)
+                                     )
+                            } else {
+                                Image(systemName: "photo.badge.plus")
+                                    .font(.title.bold())
+                                    .foregroundStyle(Color.lightBlue)
+                                    .frame(width: 200, height: 200)
+                                    .background (
+                                        RoundedRectangle(cornerRadius: 26)
+                                            .fill(Color.white)
+                                            .shadow(color: Color.black.opacity(0.1), radius: 20, x: 0, y: 0)
+                                    )
+                            }
+                        }
+                    }
+                    // https://stackoverflow.com/questions/79331226/how-to-use-a-photo-picker-and-display-the-selected-photo-within-a-single-sheet-i
+                    .onChange(of: photoSelection) { oldValue, newValue in
+                        guard let newValue else { return }
+                        changeImage(to: newValue)
                     }
                     Spacer()
                 }
@@ -85,7 +105,7 @@ struct SheetNewProject: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("", systemImage: "checkmark", role: .confirm) {
                         
-                        if (titleProject.isEmpty) {
+                        if (titleProject.isEmpty || imageData == nil) {
                             createError.toggle()
                         } else {
                             
@@ -96,6 +116,7 @@ struct SheetNewProject: View {
                             projeto.id_project = UUID()
                             projeto.favorite = isFavorite
                             projeto.start = startDate
+                            projeto.image = imageData
                             projeto.end = endDate
                             
                             do {
@@ -113,7 +134,21 @@ struct SheetNewProject: View {
             .alert("Error", isPresented: $createError) {
                 Button("OK", role: .cancel) { }
             } message: {
-                Text("Please insert a name for the project")
+                Text("Por favor preencher todos os campos no formulário")
+            }
+        }
+    }
+    
+    func changeImage(to pickerItem: PhotosPickerItem) {
+        Swift.Task {
+            do {
+                self.imageData = try await pickerItem.loadTransferable(type: Data.self)
+                
+                guard let inputImage = UIImage(data: imageData!) else { return }
+                
+                self.image = Image(uiImage: inputImage)
+            } catch {
+                print("Error converting image to ")
             }
         }
     }

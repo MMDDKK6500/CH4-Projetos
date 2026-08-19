@@ -24,6 +24,7 @@ extension Project {
     @NSManaged public var id_project: UUID?
     @NSManaged public var name: String?
     @NSManaged public var start: Date?
+    @NSManaged public var image: Data?
 
 }
 

@@ -19,12 +19,12 @@ extension Task {
     }
 
     @NSManaged public var color: Int64
-    @NSManaged public var start: Date?
+    @NSManaged public var end: Date?
     @NSManaged public var id_task: UUID?
+    @NSManaged public var start: Date?
     @NSManaged public var status: Int64
     @NSManaged public var text: String?
     @NSManaged public var title: String?
-    @NSManaged public var end: Date?
     @NSManaged public var project: Project?
 
 }

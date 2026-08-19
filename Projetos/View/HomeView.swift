@@ -32,6 +32,7 @@ struct HomeView: View {
                         } label: {
                             ProjectComponentView(project: project)
                         }
+                        .buttonStyle(.plain)
                     }
                     LazyVGrid(
                         columns: [
@@ -47,6 +48,7 @@ struct HomeView: View {
                             } label: {
                                 ProjectComponentView(project: project)
                             }
+                            .buttonStyle(.plain)
                         }
                     }
                 }

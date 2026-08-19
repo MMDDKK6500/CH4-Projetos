@@ -2,13 +2,13 @@
 //  Note+CoreDataProperties.swift
 //  Projetos
 //
-//  Created by João Duque Nardelli Wandermuren on 18/08/26.
+//  Created by João Duque Nardelli Wandermuren on 19/08/26.
 //
 //
 
 public import Foundation
 public import CoreData
-import SwiftUI
+
 
 public typealias NoteCoreDataPropertiesSet = NSSet
 
@@ -28,7 +28,5 @@ extension Note {
 }
 
 extension Note : Identifiable {
-    func getColorPalette() -> CoreDataColor {
-        return CoreDataColor(rawValue: Int(color))!
-    }
+
 }
