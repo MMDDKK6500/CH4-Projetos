@@ -6,19 +6,25 @@
 //
 
 import SwiftUI
+internal import CoreData
 
 struct NewTask: View {
     
-    @State private var titleTask: String = ""
-    @State private var descriptionTask: String = ""
-    @State private var startDate: Date = Date()
-    @State private var endDate: Date = Date()
-    @State private var toggleAllDay: Bool = false
-    private var textLengh: Int = 128
+    @State var titleTask: String = ""
+    @State var descriptionTask: String = ""
+    @State var startDate: Date = Date()
+    @State var endDate: Date = Date()
+    @State var toggleAllDay: Bool = false
+    @State var colorValue: Int = 0
     
-    @State var selection = ""
-    let statusOptions = ["A fazer", "Em andamento", "Concluída"]
+    var textLengh: Int = 128
     
+    @State var selection: TaskStatus = .toDo
+    
+    let project: Project
+    
+    @Environment(\.managedObjectContext) var moc
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         Form {
@@ -58,21 +64,42 @@ struct NewTask: View {
                 HStack {
                     Text("Cor da Tarefa")
                     Spacer()
-                    
+                    ColorPickerView(colorValue: $colorValue)
                 }
                 Picker("Status da Tarefa", selection: $selection) {
-                    ForEach (statusOptions, id: \.self) { option in
-                        Text(option)
+                    ForEach (TaskStatus.allCases, id: \.self) { option in
+                        Text(option.toString)
+                    }
+                }
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("", systemImage: "xmark", role: .cancel) { dismiss() }
+            }
+            ToolbarItem(placement: .confirmationAction) {
+                Button("", systemImage: "checkmark", role: .confirm) {
+                    
+                    let task = Task(context: moc)
+                    
+                    task.title = titleTask
+                    task.text = descriptionTask
+                    task.color = Int64(colorValue)
+                    task.start = startDate
+                    task.end = endDate
+                    task.project = project
+                    task.id_task = UUID()
+                    task.status = Int64(selection.rawValue)
+                    
+                    do {
+                        try moc.save()
+                    } catch {
+                        fatalError("Error saving context \(error)")
                     }
                     
+                    dismiss()
                 }
-           
             }
-            
         }
     }
-}
-
-#Preview {
-    NewTask()
 }

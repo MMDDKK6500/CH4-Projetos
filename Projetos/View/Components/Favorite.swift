@@ -9,16 +9,16 @@ import SwiftUI
 
 struct Favorite: View {
     
-    @State private var isOn: Bool = false
+    @Binding var isFavorite: Bool
     
     var body: some View {
         
         Button(action: {
             withAnimation(.bouncy){
-                isOn.toggle()
+                isFavorite.toggle()
               }})
                   {
-            if isOn {
+            if isFavorite {
                 Image(systemName:"star.fill")
                     .font(.body.bold())
             } else {
@@ -27,8 +27,4 @@ struct Favorite: View {
             }
         }
     }
-}
-
-#Preview {
-    Favorite()
 }

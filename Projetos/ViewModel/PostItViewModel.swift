@@ -6,23 +6,28 @@
 //
 
 import SwiftUI
+import Observation
 
-struct PostItViewModel: View {
+@Observable
+class PostItViewModel {
     
-    var imageNote: String
-    var taskName: String
-    var statusDay: String
-    var descriptionTask: String
-    var startDate: Date
-    var endDate: Date
-    var isAllDay: Bool
+    var task: Task
     
-    var body: some View {
+    public private(set) var subtitle: String
+
+    init(task: Task) {
+        self.task = task
+    
+        if Calendar.current.isDate(task.start!, inSameDayAs: task.end!) {
+            self.subtitle = task.start!.formatted(.dateTime.month(.abbreviated).day())
+            + " " +
+            task.start!.formatted(.dateTime.hour().minute())
+            + " - " +
+            task.end!.formatted(.dateTime.hour().minute())
+        } else {
+            self.subtitle = "a"
+        }
         
-      
     }
-}
-
-#Preview {
-    PostItViewModel(imageNote: "PinkNote", taskName: "Protótipo de Alta", statusDay: "Hoje", descriptionTask: "Entregar protótipo de alta fidelidade para os mentores.", startDate: Date(), endDate: Date(), isAllDay: false)
+    
 }

@@ -2,7 +2,7 @@
 //  Task+CoreDataProperties.swift
 //  Projetos
 //
-//  Created by Maria Clara Fernandes Bessa on 17/08/26.
+//  Created by João Duque Nardelli Wandermuren on 19/08/26.
 //
 //
 
@@ -18,15 +18,19 @@ extension Task {
         return NSFetchRequest<Task>(entityName: "Task")
     }
 
-    @NSManaged public var color: Int16
-    @NSManaged public var data: Date?
+    @NSManaged public var color: Int64
+    @NSManaged public var start: Date?
     @NSManaged public var id_task: UUID?
+    @NSManaged public var status: Int64
     @NSManaged public var text: String?
     @NSManaged public var title: String?
+    @NSManaged public var end: Date?
     @NSManaged public var project: Project?
 
 }
 
 extension Task : Identifiable {
-
+    func getColorPalette() -> CoreDataColor {
+        return CoreDataColor(rawValue: Int(color))!
+    }
 }

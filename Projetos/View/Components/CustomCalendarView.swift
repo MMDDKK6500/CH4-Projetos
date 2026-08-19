@@ -18,6 +18,8 @@ struct CustomCalendarView: View {
     
     let daySelect: (_ selectedDate: Date) -> Void;
     
+    @Environment(\.managedObjectContext) var moc
+    
     let projeto: Project
     
     @State private var selectedDate: Date = Date()
@@ -126,7 +128,7 @@ struct CustomCalendarView: View {
             )
             .onChange(of: endDate) {
                 projeto.end = endDate
-                try? projeto.managedObjectContext!.save()
+                try? moc.save()
             }
         }
         .padding()

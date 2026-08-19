@@ -6,59 +6,66 @@
 //
 
 import SwiftUI
+import Observation
 
 struct PostIt: View {
-    
-let task: PostItViewModel
-    
-var body: some View {
-    
-        ZStack {
-            Image(task.imageNote)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 200, height: 200)
-                .overlay(
-                    VStack {
-                        VStack (alignment: .leading, spacing: 4){
-                            
-                            Text(task.taskName)
-                                .font(.title3.bold())
-                            
-                            Text(task.statusDay)
-                                .font(.headline.bold())
-                            
-                            
-                            Text(task.descriptionTask)
-                                .font(.subheadline)
-                            
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(15)
-                        
-                        TagPostIt(imageName: task.imageNote , status: .toDo)
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                            .padding(.horizontal, 20)
-                    }
-                        
-                    
-                    )
-            
-        }
-        
-    }
-}
 
-#Preview {
-    PostIt(
-        task: PostItViewModel(
-            imageNote: "YellowNote",
-            taskName: "Protótipo de Alta",
-            statusDay: "Hoje",
-            descriptionTask: "Entregar protótipo de alta fidelidade para os mentores.",
-            startDate: Date(),
-            endDate: Date(),
-            isAllDay: false
+    @State var viewModel: PostItViewModel
+    
+    let task: Task
+    
+    let cornerRadius: CGFloat = 26
+
+    init(task: Task) {
+        self.viewModel = PostItViewModel(task: task)
+        self.task = task
+    }
+    
+    var body: some View {
+        VStack {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(task.title!)
+                        .foregroundStyle(CoreDataColor(rawValue: Int(task.color))!.title)
+                        .font(.title3.bold())
+                        .lineLimit(1)
+                    
+                    Text(viewModel.subtitle)
+                        .foregroundStyle(CoreDataColor(rawValue: Int(task.color))!.subtitle)
+                        .font(.caption.bold())
+                    
+                    Text(task.text!)
+                        .font(.caption)
+                        .lineLimit(4, reservesSpace: true)
+                }
+                Spacer()
+            }
+            HStack {
+                Spacer()
+                Text(TaskStatus(rawValue: Int(task.status))!.toString)
+                    .font(.footnote)
+                    .bold()
+                    .foregroundColor(.white)
+                    .padding(8)
+                    .background(
+                        Capsule()
+                            .opacity(0.3)
+                    )
+            }
+        }
+        // calling padding() makes app brick, ok cool great I absolutely love SwiftUI
+        .padding()
+//        .frame(width: 200, height: 200)
+        .background(
+            CutCornerRectangle(cornerRadius: cornerRadius)
+                .foregroundColor(CoreDataColor(rawValue: Int(task.color))!.background)
+                .overlay(
+                    TaskFlap(cornerRadius: cornerRadius)
+                        .opacity(0.3)
+                )
         )
-    )
+//        .frame(maxWidth: .infinity, maxHeight: .infinity)
+//        .aspectRatio(1, contentMode: .fill)
+
+    }
 }
