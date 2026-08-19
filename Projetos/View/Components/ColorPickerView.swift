@@ -13,7 +13,6 @@ struct ColorPickerView: View {
     
     var body: some View {
         HStack {
-            Text("Escolha uma Cor")
             Spacer()
             Menu {
                 ForEach(CoreDataColor.allCases, id: \.self) { color in

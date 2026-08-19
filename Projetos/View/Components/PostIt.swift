@@ -35,6 +35,7 @@ struct PostIt: View {
                         .font(.caption.bold())
                     
                     Text(task.text!)
+                        .foregroundStyle(Color.black)
                         .font(.caption)
                         .lineLimit(4, reservesSpace: true)
                 }
@@ -49,7 +50,7 @@ struct PostIt: View {
                     .padding(8)
                     .background(
                         Capsule()
-                            .opacity(0.3)
+                            .fill(CoreDataColor(rawValue: Int(task.color))!.tag)
                     )
             }
         }
@@ -61,7 +62,7 @@ struct PostIt: View {
                 .foregroundColor(CoreDataColor(rawValue: Int(task.color))!.background)
                 .overlay(
                     TaskFlap(cornerRadius: cornerRadius)
-                        .opacity(0.3)
+                        .foregroundColor(CoreDataColor(rawValue: Int(task.color))!.tag)
                 )
         )
 //        .frame(maxWidth: .infinity, maxHeight: .infinity)

@@ -25,7 +25,7 @@ struct SheetCreation: View {
                     
                     Spacer()
                     
-                    Picker ("What is your favorite color?", selection: $segmented) {
+                    Picker ("", selection: $segmented) {
                         Text("Tarefa").tag(0)
                         Text("Anotação").tag(1)
                     }
