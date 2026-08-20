@@ -21,6 +21,8 @@ struct NewTask: View {
     
     @State var selection: TaskStatus = .toDo
     
+    @State var createError: Bool = false
+    
     let project: Project
     
     @Environment(\.managedObjectContext) var moc
@@ -28,7 +30,6 @@ struct NewTask: View {
     
     var body: some View {
         Form {
-            
             Section (header: Text("Título da Tarefa")){
                 TextField("Título", text: $titleTask)
             }
@@ -51,12 +52,12 @@ struct NewTask: View {
                 HStack {
                     Text("Começa")
                     Spacer()
-                    DatePicker("", selection: $startDate)
+                    DatePicker("", selection: $startDate, displayedComponents: toggleAllDay ? [.date] : [.date, .hourAndMinute])
                 }
                 HStack {
                     Text("Termina")
                     Spacer()
-                    DatePicker("", selection: $endDate)
+                    DatePicker("", selection: $endDate, displayedComponents: toggleAllDay ? [.date] : [.date, .hourAndMinute])
                 }
             }
             
@@ -73,6 +74,13 @@ struct NewTask: View {
                 }
             }
         }
+        
+        .alert("Error", isPresented: $createError) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("Por favor preencher todos os campos no formulário")
+        }
+        
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("", systemImage: "xmark", role: .cancel) { dismiss() }
@@ -80,24 +88,30 @@ struct NewTask: View {
             ToolbarItem(placement: .confirmationAction) {
                 Button("", systemImage: "checkmark", role: .confirm) {
                     
-                    let task = Task(context: moc)
-                    
-                    task.title = titleTask
-                    task.text = descriptionTask
-                    task.color = Int64(colorValue)
-                    task.start = startDate
-                    task.end = endDate
-                    task.project = project
-                    task.id_task = UUID()
-                    task.status = Int64(selection.rawValue)
-                    
-                    do {
-                        try moc.save()
-                    } catch {
-                        fatalError("Error saving context \(error)")
+                    if (titleTask.isEmpty || descriptionTask.isEmpty) {
+                        createError.toggle()
+                    } else {
+                        
+                        let task = Task(context: moc)
+                        
+                        task.title = titleTask
+                        task.text = descriptionTask
+                        task.color = Int64(colorValue)
+                        task.start = startDate
+                        task.isAllDay = toggleAllDay
+                        task.end = endDate
+                        task.project = project
+                        task.id_task = UUID()
+                        task.status = Int64(selection.rawValue)
+                        
+                        do {
+                            try moc.save()
+                        } catch {
+                            fatalError("Error saving context \(error)")
+                        }
+                        
+                        dismiss()
                     }
-                    
-                    dismiss()
                 }
             }
         }

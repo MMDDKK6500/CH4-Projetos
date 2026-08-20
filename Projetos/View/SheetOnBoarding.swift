@@ -12,7 +12,6 @@ struct SheetOnBoarding: View {
         
     var body: some View {
         NavigationStack {
-            
             ZStack {
                 Color("geralBackground")
                     .ignoresSafeArea()
@@ -31,7 +30,20 @@ struct SheetOnBoarding: View {
                     
                     Spacer()
                     
-                    PrincipalButton(action: {})
+                    Button {
+                        
+                    } label: {
+                        HStack(spacing: 8) {
+                            Text("Continuar")
+                                .font(.body.weight(.bold))
+                        }
+                        .foregroundColor(.white)
+                        .padding(.vertical, 18)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.accent)
+                        .cornerRadius(30)
+                    }
+                    .padding(.horizontal, 10)
                     
                 }
                 .padding(18)

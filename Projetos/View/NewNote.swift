@@ -6,15 +6,19 @@
 //
 
 import SwiftUI
+internal import CoreData
 
 struct NewNote: View {
     
-    @State private var titleNote: String
+    @Environment(\.dismiss) var dismiss
+    @Environment(\.managedObjectContext) var moc
+    
+    @State private var titleNote: String = ""
     @State private var descriptionNote: String = ""
     
-    init(initialTitle: String = "") {
-            _titleNote = State(initialValue: initialTitle)
-        }
+    @State private var createError: Bool = false
+    
+    let project: Project
     
     var body: some View {
         Form {
@@ -28,9 +32,41 @@ struct NewNote: View {
                 
             }
         }
+        
+        .alert("Error", isPresented: $createError) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("Por favor preencher todos os campos no formulário")
+        }
+        
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("", systemImage: "xmark", role: .cancel) { dismiss() }
+            }
+            ToolbarItem(placement: .confirmationAction) {
+                Button("", systemImage: "checkmark", role: .confirm) {
+                    
+                    if (titleNote.isEmpty || descriptionNote.isEmpty) {
+                        createError.toggle()
+                    } else {
+                        
+                        let note = Note(context: moc)
+                        
+                        note.id_note = UUID()
+                        note.title = titleNote
+                        note.text = descriptionNote
+                        note.project = project
+                        
+                        do {
+                            try moc.save()
+                        } catch {
+                            fatalError("Error saving context \(error)")
+                        }
+                        
+                        dismiss()
+                    }
+                }
+            }
+        }
     }
-}
-
-#Preview {
-    NewNote()
 }
