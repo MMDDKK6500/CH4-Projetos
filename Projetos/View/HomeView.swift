@@ -11,10 +11,10 @@ import SwiftUI
 struct HomeView: View {
 
     @Environment(\.managedObjectContext) var moc
-    
+
     @FetchRequest(sortDescriptors: [])
     var projects: FetchedResults<Project>
-    
+
     @State var showFutureProjects: Bool = true
     @State var showCurrentProjects: Bool = false
     @State var showOldProjects: Bool = false
@@ -26,11 +26,23 @@ struct HomeView: View {
             ScrollView {
                 VStack(spacing: 10) {
                     // https://stackoverflow.com/questions/60866380/swiftui-if-inside-foreach-loop
-                    ForEach(projects.filter { $0.favorite == true }) {project in
+                    ForEach(projects.filter { $0.favorite == true }) {
+                        project in
                         NavigationLink {
                             ProjectView(project: project)
                         } label: {
                             ProjectComponentView(project: project)
+                                .background(
+                                    Image(
+                                        uiImage: UIImage(data: project.image!)!
+                                    )
+                                    .resizable()
+                                    .scaledToFill()
+                                )
+                                .clipShape(
+                                    .rect(cornerRadius: 26)
+                                )
+
                         }
                         .buttonStyle(.plain)
                     }
@@ -42,13 +54,23 @@ struct HomeView: View {
                         alignment: .center,
                         spacing: 10
                     ) {
-                        ForEach(projects.filter { $0.favorite == false }) {project in
+                        ForEach(projects.filter { $0.favorite == false }) {
+                            project in
                             NavigationLink {
                                 ProjectView(project: project)
                             } label: {
                                 ProjectComponentView(project: project)
                             }
                             .buttonStyle(.plain)
+                            .background(
+                                Image(uiImage: UIImage(data: project.image!)!)
+                                    .resizable()
+                                    .scaledToFill()
+                            )
+                            .clipShape(
+                                .rect(cornerRadius: 26)
+                            )
+
                         }
                     }
                 }

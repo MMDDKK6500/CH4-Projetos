@@ -18,7 +18,6 @@ extension Note {
         return NSFetchRequest<Note>(entityName: "Note")
     }
 
-    @NSManaged public var color: Int64
     @NSManaged public var date: Date?
     @NSManaged public var id_note: UUID?
     @NSManaged public var text: String?

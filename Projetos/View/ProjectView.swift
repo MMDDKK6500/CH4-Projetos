@@ -13,17 +13,20 @@ struct ProjectView: View {
     @State private var isShowingAlert = false
     @State private var selectedDate: Date = Date()
     @State private var creatingNewTask: Bool = false
-    
+
     @State private var segmented = 0
-    
-    var filteredTasks: [Task] {
-            tasks.filter { Int($0.status) == segmented } //Devolve array somente com o tipo da task passada no segmented
-        }
 
     let project: Project
 
     @FetchRequest
+    var notes: FetchedResults<Note>
+
+    @FetchRequest
     var tasks: FetchedResults<Task>
+
+    var filteredTasks: [Task] {
+        tasks.filter { Int($0.status) == segmented }  //Devolve array somente com o tipo da task passada no segmented
+    }
 
     init(project: Project) {
 
@@ -33,26 +36,51 @@ struct ProjectView: View {
             sortDescriptors: [],
             predicate: NSPredicate(format: "project == %@", project)
         )
+
+        _notes = FetchRequest<Note>(
+            sortDescriptors: [],
+            predicate: NSPredicate(format: "project == %@", project)
+        )
     }
 
     var body: some View {
         ScrollView {
-            VStack (alignment: .leading, spacing: 40){
-                CustomCalendarView(daySelect: showAlert, projeto: project)
-                    .glassEffect(in: .rect(cornerRadius: 25.0))
-                
+            VStack(alignment: .leading) {
+                VStack(alignment: .leading) {
+                    CustomCalendarView(daySelect: showAlert, projeto: project)
+                        .glassEffect(in: .rect(cornerRadius: 25.0))
+                        .padding(.bottom, 20)
+                    Text(
+                        "Anotações do dia: \(selectedDate.formatted(date: .numeric, time: .omitted))"
+                    )
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                }
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 26)
+                        .fill(
+                            Color(
+                                uiColor: UIImage(
+                                    data: project.image!
+                                )!.dominantColor()!
+                            )
+                        )
+                )
+
                 Text("Tarefas do projeto \(project.name ?? "criado")")
                     .font(.title2.bold())
-                
-                Picker ("", selection: $segmented) {
+                    .padding(.bottom, 10)
+
+                Picker("", selection: $segmented) {
                     Text("A Fazer").tag(0)
                     Text("Em Andamento").tag(1)
                     Text("Concluído").tag(2)
                 }
                 .pickerStyle(.segmented)
                 .padding(.horizontal)
-                
-                
+                .padding(.bottom, 10)
+
                 LazyVGrid(
                     columns: [
                         GridItem(),
@@ -62,7 +90,7 @@ struct ProjectView: View {
                     spacing: 10
                 ) {
                     ForEach(filteredTasks) { task in
-                    PostIt(task: task)
+                        PostIt(task: task)
                     }
                 }
                 Spacer()
@@ -82,11 +110,11 @@ struct ProjectView: View {
             Text(details.formatted())
 
         }
-        
+
         .sheet(isPresented: $creatingNewTask) {
             SheetCreation(project: project)
         }
-        
+
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
                 Button("", systemImage: "plus") {
