@@ -94,7 +94,7 @@ struct CustomCalendarView: View {
                         .font(.headline)
                         .fontWeight(.medium)
                         .frame(maxWidth: .infinity)
-                        .padding(8)
+                        .padding(5)
                         .background(dayBackgroundColor(for: day))
                         .foregroundColor(dayForegroundColor(for: day))
 

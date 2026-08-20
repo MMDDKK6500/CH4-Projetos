@@ -26,12 +26,12 @@ struct PostIt: View {
             HStack {
                 VStack(alignment: .leading) {
                     Text(task.title!)
-                        .foregroundStyle(CoreDataColor(rawValue: Int(task.color))!.title)
+                        .foregroundStyle(task.getColorPalette().title)
                         .font(.title3.bold())
                         .lineLimit(1)
                     
                     Text(viewModel.subtitle)
-                        .foregroundStyle(CoreDataColor(rawValue: Int(task.color))!.subtitle)
+                        .foregroundStyle(task.getColorPalette().subtitle)
                         .font(.caption.bold())
                     
                     Text(task.text!)
@@ -50,7 +50,7 @@ struct PostIt: View {
                     .padding(8)
                     .background(
                         Capsule()
-                            .fill(CoreDataColor(rawValue: Int(task.color))!.tag)
+                            .fill(task.getColorPalette().tag)
                     )
             }
         }
@@ -59,10 +59,10 @@ struct PostIt: View {
 //        .frame(width: 200, height: 200)
         .background(
             CutCornerRectangle(cornerRadius: cornerRadius)
-                .foregroundColor(CoreDataColor(rawValue: Int(task.color))!.background)
+                .foregroundColor(task.getColorPalette().background)
                 .overlay(
                     TaskFlap(cornerRadius: cornerRadius)
-                        .foregroundColor(CoreDataColor(rawValue: Int(task.color))!.tag)
+                        .foregroundColor(task.getColorPalette().tag)
                 )
         )
 //        .frame(maxWidth: .infinity, maxHeight: .infinity)
