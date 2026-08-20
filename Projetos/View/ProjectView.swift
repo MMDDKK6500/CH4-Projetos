@@ -13,6 +13,12 @@ struct ProjectView: View {
     @State private var isShowingAlert = false
     @State private var selectedDate: Date = Date()
     @State private var creatingNewTask: Bool = false
+    
+    @State private var segmented = 0
+    
+    var filteredTasks: [Task] {
+            tasks.filter { Int($0.status) == segmented } //Devolve array somente com o tipo da task passada no segmented
+        }
 
     @State private var segmented = 0
 
