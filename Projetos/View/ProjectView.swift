@@ -16,12 +16,6 @@ struct ProjectView: View {
     
     @State private var segmented = 0
     
-    var filteredTasks: [Task] {
-            tasks.filter { Int($0.status) == segmented } //Devolve array somente com o tipo da task passada no segmented
-        }
-
-    @State private var segmented = 0
-
     let project: Project
 
     @FetchRequest
@@ -29,10 +23,11 @@ struct ProjectView: View {
 
     @FetchRequest
     var tasks: FetchedResults<Task>
-
+    
     var filteredTasks: [Task] {
-        tasks.filter { Int($0.status) == segmented }  //Devolve array somente com o tipo da task passada no segmented
-    }
+            tasks.filter { Int($0.status) == segmented } //Devolve array somente com o tipo da task passada no segmented
+        }
+
 
     init(project: Project) {
 
