@@ -12,11 +12,20 @@ internal import CoreData
 struct ProjetosApp: App {
     
     @StateObject private var dataController = DataController()
+    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding: Bool = false
     
     var body: some Scene {
         WindowGroup {
-            HomeView()
-                .environment(\.managedObjectContext, dataController.container.viewContext)
+            Group {
+                if hasCompletedOnboarding {
+                    NavigationStack {
+                        HomeView()
+                    }
+                } else {
+                    WelcomeView()
+                }
+            }
+            .environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }
 }

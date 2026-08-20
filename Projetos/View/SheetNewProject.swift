@@ -51,7 +51,7 @@ struct SheetNewProject: View {
                                     .frame(width: 200, height: 200)
                                     .background (
                                         RoundedRectangle(cornerRadius: 26)
-                                            .fill(Color.white)
+                                            .fill(Color(.secondarySystemBackground))
                                             .shadow(color: Color.black.opacity(0.1), radius: 20, x: 0, y: 0)
                                     )
                             }
