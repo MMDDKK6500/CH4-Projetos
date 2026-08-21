@@ -67,7 +67,7 @@ struct ProjectView: View {
                     Text(
                         "Anotações do dia: \(selectedDate.formatted(date: .numeric, time: .omitted))"
                     )
-                    .font(.title3)
+                    .font(.headline)
                     .fontWeight(.semibold)
                     .foregroundStyle(
                         project.image == nil
@@ -76,6 +76,8 @@ struct ProjectView: View {
                                 for: UIImage(data: project.getImage())!
                             )! > 128 ? .black : .white
                     )
+                    
+                    Spacer()
 
                     if dailyNotes.isEmpty {
                     } else {
@@ -193,7 +195,7 @@ struct ProjectView: View {
 
                 Text("Tarefas do projeto \(project.getName())")
                     .font(.title2.bold())
-                    .padding(.bottom, 10)
+                    .padding(.vertical, 18)
 
                 Picker("", selection: $segmented) {
                     Text("A Fazer").tag(0)
