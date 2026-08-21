@@ -10,12 +10,11 @@ import SwiftUI
 struct ProjectView: View {
 
     @State private var birthday = Date()
-    @State private var isShowingAlert = false
     @State private var selectedDate: Date = Date()
     @State private var creatingNewTask: Bool = false
-    
+
     @State private var segmented = 0
-    
+
     let project: Project
 
     @FetchRequest
@@ -23,11 +22,17 @@ struct ProjectView: View {
 
     @FetchRequest
     var tasks: FetchedResults<Task>
-    
-    var filteredTasks: [Task] {
-            tasks.filter { Int($0.status) == segmented } //Devolve array somente com o tipo da task passada no segmented
-        }
 
+    var filteredTasks: [Task] {
+        tasks.filter { Int($0.status) == segmented }  //Devolve array somente com o tipo da task passada no segmented
+    }
+
+    var dailyNotes: [Note] {
+        notes.filter { note in
+            guard let noteDate = note.date else { return false }
+            return Calendar.current.isDate(selectedDate, inSameDayAs: noteDate)
+        }
+    }
 
     init(project: Project) {
 
@@ -48,7 +53,7 @@ struct ProjectView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
-                    CustomCalendarView(daySelect: showAlert, projeto: project)
+                    CustomCalendarView(daySelect: daySelect, projeto: project)
                         .glassEffect(in: .rect(cornerRadius: 25.0))
                         .padding(.bottom, 20)
                     Text(
@@ -56,10 +61,49 @@ struct ProjectView: View {
                     )
                     .font(.title3)
                     .fontWeight(.semibold)
+
+                    if dailyNotes.isEmpty {
+                        
+                    } else {
+                        LazyVStack(alignment: .leading) {
+                            ForEach(dailyNotes) { note in
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text(note.title ?? "Sem título")
+                                        Text(note.text ?? "")
+                                            .font(.subheadline)
+                                            .foregroundStyle(.secondary)
+                                    }
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                }
+
+                                if dailyNotes.last != note {
+                                    Rectangle()
+                                        .fill(.tertiary)
+                                        .frame(height: 1)
+                                }
+                            }
+                        }
+                        .padding()
+                        .background(.background)
+                        .clipShape(RoundedRectangle(cornerRadius: 26))
+                    }
                 }
                 .padding()
+                .overlay(alignment: .bottom) {
+                    if dailyNotes.isEmpty {
+
+                    } else {
+                        VariableBlurView(
+                            maxBlurRadius: 5,
+                            direction: .blurredBottomClearTop
+                        )
+                        .frame(height: 100)
+                    }
+                }
                 .background(
-                    RoundedRectangle(cornerRadius: 26)
+                    Rectangle()
                         .fill(
                             Color(
                                 uiColor: UIImage(
@@ -67,6 +111,9 @@ struct ProjectView: View {
                                 )!.dominantColor()!
                             )
                         )
+                )
+                .clipShape(
+                    RoundedRectangle(cornerRadius: 26)
                 )
 
                 Text("Tarefas do projeto \(project.name ?? "criado")")
@@ -98,19 +145,6 @@ struct ProjectView: View {
             }
             .padding()
         }
-        .alert(
-            "Dia selecionado",
-            isPresented: $isShowingAlert,
-            presenting: selectedDate
-        ) { details in
-
-            Button("OK", role: .cancel) {}
-
-        } message: { details in
-
-            Text(details.formatted())
-
-        }
 
         .sheet(isPresented: $creatingNewTask) {
             SheetCreation(project: project)
@@ -131,8 +165,7 @@ struct ProjectView: View {
 }
 
 extension ProjectView {
-    func showAlert(_ date: Date) {
+    func daySelect(_ date: Date) {
         selectedDate = date
-        isShowingAlert.toggle()
     }
 }
