@@ -17,20 +17,57 @@ struct SheetNewProject: View {
     @State private var endDate: Date = Date()
     @State private var isFavorite: Bool = false
     
+    @State private var color: Int = 0
+    
     @State var image: Image?
     
     @State var imageData: Data?
     
     @State var photoSelection: PhotosPickerItem?
     
+    let project: Project?
+    
     @State private var createError: Bool = false
     
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var moc
     
+    init(project: Project? = nil) {
+        self.project = project
+        
+        if let project {
+            _titleProject = State(initialValue: project.getName())
+            _descriptionProject = State(initialValue: project.getDescriptionText())
+            _startDate = State(initialValue: project.getStart())
+            _endDate = State(initialValue: project.getEnd())
+            _isFavorite = State(initialValue: project.getFavorite())
+            _color = State(initialValue: Int(project.color))
+            
+            if let data = project.image, let uiImage = UIImage(data: data) {
+                _imageData = State(initialValue: data)
+                _image = State(initialValue: Image(uiImage: uiImage))
+            } else {
+                _imageData = State(initialValue: nil)
+                _image = State(initialValue: nil)
+            }
+            
+        } else {
+            _titleProject = State(initialValue: "")
+            _descriptionProject = State(initialValue: "")
+            _startDate = State(initialValue: Date())
+            _endDate = State(initialValue: Date())
+            _isFavorite = State(initialValue: false)
+            _color = State(initialValue: 0)
+            
+            _imageData = State(initialValue: nil)
+            _image = State(initialValue: nil)
+        }
+        
+        _createError = State(initialValue: false)
+    }
+    
     var body: some View {
         NavigationStack {
-            
             Form {
                 HStack{
                     Spacer()
@@ -81,9 +118,21 @@ struct SheetNewProject: View {
                         Spacer()
                         Favorite(isFavorite: $isFavorite)
                     }
-                    HStack {
+                    if (image == nil) {
+                        HStack {
+                            Text("Cor")
+                            Spacer()
+                            ColorPickerView(colorValue: $color)
+                        }
+                    }
+                     HStack {
                         Text("Começa")
                         DatePicker("", selection: $startDate)
+                            .onChange(of: startDate) {
+                                if (endDate < startDate) {
+                                    endDate = startDate
+                                }
+                            }
                     }
                     HStack {
                         Text("Termina")
@@ -105,18 +154,23 @@ struct SheetNewProject: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("", systemImage: "checkmark", role: .confirm) {
                         
-                        if (titleProject.isEmpty || imageData == nil) {
+                        if (titleProject.isEmpty || descriptionProject.isEmpty) {
                             createError.toggle()
                         } else {
                             
-                            let projeto = Project(context: moc)
+                            let projeto = project ?? Project(context: moc)
                             
                             projeto.name = titleProject
                             projeto.descriptionText = descriptionProject
-                            projeto.id_project = UUID()
+                            projeto.id_project = project == nil ? UUID() : projeto.id_project
                             projeto.favorite = isFavorite
                             projeto.start = startDate
-                            projeto.image = imageData
+                            projeto.color = Int64(color)
+                            if (image == nil) {
+                                projeto.image = nil
+                            } else {
+                                projeto.image = imageData
+                            }
                             projeto.end = endDate
                             
                             do {

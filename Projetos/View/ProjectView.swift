@@ -5,17 +5,23 @@
 //  Created by João Duque Nardelli Wandermuren on 13/08/26.
 //
 
+internal import CoreData
 import SwiftUI
 
 struct ProjectView: View {
 
+    @Environment(\.managedObjectContext) var moc
+    @Environment(\.dismiss) var dismiss
+
     @State private var birthday = Date()
     @State private var selectedDate: Date = Date()
+
     @State private var creatingNewTask: Bool = false
+    @State private var editProject: Bool = false
 
     @State private var segmented = 0
 
-    let project: Project
+    @ObservedObject var project: Project
 
     @FetchRequest
     var notes: FetchedResults<Note>
@@ -61,9 +67,16 @@ struct ProjectView: View {
                     )
                     .font(.title3)
                     .fontWeight(.semibold)
+                    .foregroundStyle(
+                        project.image == nil
+                            ? .black
+                            : getBrightness(
+                                for: UIImage(data: project.getImage())!
+                            )! > 128 ? .black : .white
+                    )
 
                     if dailyNotes.isEmpty {
-                        
+
                     } else {
                         LazyVStack(alignment: .leading) {
                             ForEach(dailyNotes) { note in
@@ -105,18 +118,20 @@ struct ProjectView: View {
                 .background(
                     Rectangle()
                         .fill(
-                            Color(
-                                uiColor: UIImage(
-                                    data: project.image!
-                                )!.dominantColor()!
-                            )
+                            project.image == nil
+                                ? project.getColorPalette().background
+                                : Color(
+                                    uiColor: UIImage(
+                                        data: project.image!
+                                    )!.dominantColor()!
+                                )
                         )
                 )
                 .clipShape(
                     RoundedRectangle(cornerRadius: 26)
                 )
 
-                Text("Tarefas do projeto \(project.name ?? "criado")")
+                Text("Tarefas do projeto \(project.getName())")
                     .font(.title2.bold())
                     .padding(.bottom, 10)
 
@@ -149,15 +164,37 @@ struct ProjectView: View {
         .sheet(isPresented: $creatingNewTask) {
             SheetCreation(project: project)
         }
+        .sheet(isPresented: $editProject) {
+            SheetNewProject(project: project)
+        }
 
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
                 Button("", systemImage: "plus") {
                     creatingNewTask.toggle()
                 }
+                Menu("", systemImage: "ellipsis") {
+                    Button("Editar projeto", systemImage: "pencil") {
+
+                        editProject.toggle()
+
+                    }
+                    Button(
+                        "Deletar projeto",
+                        systemImage: "trash",
+                        role: .destructive
+                    ) {
+
+                        dismiss()
+
+                        moc.delete(project)
+
+                        try? moc.save()
+                    }
+                }
             }
         }
-        .navigationTitle(project.name ?? "Projeto sem nome")
+        .navigationTitle(project.getName())
         .navigationBarTitleDisplayMode(.inline)
         .toolbarTitleDisplayMode(.inlineLarge)
 
