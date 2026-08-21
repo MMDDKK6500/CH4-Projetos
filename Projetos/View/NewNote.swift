@@ -53,6 +53,7 @@ struct NewNote: View {
                         let note = Note(context: moc)
                         
                         note.id_note = UUID()
+                        note.date = Date()
                         note.title = titleNote
                         note.text = descriptionNote
                         note.project = project

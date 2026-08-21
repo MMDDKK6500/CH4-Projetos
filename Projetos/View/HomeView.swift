@@ -10,6 +10,8 @@ import SwiftUI
 
 struct HomeView: View {
 
+    @State var vm = HomeViewModel()
+    
     @Environment(\.managedObjectContext) var moc
 
     @FetchRequest(sortDescriptors: [])
@@ -18,6 +20,8 @@ struct HomeView: View {
     @State var showFutureProjects: Bool = true
     @State var showCurrentProjects: Bool = false
     @State var showOldProjects: Bool = false
+    
+    @State private var selectedOption: ToggleSwitch = .atuais
 
     @State var newProject = false
 
@@ -25,19 +29,23 @@ struct HomeView: View {
             ScrollView {
                 VStack(spacing: 10) {
                     // https://stackoverflow.com/questions/60866380/swiftui-if-inside-foreach-loop
-                    ForEach(projects.filter { $0.favorite == true }) {
+                    ForEach(projects.filter { $0.favorite == true && vm.checkProject(project: $0) == selectedOption}) {
                         project in
                         NavigationLink {
                             ProjectView(project: project)
                         } label: {
                             ProjectComponentView(project: project)
-                                .background(
-                                    Image(
-                                        uiImage: UIImage(data: project.image!)!
-                                    )
-                                    .resizable()
-                                    .scaledToFill()
-                                )
+                                .background {
+                                    if project.image == nil {
+                                        project.getColorPalette().background
+                                    } else {
+                                        Image(
+                                            uiImage: UIImage(data: project.image!)!
+                                        )
+                                        .resizable()
+                                        .scaledToFill()
+                                    }
+                                }
                                 .clipShape(
                                     .rect(cornerRadius: 26)
                                 )
@@ -53,7 +61,7 @@ struct HomeView: View {
                         alignment: .center,
                         spacing: 10
                     ) {
-                        ForEach(projects.filter { $0.favorite == false }) {
+                        ForEach(projects.filter { $0.favorite == false && vm.checkProject(project: $0) == selectedOption }) {
                             project in
                             NavigationLink {
                                 ProjectView(project: project)
@@ -61,11 +69,17 @@ struct HomeView: View {
                                 ProjectComponentView(project: project)
                             }
                             .buttonStyle(.plain)
-                            .background(
-                                Image(uiImage: UIImage(data: project.image!)!)
+                            .background {
+                                if project.image == nil {
+                                    project.getColorPalette().background
+                                } else {
+                                    Image(
+                                        uiImage: UIImage(data: project.image!)!
+                                    )
                                     .resizable()
                                     .scaledToFill()
-                            )
+                                }
+                            }
                             .clipShape(
                                 .rect(cornerRadius: 26)
                             )
@@ -80,6 +94,14 @@ struct HomeView: View {
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     Button("", systemImage: "plus") {
                         newProject.toggle()
+                    }
+                    // https://stackoverflow.com/questions/57699548/using-swiftui-how-do-i-make-one-toggle-change-the-state-of-another-toggle
+                    Menu {
+                        Toggle("Projetos concluidos", isOn: $selectedOption.equals(.concluidos, else: .concluidos))
+                        Toggle("Projetos atuais", isOn: $selectedOption.equals(.atuais, else: .atuais))
+                        Toggle("Projetos futuros", isOn: $selectedOption.equals(.futuros, else: .futuros))
+                    } label: {
+                        Image(systemName: "line.3.horizontal.decrease")
                     }
                 }
             }

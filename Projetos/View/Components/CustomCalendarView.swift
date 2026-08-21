@@ -8,31 +8,34 @@
 //  Edited by João Duque Nardelli Wandermuren
 //
 
-import SwiftUI
 internal import CoreData
+import SwiftUI
 
 struct CustomCalendarView: View {
-    
+
     private let calendar = Calendar.current
     private let daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-    
-    let daySelect: (_ selectedDate: Date) -> Void;
-    
+
+    let daySelect: (_ selectedDate: Date) -> Void
+
     @Environment(\.managedObjectContext) var moc
-    
+
     let projeto: Project
-    
+
     @State private var selectedDate: Date = Date()
+    @State var startDate: Date
     @State var endDate: Date
 
-    init(daySelect: @escaping (_ selectedDate: Date) -> Void, projeto: Project) {
+    init(daySelect: @escaping (_ selectedDate: Date) -> Void, projeto: Project)
+    {
         self.daySelect = daySelect
         self.projeto = projeto
-        
-        endDate = projeto.end!
-        
+
+        startDate = projeto.getStart()
+        endDate = projeto.getEnd()
+
     }
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -118,10 +121,11 @@ struct CustomCalendarView: View {
                         }
                 }
             }
-            
+
             Divider()
-                
-            DatePicker(selection: $endDate,
+
+            DatePicker(
+                selection: $endDate,
                 label: {
                     Text("Prazo Final")
                 }
@@ -130,6 +134,7 @@ struct CustomCalendarView: View {
                 projeto.end = endDate
                 try? moc.save()
             }
+            .padding(.top, 8)
         }
         .padding()
     }

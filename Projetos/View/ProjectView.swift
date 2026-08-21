@@ -5,18 +5,24 @@
 //  Created by João Duque Nardelli Wandermuren on 13/08/26.
 //
 
+internal import CoreData
 import SwiftUI
 
 struct ProjectView: View {
 
+    @Environment(\.managedObjectContext) var moc
+    @Environment(\.dismiss) var dismiss
+
     @State private var birthday = Date()
-    @State private var isShowingAlert = false
     @State private var selectedDate: Date = Date()
+
     @State private var creatingNewTask: Bool = false
-    
+    @State private var editProject: Bool = false
+    @State private var isNotesExpanded: Bool = false
+
     @State private var segmented = 0
-    
-    let project: Project
+
+    @ObservedObject var project: Project
 
     @FetchRequest
     var notes: FetchedResults<Note>
@@ -28,6 +34,13 @@ struct ProjectView: View {
             tasks.filter { Int($0.status) == segmented } //Devolve array somente com o tipo da task passada no segmented
         }
 
+
+    var dailyNotes: [Note] {
+        notes.filter { note in
+            guard let noteDate = note.date else { return false }
+            return Calendar.current.isDate(selectedDate, inSameDayAs: noteDate)
+        }
+    }
 
     init(project: Project) {
 
@@ -48,28 +61,137 @@ struct ProjectView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
-                    CustomCalendarView(daySelect: showAlert, projeto: project)
+                    CustomCalendarView(daySelect: daySelect, projeto: project)
                         .glassEffect(in: .rect(cornerRadius: 25.0))
-                        .padding(.bottom, 20)
+                        .padding(.bottom, 10)
                     Text(
                         "Anotações do dia: \(selectedDate.formatted(date: .numeric, time: .omitted))"
                     )
                     .font(.title3)
                     .fontWeight(.semibold)
+                    .foregroundStyle(
+                        project.image == nil
+                            ? .black
+                            : getBrightness(
+                                for: UIImage(data: project.getImage())!
+                            )! > 128 ? .black : .white
+                    )
+
+                    if dailyNotes.isEmpty {
+                    } else {
+                        let displayedNotes =
+                            isNotesExpanded
+                            ? dailyNotes : Array(dailyNotes.prefix(3))
+
+                        LazyVStack(alignment: .leading) {
+                            ForEach(displayedNotes) { note in
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text(note.title ?? "Sem título")
+
+                                        Text(note.text ?? "")
+                                            .font(.subheadline)
+                                            .foregroundStyle(.secondary)
+                                    }
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                        .fontWeight(.semibold)
+                                        .foregroundStyle(.secondary)
+                                }
+                                if dailyNotes.last != note {
+                                    Rectangle()
+                                        .fill(.tertiary)
+                                        .frame(height: 1)
+                                }
+                            }
+                        }
+                        .padding()
+                        .background(
+                            .background.opacity(0.5)
+                        )
+                        .clipShape(RoundedRectangle(cornerRadius: 26))
+                        if isNotesExpanded && dailyNotes.count > 3 {
+                            Button {
+                                withAnimation(.spring()) {
+                                    // Collapse the list back to 3 items
+                                    isNotesExpanded = false
+                                }
+                            } label: {
+                                Text("Mostrar menos")
+                                    .font(.footnote.bold())
+                                    .foregroundStyle(.primary)
+                                    .padding(.horizontal, 16)
+                                    .padding(.vertical, 8)
+                                    .background(
+                                        Color(UIColor.systemBackground),
+                                        in: Capsule()
+                                    )
+                                    .shadow(
+                                        color: .black.opacity(0.15),
+                                        radius: 3,
+                                        y: 1
+                                    )
+                            }
+                            // This frame modifier naturally centers the button in the VStack
+                            .frame(maxWidth: .infinity)
+                            .padding(.top, 8)
+                        }
+                    }
                 }
                 .padding()
-                .background(
-                    RoundedRectangle(cornerRadius: 26)
-                        .fill(
-                            Color(
-                                uiColor: UIImage(
-                                    data: project.image!
-                                )!.dominantColor()!
+                .overlay(alignment: .bottom) {
+                    // Only show the blur and button if there are > 3 notes and it's collapsed
+                    if dailyNotes.count > 3 && !isNotesExpanded {
+                        ZStack(alignment: .bottom) {
+                            VariableBlurView(
+                                maxBlurRadius: 5,
+                                direction: .blurredBottomClearTop
                             )
+                            .frame(height: 100)
+                            .allowsHitTesting(false)  // Ensures the blur doesn't block touches
+
+                            // The expand button
+                            Button {
+                                withAnimation(.spring()) {
+                                    isNotesExpanded = true
+                                }
+                            } label: {
+                                Text("Ver todas")
+                                    .font(.footnote.bold())
+                                    .foregroundStyle(.primary)
+                                    .padding(.horizontal, 16)
+                                    .padding(.vertical, 8)
+                                    .background(
+                                        Color(UIColor.systemBackground),
+                                        in: Capsule()
+                                    )
+                                    .shadow(
+                                        color: .black.opacity(0.15),
+                                        radius: 5,
+                                        y: 2
+                                    )
+                            }
+                            .padding(.bottom, 15)
+                        }
+                    }
+                }
+                .background(
+                    Rectangle()
+                        .fill(
+                            project.image == nil
+                                ? project.getColorPalette().background
+                                : Color(
+                                    uiColor: UIImage(
+                                        data: project.image!
+                                    )!.dominantColor()!
+                                )
                         )
                 )
+                .clipShape(
+                    RoundedRectangle(cornerRadius: 26)
+                )
 
-                Text("Tarefas do projeto \(project.name ?? "criado")")
+                Text("Tarefas do projeto \(project.getName())")
                     .font(.title2.bold())
                     .padding(.bottom, 10)
 
@@ -98,22 +220,12 @@ struct ProjectView: View {
             }
             .padding()
         }
-        .alert(
-            "Dia selecionado",
-            isPresented: $isShowingAlert,
-            presenting: selectedDate
-        ) { details in
-
-            Button("OK", role: .cancel) {}
-
-        } message: { details in
-
-            Text(details.formatted())
-
-        }
 
         .sheet(isPresented: $creatingNewTask) {
             SheetCreation(project: project)
+        }
+        .sheet(isPresented: $editProject) {
+            SheetNewProject(project: project)
         }
 
         .toolbar {
@@ -121,9 +233,28 @@ struct ProjectView: View {
                 Button("", systemImage: "plus") {
                     creatingNewTask.toggle()
                 }
+                Menu("", systemImage: "ellipsis") {
+                    Button("Editar projeto", systemImage: "pencil") {
+
+                        editProject.toggle()
+
+                    }
+                    Button(
+                        "Deletar projeto",
+                        systemImage: "trash",
+                        role: .destructive
+                    ) {
+
+                        dismiss()
+
+                        moc.delete(project)
+
+                        try? moc.save()
+                    }
+                }
             }
         }
-        .navigationTitle(project.name ?? "Projeto sem nome")
+        .navigationTitle(project.getName())
         .navigationBarTitleDisplayMode(.inline)
         .toolbarTitleDisplayMode(.inlineLarge)
 
@@ -131,8 +262,7 @@ struct ProjectView: View {
 }
 
 extension ProjectView {
-    func showAlert(_ date: Date) {
+    func daySelect(_ date: Date) {
         selectedDate = date
-        isShowingAlert.toggle()
     }
 }
