@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		45EC1E1C3038CC3B006D4871 /* Logo-CH4.icon in Resources */ = {isa = PBXBuildFile; fileRef = 45EC1E1B3038CC3B006D4871 /* Logo-CH4.icon */; };
+		45EC1E1C3038CC3B006D4871 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		602C24573038F3F400368378 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C24553038F3F400368378 /* Project+CoreDataClass.swift */; };
+		602C24583038F3F400368378 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C24563038F3F400368378 /* Project+CoreDataProperties.swift */; };
 		603CC0523036112800A753E5 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CC04F3036112800A753E5 /* User+CoreDataProperties.swift */; };
 		603CC0543036112800A753E5 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CC04C3036112800A753E5 /* Task+CoreDataClass.swift */; };
 		603CC0553036112800A753E5 /* AttatchmentNote+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CC0463036112800A753E5 /* AttatchmentNote+CoreDataClass.swift */; };
@@ -19,8 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		600CE5473038CD2E003E7CD7 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
-		600CE5483038CD2E003E7CD7 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		602C24553038F3F400368378 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
+		602C24563038F3F400368378 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		603CC0463036112800A753E5 /* AttatchmentNote+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttatchmentNote+CoreDataClass.swift"; sourceTree = "<group>"; };
 		603CC0473036112800A753E5 /* AttatchmentNote+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttatchmentNote+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		603CC04C3036112800A753E5 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -54,12 +56,11 @@
 		604EEEC6302E4C2C009A0F94 = {
 			isa = PBXGroup;
 			children = (
-				600CE5473038CD2E003E7CD7 /* Project+CoreDataClass.swift */,
-				600CE5483038CD2E003E7CD7 /* Project+CoreDataProperties.swift */,
+				602C24553038F3F400368378 /* Project+CoreDataClass.swift */,
+				602C24563038F3F400368378 /* Project+CoreDataProperties.swift */,
 				603CC0D230364D2E00A753E5 /* Note+CoreDataClass.swift */,
 				603CC0D330364D2E00A753E5 /* Note+CoreDataProperties.swift */,
 				603CC0463036112800A753E5 /* AttatchmentNote+CoreDataClass.swift */,
-				45EC1E1B3038CC3B006D4871 /* Logo-CH4.icon */,
 				603CC0473036112800A753E5 /* AttatchmentNote+CoreDataProperties.swift */,
 				603CC04C3036112800A753E5 /* Task+CoreDataClass.swift */,
 				603CC04D3036112800A753E5 /* Task+CoreDataProperties.swift */,
@@ -142,7 +143,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45EC1E1C3038CC3B006D4871 /* Logo-CH4.icon in Resources */,
+				45EC1E1C3038CC3B006D4871 /* (null) in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,9 +156,9 @@
 			files = (
 				603CC0523036112800A753E5 /* User+CoreDataProperties.swift in Sources */,
 				603CC0543036112800A753E5 /* Task+CoreDataClass.swift in Sources */,
+				602C24573038F3F400368378 /* Project+CoreDataClass.swift in Sources */,
+				602C24583038F3F400368378 /* Project+CoreDataProperties.swift in Sources */,
 				603CC0553036112800A753E5 /* AttatchmentNote+CoreDataClass.swift in Sources */,
-				600CE5493038CD2E003E7CD7 /* Project+CoreDataClass.swift in Sources */,
-				600CE54A3038CD2E003E7CD7 /* Project+CoreDataProperties.swift in Sources */,
 				603CC0563036112800A753E5 /* Task+CoreDataProperties.swift in Sources */,
 				603CC0573036112800A753E5 /* AttatchmentNote+CoreDataProperties.swift in Sources */,
 				603CC0D430364D2E00A753E5 /* Note+CoreDataClass.swift in Sources */,

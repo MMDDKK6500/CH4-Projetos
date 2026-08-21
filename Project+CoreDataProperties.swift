@@ -18,6 +18,7 @@ extension Project {
         return NSFetchRequest<Project>(entityName: "Project")
     }
 
+    @NSManaged public var color: Int64
     @NSManaged public var descriptionText: String?
     @NSManaged public var end: Date?
     @NSManaged public var favorite: Bool
@@ -25,7 +26,6 @@ extension Project {
     @NSManaged public var image: Data?
     @NSManaged public var name: String?
     @NSManaged public var start: Date?
-    @NSManaged public var color: Int64
 
 }
 
