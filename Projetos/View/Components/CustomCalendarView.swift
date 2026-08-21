@@ -125,20 +125,6 @@ struct CustomCalendarView: View {
             Divider()
 
             DatePicker(
-                selection: $startDate,
-                label: {
-                    Text("Data de inicio")
-                }
-            )
-            .onChange(of: startDate) {
-                if endDate < startDate {
-                    endDate = startDate
-                }
-                projeto.start = startDate
-                try? moc.save()
-            }
-
-            DatePicker(
                 selection: $endDate,
                 label: {
                     Text("Prazo Final")
@@ -148,6 +134,7 @@ struct CustomCalendarView: View {
                 projeto.end = endDate
                 try? moc.save()
             }
+            .padding(.top, 8)
         }
         .padding()
     }

@@ -18,6 +18,7 @@ struct ProjectView: View {
 
     @State private var creatingNewTask: Bool = false
     @State private var editProject: Bool = false
+    @State private var isNotesExpanded: Bool = false
 
     @State private var segmented = 0
 
@@ -61,7 +62,7 @@ struct ProjectView: View {
                 VStack(alignment: .leading) {
                     CustomCalendarView(daySelect: daySelect, projeto: project)
                         .glassEffect(in: .rect(cornerRadius: 25.0))
-                        .padding(.bottom, 20)
+                        .padding(.bottom, 10)
                     Text(
                         "Anotações do dia: \(selectedDate.formatted(date: .numeric, time: .omitted))"
                     )
@@ -76,21 +77,26 @@ struct ProjectView: View {
                     )
 
                     if dailyNotes.isEmpty {
-
                     } else {
+                        let displayedNotes =
+                            isNotesExpanded
+                            ? dailyNotes : Array(dailyNotes.prefix(3))
+
                         LazyVStack(alignment: .leading) {
-                            ForEach(dailyNotes) { note in
+                            ForEach(displayedNotes) { note in
                                 HStack {
                                     VStack(alignment: .leading) {
                                         Text(note.title ?? "Sem título")
+
                                         Text(note.text ?? "")
                                             .font(.subheadline)
                                             .foregroundStyle(.secondary)
                                     }
                                     Spacer()
                                     Image(systemName: "chevron.right")
+                                        .fontWeight(.semibold)
+                                        .foregroundStyle(.secondary)
                                 }
-
                                 if dailyNotes.last != note {
                                     Rectangle()
                                         .fill(.tertiary)
@@ -99,20 +105,73 @@ struct ProjectView: View {
                             }
                         }
                         .padding()
-                        .background(.background)
+                        .background(
+                            .background.opacity(0.5)
+                        )
                         .clipShape(RoundedRectangle(cornerRadius: 26))
+                        if isNotesExpanded && dailyNotes.count > 3 {
+                            Button {
+                                withAnimation(.spring()) {
+                                    // Collapse the list back to 3 items
+                                    isNotesExpanded = false
+                                }
+                            } label: {
+                                Text("Mostrar menos")
+                                    .font(.footnote.bold())
+                                    .foregroundStyle(.primary)
+                                    .padding(.horizontal, 16)
+                                    .padding(.vertical, 8)
+                                    .background(
+                                        Color(UIColor.systemBackground),
+                                        in: Capsule()
+                                    )
+                                    .shadow(
+                                        color: .black.opacity(0.15),
+                                        radius: 3,
+                                        y: 1
+                                    )
+                            }
+                            // This frame modifier naturally centers the button in the VStack
+                            .frame(maxWidth: .infinity)
+                            .padding(.top, 8)
+                        }
                     }
                 }
                 .padding()
                 .overlay(alignment: .bottom) {
-                    if dailyNotes.isEmpty {
+                    // Only show the blur and button if there are > 3 notes and it's collapsed
+                    if dailyNotes.count > 3 && !isNotesExpanded {
+                        ZStack(alignment: .bottom) {
+                            VariableBlurView(
+                                maxBlurRadius: 5,
+                                direction: .blurredBottomClearTop
+                            )
+                            .frame(height: 100)
+                            .allowsHitTesting(false)  // Ensures the blur doesn't block touches
 
-                    } else {
-                        VariableBlurView(
-                            maxBlurRadius: 5,
-                            direction: .blurredBottomClearTop
-                        )
-                        .frame(height: 100)
+                            // The expand button
+                            Button {
+                                withAnimation(.spring()) {
+                                    isNotesExpanded = true
+                                }
+                            } label: {
+                                Text("Ver todas")
+                                    .font(.footnote.bold())
+                                    .foregroundStyle(.primary)
+                                    .padding(.horizontal, 16)
+                                    .padding(.vertical, 8)
+                                    .background(
+                                        Color(UIColor.systemBackground),
+                                        in: Capsule()
+                                    )
+                                    .shadow(
+                                        color: .black.opacity(0.15),
+                                        radius: 5,
+                                        y: 2
+                                    )
+                            }
+                            .padding(.bottom, 15)
+                        }
                     }
                 }
                 .background(
