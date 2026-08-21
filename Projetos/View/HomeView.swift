@@ -26,7 +26,6 @@ struct HomeView: View {
     @State var newProject = false
 
     var body: some View {
-        NavigationStack {
             ScrollView {
                 VStack(spacing: 10) {
                     // https://stackoverflow.com/questions/60866380/swiftui-if-inside-foreach-loop
@@ -117,7 +116,6 @@ struct HomeView: View {
             .sheet(isPresented: $newProject) {
                 SheetNewProject()
             }
-        }
     }
 }
 

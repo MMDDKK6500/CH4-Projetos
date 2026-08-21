@@ -24,11 +24,10 @@ struct TextOnBoarding: View {
             
             Text(text)
                 .font(.body.weight(.regular))
-                .foregroundColor(.black)
+                .foregroundColor(.primary)
                 .lineSpacing(3)
                 .multilineTextAlignment(.leading)
             
-            Spacer()
         }
     }
 }

@@ -19,7 +19,8 @@ struct NewTask: View {
     
     var textLengh: Int = 128
     
-    @State var selection: TaskStatus = .toDo
+    @State var selectionStatus: TaskStatus = .toDo
+    @State var selectionNotification: NotificationOptions = .never
     
     @State var createError: Bool = false
     
@@ -54,11 +55,23 @@ struct NewTask: View {
                     Spacer()
                     DatePicker("", selection: $startDate, displayedComponents: toggleAllDay ? [.date] : [.date, .hourAndMinute])
                 }
+                .onAppear {
+                    NotificationManager.shared.requestAuthorization()
+                }
+                
                 HStack {
                     Text("Termina")
                     Spacer()
                     DatePicker("", selection: $endDate, displayedComponents: toggleAllDay ? [.date] : [.date, .hourAndMinute])
                 }
+                
+                Picker("Notificação", selection: $selectionNotification) {
+                    ForEach (NotificationOptions.allCases, id: \.self) { option in
+                        Text(option.toString)
+                    }
+                }
+                
+                
             }
             
             Section (header: Text("Personalização")) {
@@ -67,7 +80,7 @@ struct NewTask: View {
                     Spacer()
                     ColorPickerView(colorValue: $colorValue)
                 }
-                Picker("Status da Tarefa", selection: $selection) {
+                Picker("Status da Tarefa", selection: $selectionStatus) {
                     ForEach (TaskStatus.allCases, id: \.self) { option in
                         Text(option.toString)
                     }
@@ -92,8 +105,9 @@ struct NewTask: View {
                         createError.toggle()
                     } else {
                         
+                        let taskId = UUID()
+
                         let task = Task(context: moc)
-                        
                         task.title = titleTask
                         task.text = descriptionTask
                         task.color = Int64(colorValue)
@@ -101,15 +115,22 @@ struct NewTask: View {
                         task.isAllDay = toggleAllDay
                         task.end = endDate
                         task.project = project
-                        task.id_task = UUID()
-                        task.status = Int64(selection.rawValue)
-                        
+                        task.id_task = taskId
+                        task.status = Int64(selectionStatus.rawValue)
+
                         do {
                             try moc.save()
+                            
+                            NotificationManager.shared.scheduleTaskNotification(
+                                taskId: taskId,
+                                title: titleTask,
+                                endDate: endDate,
+                                option: selectionNotification
+                            )
                         } catch {
                             fatalError("Error saving context \(error)")
                         }
-                        
+
                         dismiss()
                     }
                 }

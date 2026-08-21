@@ -29,10 +29,11 @@ struct ProjectView: View {
 
     @FetchRequest
     var tasks: FetchedResults<Task>
-
+    
     var filteredTasks: [Task] {
-        tasks.filter { Int($0.status) == segmented }  //Devolve array somente com o tipo da task passada no segmented
-    }
+            tasks.filter { Int($0.status) == segmented } //Devolve array somente com o tipo da task passada no segmented
+        }
+
 
     var dailyNotes: [Note] {
         notes.filter { note in
