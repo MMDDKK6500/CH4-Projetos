@@ -28,7 +28,6 @@ struct TextOnBoarding: View {
                 .lineSpacing(3)
                 .multilineTextAlignment(.leading)
             
-            Spacer()
         }
     }
 }

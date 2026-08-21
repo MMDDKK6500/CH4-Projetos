@@ -22,78 +22,78 @@ struct HomeView: View {
     @State var newProject = false
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 10) {
-                // https://stackoverflow.com/questions/60866380/swiftui-if-inside-foreach-loop
-                ForEach(projects.filter { $0.favorite == true }) {
-                    project in
-                    NavigationLink {
-                        ProjectView(project: project)
-                    } label: {
-                        ProjectComponentView(project: project)
-                            .background(
-                                Image(
-                                    uiImage: UIImage(data: project.image!)!
-                                )
-                                .resizable()
-                                .scaledToFill()
-                            )
-                            .clipShape(
-                                .rect(cornerRadius: 26)
-                            )
-
-                    }
-                    .buttonStyle(.plain)
-                }
-                LazyVGrid(
-                    columns: [
-                        GridItem(),
-                        GridItem(),
-                    ],
-                    alignment: .center,
-                    spacing: 10
-                ) {
-                    ForEach(projects.filter { $0.favorite == false }) {
+            ScrollView {
+                VStack(spacing: 10) {
+                    // https://stackoverflow.com/questions/60866380/swiftui-if-inside-foreach-loop
+                    ForEach(projects.filter { $0.favorite == true }) {
                         project in
                         NavigationLink {
                             ProjectView(project: project)
                         } label: {
                             ProjectComponentView(project: project)
+                                .background(
+                                    Image(
+                                        uiImage: UIImage(data: project.image!)!
+                                    )
+                                    .resizable()
+                                    .scaledToFill()
+                                )
+                                .clipShape(
+                                    .rect(cornerRadius: 26)
+                                )
+
                         }
                         .buttonStyle(.plain)
-                        .background(
-                            Image(uiImage: UIImage(data: project.image!)!)
-                                .resizable()
-                                .scaledToFill()
-                        )
-                        .clipShape(
-                            .rect(cornerRadius: 26)
-                        )
+                    }
+                    LazyVGrid(
+                        columns: [
+                            GridItem(),
+                            GridItem(),
+                        ],
+                        alignment: .center,
+                        spacing: 10
+                    ) {
+                        ForEach(projects.filter { $0.favorite == false }) {
+                            project in
+                            NavigationLink {
+                                ProjectView(project: project)
+                            } label: {
+                                ProjectComponentView(project: project)
+                            }
+                            .buttonStyle(.plain)
+                            .background(
+                                Image(uiImage: UIImage(data: project.image!)!)
+                                    .resizable()
+                                    .scaledToFill()
+                            )
+                            .clipShape(
+                                .rect(cornerRadius: 26)
+                            )
 
+                        }
+                    }
+                }
+                .padding()
+                Spacer()
+            }
+            .toolbar {
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    Button("", systemImage: "plus") {
+                        newProject.toggle()
                     }
                 }
             }
-            .padding()
-            Spacer()
-        }
-        .toolbar {
-            ToolbarItemGroup(placement: .topBarTrailing) {
-                Button("", systemImage: "plus") {
-                    newProject.toggle()
-                }
+
+            .navigationDestination(for: Project.self) { project in
+                ProjectView(project: project)
             }
-        }
 
-        .navigationDestination(for: Project.self) { project in
-            ProjectView(project: project)
-        }
+            .navigationTitle("Meus Projetos")
+            .toolbarTitleDisplayMode(.inlineLarge)
 
-        .navigationTitle("Meus Projetos")
-        .toolbarTitleDisplayMode(.inlineLarge)
-
-        .sheet(isPresented: $newProject) {
-            SheetNewProject()
-        }
+            .sheet(isPresented: $newProject) {
+                SheetNewProject()
+            }
     }
 }
 

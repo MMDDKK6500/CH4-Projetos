@@ -24,14 +24,16 @@ struct WelcomeView: View {
                 Image("logo")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 170, height: 170)
+                    .frame(width: 150, height: 150)
                     .cornerRadius(24)
                 
                 Text("Bem-Vindo ao Zip")
                     .font(.largeTitle.bold())
                 
                 Spacer()
-                Text("Zip é um aplicativo de organização e gestão de projetos que reúne tudo o que você precisa em um só lugar.")
+                Text("Uma nova forma de organizar seus projetos, tarefas e ideias em um único espaço.")
+                    .font(.body)
+                Text("Planeje cada etapa, acompanhe o andamento das atividades e mantenha todas as informações importantes do seu projeto reunidas e organizadas no Zip.")
                     .font(.body)
                 
                 Spacer()
@@ -51,7 +53,7 @@ struct WelcomeView: View {
                 }
                 
             }
-            .padding(18)
+            .padding(20)
         }
         .sheet(isPresented: $showOnboarding) {
             SheetOnBoarding {
