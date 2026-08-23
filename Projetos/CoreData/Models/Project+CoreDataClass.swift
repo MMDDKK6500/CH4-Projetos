@@ -2,7 +2,7 @@
 //  Project+CoreDataClass.swift
 //  Projetos
 //
-//  Created by João Duque Nardelli Wandermuren on 21/08/26.
+//  Created by João Duque Nardelli Wandermuren on 23/08/26.
 //
 //
 

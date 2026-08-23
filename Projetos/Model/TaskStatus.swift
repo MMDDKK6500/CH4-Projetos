@@ -5,8 +5,6 @@
 //  Created by Maria Clara Fernandes Bessa on 18/08/26.
 //
 
-import SwiftUI
-
 enum TaskStatus: Int, CaseIterable {
     case toDo
     case inProgress

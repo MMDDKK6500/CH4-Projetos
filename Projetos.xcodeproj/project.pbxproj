@@ -8,29 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		45EC1E1C3038CC3B006D4871 /* (null) in Resources */ = {isa = PBXBuildFile; };
-		602C24573038F3F400368378 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C24553038F3F400368378 /* Project+CoreDataClass.swift */; };
-		602C24583038F3F400368378 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C24563038F3F400368378 /* Project+CoreDataProperties.swift */; };
-		603CC0523036112800A753E5 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CC04F3036112800A753E5 /* User+CoreDataProperties.swift */; };
-		603CC0543036112800A753E5 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CC04C3036112800A753E5 /* Task+CoreDataClass.swift */; };
-		603CC0553036112800A753E5 /* AttatchmentNote+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CC0463036112800A753E5 /* AttatchmentNote+CoreDataClass.swift */; };
-		603CC0563036112800A753E5 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CC04D3036112800A753E5 /* Task+CoreDataProperties.swift */; };
-		603CC0573036112800A753E5 /* AttatchmentNote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CC0473036112800A753E5 /* AttatchmentNote+CoreDataProperties.swift */; };
-		603CC0593036112800A753E5 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CC04E3036112800A753E5 /* User+CoreDataClass.swift */; };
-		603CC0D430364D2E00A753E5 /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CC0D230364D2E00A753E5 /* Note+CoreDataClass.swift */; };
-		603CC0D530364D2E00A753E5 /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CC0D330364D2E00A753E5 /* Note+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		602C24553038F3F400368378 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
-		602C24563038F3F400368378 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		603CC0463036112800A753E5 /* AttatchmentNote+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttatchmentNote+CoreDataClass.swift"; sourceTree = "<group>"; };
-		603CC0473036112800A753E5 /* AttatchmentNote+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttatchmentNote+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		603CC04C3036112800A753E5 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
-		603CC04D3036112800A753E5 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		603CC04E3036112800A753E5 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
-		603CC04F3036112800A753E5 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		603CC0D230364D2E00A753E5 /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = "<group>"; };
-		603CC0D330364D2E00A753E5 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		604EEECF302E4C2C009A0F94 /* Projetos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Projetos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -56,16 +36,6 @@
 		604EEEC6302E4C2C009A0F94 = {
 			isa = PBXGroup;
 			children = (
-				602C24553038F3F400368378 /* Project+CoreDataClass.swift */,
-				602C24563038F3F400368378 /* Project+CoreDataProperties.swift */,
-				603CC0D230364D2E00A753E5 /* Note+CoreDataClass.swift */,
-				603CC0D330364D2E00A753E5 /* Note+CoreDataProperties.swift */,
-				603CC0463036112800A753E5 /* AttatchmentNote+CoreDataClass.swift */,
-				603CC0473036112800A753E5 /* AttatchmentNote+CoreDataProperties.swift */,
-				603CC04C3036112800A753E5 /* Task+CoreDataClass.swift */,
-				603CC04D3036112800A753E5 /* Task+CoreDataProperties.swift */,
-				603CC04E3036112800A753E5 /* User+CoreDataClass.swift */,
-				603CC04F3036112800A753E5 /* User+CoreDataProperties.swift */,
 				604EEED1302E4C2C009A0F94 /* Projetos */,
 				604EEED0302E4C2C009A0F94 /* Products */,
 			);
@@ -154,16 +124,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				603CC0523036112800A753E5 /* User+CoreDataProperties.swift in Sources */,
-				603CC0543036112800A753E5 /* Task+CoreDataClass.swift in Sources */,
-				602C24573038F3F400368378 /* Project+CoreDataClass.swift in Sources */,
-				602C24583038F3F400368378 /* Project+CoreDataProperties.swift in Sources */,
-				603CC0553036112800A753E5 /* AttatchmentNote+CoreDataClass.swift in Sources */,
-				603CC0563036112800A753E5 /* Task+CoreDataProperties.swift in Sources */,
-				603CC0573036112800A753E5 /* AttatchmentNote+CoreDataProperties.swift in Sources */,
-				603CC0D430364D2E00A753E5 /* Note+CoreDataClass.swift in Sources */,
-				603CC0D530364D2E00A753E5 /* Note+CoreDataProperties.swift in Sources */,
-				603CC0593036112800A753E5 /* User+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,12 +262,13 @@
 				DEVELOPMENT_TEAM = 5PRN865UP6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Challenge 4";
+				INFOPLIST_KEY_CFBundleDisplayName = Zip;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -342,12 +303,13 @@
 				DEVELOPMENT_TEAM = 5PRN865UP6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Challenge 4";
+				INFOPLIST_KEY_CFBundleDisplayName = Zip;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
