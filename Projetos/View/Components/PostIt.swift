@@ -61,7 +61,7 @@ struct PostIt: View {
             CutCornerRectangle(cornerRadius: cornerRadius)
                 .foregroundColor(task.getColorPalette().background)
                 .overlay(
-                    TaskFlap(cornerRadius: cornerRadius)
+                    TaskFlap()
                         .foregroundColor(task.getColorPalette().tag)
                 )
         )

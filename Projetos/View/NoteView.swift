@@ -81,9 +81,9 @@ struct NoteView: View {
                     item: noteText,
                     label: {
                         Label("Share", systemImage: "square.and.arrow.up")
-                            .foregroundColor(.blue)
                     }
                 )
+                .tint(.blue)
 
                 //                Menu {
 
@@ -99,7 +99,7 @@ struct NoteView: View {
                 Button(role: .destructive, action: {}) {
                     Label("Excluir nota", systemImage: "trash")
                 }
-                .foregroundStyle(.red)
+                .tint(.red)
 
                 //                } label: {
                 //                    Image(systemName: "ellipsis")

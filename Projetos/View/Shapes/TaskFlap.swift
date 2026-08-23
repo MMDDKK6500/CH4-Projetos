@@ -10,7 +10,7 @@ import SwiftUI
 
 struct TaskFlap: Shape {
 
-    var cornerRadius: CGFloat = 26
+//    var cornerRadius: CGFloat = 26
 
     func path(in rect: CGRect) -> Path {
         var path = Path()

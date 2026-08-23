@@ -61,7 +61,7 @@ struct ProjectView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
-                    CustomCalendarView(daySelect: daySelect, projeto: project)
+                    CustomCalendarView(daySelect: daySelect, projeto: project, moc: moc)
                         .glassEffect(in: .rect(cornerRadius: 25.0))
                         .padding(.bottom, 10)
                     Text(
@@ -101,7 +101,8 @@ struct ProjectView: View {
                                             }
                                             Spacer()
                                             Image(systemName: "chevron.right")
-                                                .fontWeight(.semibold)
+//                                                .font(.title3)
+                                                .fontWeight(.medium)
                                                 .foregroundStyle(.secondary)
                                         }
                                         if dailyNotes.last != note {
