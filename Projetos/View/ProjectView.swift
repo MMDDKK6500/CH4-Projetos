@@ -87,24 +87,32 @@ struct ProjectView: View {
 
                         LazyVStack(alignment: .leading) {
                             ForEach(displayedNotes) { note in
-                                HStack {
-                                    VStack(alignment: .leading) {
-                                        Text(note.title ?? "Sem título")
-
-                                        Text(note.text ?? "")
-                                            .font(.subheadline)
-                                            .foregroundStyle(.secondary)
+                                NavigationLink {
+                                    NoteView(note: note)
+                                } label: {
+                                    VStack {
+                                        HStack {
+                                            VStack(alignment: .leading) {
+                                                Text(note.title ?? "Sem título")
+                                                
+                                                Text(note.text ?? "")
+                                                    .font(.subheadline)
+                                                    .foregroundStyle(.secondary)
+                                            }
+                                            Spacer()
+                                            Image(systemName: "chevron.right")
+                                                .fontWeight(.semibold)
+                                                .foregroundStyle(.secondary)
+                                        }
+                                        if dailyNotes.last != note {
+                                            Rectangle()
+                                                .fill(.tertiary)
+                                                .frame(height: 1)
+                                        }
                                     }
-                                    Spacer()
-                                    Image(systemName: "chevron.right")
-                                        .fontWeight(.semibold)
-                                        .foregroundStyle(.secondary)
+                                    .contentShape(Rectangle())
                                 }
-                                if dailyNotes.last != note {
-                                    Rectangle()
-                                        .fill(.tertiary)
-                                        .frame(height: 1)
-                                }
+                                .buttonStyle(.plain)
                             }
                         }
                         .padding()
