@@ -33,7 +33,6 @@ struct CustomCalendarView: View {
         self.daySelect = daySelect
         self.projeto = projeto
 
-        // 2. Initialize @State variables using the underscore (_) and State(initialValue:)
         _vm = State(
             initialValue: CustomCalendarViewModel(
                 project: projeto,
@@ -105,27 +104,13 @@ struct CustomCalendarView: View {
                         .font(.headline)
                         .fontWeight(.medium)
                         .frame(minWidth: 44, minHeight: 44)
-//                        .frame(maxWidth: .infinity)
-                        //                        .background(vm.dayBackgroundColor(for: day))
-                        .background {
-                            if vm.hasTask(on: day) {
-                                // 2. Show the custom shape if there is a task
-                                CutCornerRectangle(cornerRadius: 8)
-                                    .foregroundColor(Color.Blue.background)
-                                    .overlay(
-                                        TaskFlap()
-                                            .foregroundColor(Color.Blue.tag)
-                                    )
-                            } else {
-                                // 3. Fall back to the default color function if there is no task
-                                vm.dayBackgroundColor(for: day)
-                                    // Note: You may want to add .clipShape(Circle()) here
-                                    // so the default selection background stays round!
-                                    .clipShape(Circle())
-                            }
-                        }
+                        //                        .frame(maxWidth: .infinity)
+                        .background(vm.dayBackgroundColor(for: day))
                         .foregroundColor(vm.dayForegroundColor(for: day))
-//                        .padding(5)
+                        .clipShape(
+                            .circle
+                        )
+                        //                        .padding(5)
 
                         .onTapGesture {
                             daySelect(vm.date(withDay: day))

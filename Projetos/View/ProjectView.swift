@@ -13,7 +13,6 @@ struct ProjectView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
 
-    @State private var birthday = Date()
     @State private var selectedDate: Date = Date()
 
     @State private var creatingNewTask: Bool = false
@@ -29,11 +28,10 @@ struct ProjectView: View {
 
     @FetchRequest
     var tasks: FetchedResults<Task>
-    
-    var filteredTasks: [Task] {
-            tasks.filter { Int($0.status) == segmented } //Devolve array somente com o tipo da task passada no segmented
-        }
 
+    var filteredTasks: [Task] {
+        tasks.filter { Int($0.status) == segmented }  //Devolve array somente com o tipo da task passada no segmented
+    }
 
     var dailyNotes: [Note] {
         notes.filter { note in
@@ -47,7 +45,7 @@ struct ProjectView: View {
         self.project = project
 
         _tasks = FetchRequest<Task>(
-            sortDescriptors: [],
+            sortDescriptors: [NSSortDescriptor(keyPath: \Task.status, ascending: true)],
             predicate: NSPredicate(format: "project == %@", project)
         )
 
@@ -61,9 +59,13 @@ struct ProjectView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
-                    CustomCalendarView(daySelect: daySelect, projeto: project, moc: moc)
-                        .glassEffect(in: .rect(cornerRadius: 25.0))
-                        .padding(.bottom, 10)
+                    CustomCalendarView(
+                        daySelect: daySelect,
+                        projeto: project,
+                        moc: moc
+                    )
+                    .glassEffect(in: .rect(cornerRadius: 25.0))
+                    .padding(.bottom, 10)
                     Text(
                         "Anotações do dia: \(selectedDate.formatted(date: .numeric, time: .omitted))"
                     )
@@ -76,7 +78,7 @@ struct ProjectView: View {
                                 for: UIImage(data: project.getImage())!
                             )! > 128 ? .black : .white
                     )
-                    
+
                     Spacer()
 
                     if dailyNotes.isEmpty {
@@ -94,14 +96,14 @@ struct ProjectView: View {
                                         HStack {
                                             VStack(alignment: .leading) {
                                                 Text(note.title ?? "Sem título")
-                                                
+
                                                 Text(note.text ?? "")
                                                     .font(.subheadline)
                                                     .foregroundStyle(.secondary)
                                             }
                                             Spacer()
                                             Image(systemName: "chevron.right")
-//                                                .font(.title3)
+                                                //                                                .font(.title3)
                                                 .fontWeight(.medium)
                                                 .foregroundStyle(.secondary)
                                         }
@@ -227,6 +229,7 @@ struct ProjectView: View {
                         PostIt(task: task)
                     }
                 }
+                .animation(.spring(), value: filteredTasks)
                 Spacer()
             }
             .padding()

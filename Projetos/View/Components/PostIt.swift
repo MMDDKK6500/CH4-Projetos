@@ -1,20 +1,25 @@
-//
-//  PostIt.swift
-//  Projetos
-//
-//  Created by Maria Clara Fernandes Bessa on 18/08/26.
-//
-
 import SwiftUI
 import Observation
+internal import CoreData
 
 struct PostIt: View {
 
     @State var viewModel: PostItViewModel
+    @Environment(\.managedObjectContext) var moc
+    @Environment(\.dismiss) var dismiss
     
-    let task: Task
+    @ObservedObject var task: Task
     
     let cornerRadius: CGFloat = 26
+    
+    private func updateTaskStatus(to newStatus: TaskStatus) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            withAnimation(.spring()) {
+                task.status = Int64(newStatus.rawValue)
+                try? moc.save()
+            }
+        }
+    }
 
     init(task: Task) {
         self.viewModel = PostItViewModel(task: task)
@@ -25,7 +30,7 @@ struct PostIt: View {
         VStack {
             HStack {
                 VStack(alignment: .leading) {
-                    Text(task.title!)
+                    Text(task.title ?? "Nil")
                         .foregroundStyle(task.getColorPalette().title)
                         .font(.title3.bold())
                         .lineLimit(1)
@@ -34,7 +39,7 @@ struct PostIt: View {
                         .foregroundStyle(task.getColorPalette().subtitle)
                         .font(.caption.bold())
                     
-                    Text(task.text!)
+                    Text(task.text ?? "Nil")
                         .foregroundStyle(Color.black)
                         .font(.caption)
                         .lineLimit(4, reservesSpace: true)
@@ -65,8 +70,27 @@ struct PostIt: View {
                         .foregroundColor(task.getColorPalette().tag)
                 )
         )
-//        .frame(maxWidth: .infinity, maxHeight: .infinity)
-//        .aspectRatio(1, contentMode: .fill)
-
+        .contextMenu {
+            Menu("Alterar Status", systemImage: "arrow.triangle.2.circlepath") {
+                Button("A Fazer") { updateTaskStatus(to: .toDo) }
+                Button("Em Andamento") { updateTaskStatus(to: .inProgress) }
+                Button("Concluído") { updateTaskStatus(to: .completed) }
+            }
+            Divider()
+                
+            Button(role: .destructive) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    withAnimation(.spring()) {
+                        moc.delete(task)
+                        try? moc.save()
+                    }
+                }
+            } label: {
+                Label("Deletar Tarefa", systemImage: "trash")
+            }
+        
+        }
+    
     }
+        
 }
