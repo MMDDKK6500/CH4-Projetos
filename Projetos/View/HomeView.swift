@@ -4,16 +4,17 @@
 //
 //  Created by João Duque Nardelli Wandermuren on 13/08/26.
 //
-internal import CoreData
+
 import SwiftUI
+internal import SwiftData
 
 struct HomeView: View {
 
     @State var vm = HomeViewModel()
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.modelContext) private var context
 
-    @FetchRequest(sortDescriptors: [])
-    var projects: FetchedResults<Project>
+    @Query(sort: \Project.start, order: .forward)
+    var projects: [Project]
 
     @State var showFutureProjects: Bool = true
     @State var showCurrentProjects: Bool = false
@@ -41,7 +42,7 @@ struct HomeView: View {
                             } label: {
                                 ProjectComponentView(project: project)
                                     .background {
-                                        if project.image == nil {
+                                        if project.getImage() == Data() {
                                             project.getColorPalette().background
                                         } else {
                                             Image(uiImage: UIImage(data: project.image!)!)

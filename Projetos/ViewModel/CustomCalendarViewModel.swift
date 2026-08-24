@@ -5,7 +5,7 @@
 //  Created by João Duque Nardelli Wandermuren on 23/08/26.
 //
 
-internal import CoreData
+import SwiftData
 import Foundation
 import Observation
 import SwiftUI
@@ -13,7 +13,7 @@ import SwiftUI
 @Observable
 class CustomCalendarViewModel {
 
-    let moc: NSManagedObjectContext
+    let moc: ModelContext
 
     let project: Project
 
@@ -22,25 +22,15 @@ class CustomCalendarViewModel {
     let calendar = Calendar.current
     let daysOfWeek = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"]
 
-    var tasks: [Task] = []
-    var notes: [Note] = []
+    let notes: [Note]
 
-    init(project: Project, context: NSManagedObjectContext) {
-        self.moc = context
+    let tasks: [ProjectTask]
+    
+    init(moc: ModelContext, project: Project, notes: [Note], tasks: [ProjectTask]) {
+        self.moc = moc
         self.project = project
-
-        fetchProjectData()
-    }
-
-    func fetchProjectData() {
-        let taskRequest = Task.fetchRequest()
-        taskRequest.predicate = NSPredicate(format: "project == %@", project)
-        // ignore warning, it DOES something, it forces the type!!!!!!
-        self.tasks = (try? moc.fetch(taskRequest)) as? [Task] ?? []
-
-        let noteRequest = Note.fetchRequest()
-        noteRequest.predicate = NSPredicate(format: "project == %@", project)
-        self.notes = (try? moc.fetch(noteRequest)) as? [Note] ?? []
+        self.notes = notes
+        self.tasks = tasks
     }
 
     func selectDate(day: Int) {
@@ -87,8 +77,6 @@ class CustomCalendarViewModel {
             equalTo: Date(),
             toGranularity: .month
         )
-        
-        let isToday = calendar.isDate(Date(), equalTo: targetDate, toGranularity: .day)
         
         let isSelected = calendar.isDate(selectedDate, inSameDayAs: targetDate)
         
@@ -180,10 +168,9 @@ class CustomCalendarViewModel {
     func hasTask(on day: Int) -> Bool {
         let targetDate = date(withDay: day)
 
-        return tasks.contains(where: { (task: Task) -> Bool in
+        return tasks.contains(where: { (task: ProjectTask) -> Bool in
 
-            guard let taskDate = task.end else { return false }
-            return calendar.isDate(taskDate, inSameDayAs: targetDate)
+            return calendar.isDate(task.end, inSameDayAs: targetDate)
         })
     }
 
@@ -192,8 +179,7 @@ class CustomCalendarViewModel {
 
         return notes.contains(where: { (note: Note) -> Bool in
 
-            guard let noteDate = note.date else { return false }
-            return calendar.isDate(noteDate, inSameDayAs: targetDate)
+            return calendar.isDate(note.date, inSameDayAs: targetDate)
         })
     }
 }

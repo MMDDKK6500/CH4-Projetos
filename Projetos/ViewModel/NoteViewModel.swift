@@ -5,17 +5,17 @@
 //  Created by João Duque Nardelli Wandermuren on 24/08/26.
 //
 
-import CoreData
 import Foundation
 import Observation
 import SwiftUI
+import SwiftData
 
 @Observable
 class NoteViewModel {
 
-    let moc: NSManagedObjectContext
+    let moc: ModelContext
 
-    init(moc: NSManagedObjectContext) {
+    init(moc: ModelContext) {
         self.moc = moc
     }
 
@@ -29,11 +29,11 @@ class NoteViewModel {
         if noteTitle.wrappedValue.isEmpty || noteText.wrappedValue.isEmpty {
 
             if noteTitle.wrappedValue.isEmpty {
-                noteTitle.wrappedValue = note.getDate().formatted()
+                noteTitle.wrappedValue = note.date.formatted()
             }
 
             if noteText.wrappedValue.isEmpty {
-                noteText.wrappedValue = note.getDate().formatted()
+                noteText.wrappedValue = note.date.formatted()
             }
 
             return false

@@ -8,14 +8,13 @@
     <entity name="AttatchmentTask" representedClassName="AttatchmentNote" syncable="YES">
         <attribute name="id_attatchment" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="image" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
-        <relationship name="task" maxCount="1" deletionRule="Nullify" destinationEntity="Task"/>
+        <relationship name="task" maxCount="1" deletionRule="Nullify" destinationEntity="ProjectTask"/>
     </entity>
     <entity name="Note" representedClassName="Note" syncable="YES">
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id_note" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="text" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
-        <relationship name="project" maxCount="1" deletionRule="Nullify" destinationEntity="Project"/>
     </entity>
     <entity name="Project" representedClassName="Project" syncable="YES">
         <attribute name="color" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -26,8 +25,10 @@
         <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="start" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="notes" maxCount="1" deletionRule="Nullify" destinationEntity="Note"/>
+        <relationship name="tasks" toMany="YES" deletionRule="Nullify" destinationEntity="ProjectTask"/>
     </entity>
-    <entity name="Task" representedClassName="Task" syncable="YES">
+    <entity name="ProjectTask" representedClassName="ProjectTask" syncable="YES">
         <attribute name="color" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" customClassName="UIColor"/>
         <attribute name="end" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id_task" attributeType="UUID" usesScalarValueType="NO"/>
@@ -36,9 +37,5 @@
         <attribute name="status" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" customClassName="TaskStatusEnum"/>
         <attribute name="text" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
-        <relationship name="project" maxCount="1" deletionRule="Nullify" destinationEntity="Project"/>
-    </entity>
-    <entity name="User" representedClassName="User" syncable="YES">
-        <attribute name="onboarding" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
     </entity>
 </model>

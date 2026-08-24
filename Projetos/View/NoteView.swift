@@ -5,7 +5,7 @@
 //  Created by Maria Clara Fernandes Bessa on 19/08/26.
 //
 
-internal import CoreData
+internal import SwiftData
 import SwiftUI
 
 struct NoteView: View {
@@ -15,19 +15,19 @@ struct NoteView: View {
     @State private var vm: NoteViewModel
 
     let note: Note
-    let moc: NSManagedObjectContext
+    let moc: ModelContext
 
     @State var noteTitle: String
     @State var noteText: String
     @State var editError: Bool = false
     @State var confirmationShown = false
 
-    init(note: Note, moc: NSManagedObjectContext) {
+    init(note: Note, moc: ModelContext) {
         self.note = note
         self.moc = moc
 
-        _noteTitle = State(initialValue: note.title!)
-        _noteText = State(initialValue: note.text!)
+        _noteTitle = State(initialValue: note.title)
+        _noteText = State(initialValue: note.text)
         _vm = State(initialValue: NoteViewModel(moc: moc))
     }
 
@@ -36,7 +36,7 @@ struct NoteView: View {
             TextField("Título da anotação", text: $noteTitle)
                 .font(.title.bold())
 
-            Text(note.getDate().formatted(date: .numeric, time: .shortened))
+            Text(note.date.formatted(date: .numeric, time: .shortened))
                 .font(.body)
                 .foregroundStyle(Color.secondary)
 

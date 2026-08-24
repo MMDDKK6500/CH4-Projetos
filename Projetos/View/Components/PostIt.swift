@@ -1,14 +1,14 @@
 import SwiftUI
 import Observation
-internal import CoreData
+import SwiftData
 
 struct PostIt: View {
 
     @State var viewModel: PostItViewModel
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.modelContext) var moc
     @Environment(\.dismiss) var dismiss
     
-    @ObservedObject var task: Task
+    @State var task: ProjectTask
     
     let cornerRadius: CGFloat = 26
     
@@ -21,7 +21,7 @@ struct PostIt: View {
         }
     }
 
-    init(task: Task) {
+    init(task: ProjectTask) {
         self.viewModel = PostItViewModel(task: task)
         self.task = task
     }
@@ -30,7 +30,7 @@ struct PostIt: View {
         VStack {
             HStack {
                 VStack(alignment: .leading) {
-                    Text(task.title ?? "Nil")
+                    Text(task.title)
                         .foregroundStyle(task.getColorPalette().title)
                         .font(.title3.bold())
                         .lineLimit(1)
@@ -39,7 +39,7 @@ struct PostIt: View {
                         .foregroundStyle(task.getColorPalette().subtitle)
                         .font(.caption.bold())
                     
-                    Text(task.text ?? "Nil")
+                    Text(task.text)
                         .foregroundStyle(Color.black)
                         .font(.caption)
                         .lineLimit(4, reservesSpace: true)
