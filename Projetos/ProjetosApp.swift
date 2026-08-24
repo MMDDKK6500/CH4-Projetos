@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-internal import CoreData
+import SwiftData
 import UserNotifications
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -27,7 +27,6 @@ struct ProjetosApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
-    @StateObject private var dataController = DataController()
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding: Bool = false
 
     var body: some Scene {
@@ -36,12 +35,18 @@ struct ProjetosApp: App {
                 if hasCompletedOnboarding {
                     NavigationStack {
                         HomeView()
+                            .modelContainer(for: [
+                                AttatchmentNote.self,
+                                AttatchmentTask.self,
+                                Note.self,
+                                Project.self,
+                                ProjectTask.self
+                            ])
                     }
                 } else {
                     WelcomeView()
                 }
             }
-            .environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }
 }

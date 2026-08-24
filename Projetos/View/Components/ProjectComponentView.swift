@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProjectComponentView: View {
 
-    @ObservedObject var project: Project
+    @State var project: Project
 
     let uiImage: UIImage?
 
@@ -32,15 +32,15 @@ struct ProjectComponentView: View {
                     Text("Prazo Final")
                         .font(.caption)
                         .fontWeight(.semibold)
-                    Text(project.getEnd().formatted(.dateTime.day()))
+                    Text(project.end.formatted(.dateTime.day()))
                         .font(.system(size: 48))
                         .fontWeight(.semibold)
-                    Text(project.getEnd().formatted(.dateTime.month().year()))
+                    Text(project.end.formatted(.dateTime.month().year()))
                         .font(.caption)
                         .fontWeight(.semibold)
                 }
 
-                Text(project.getName())
+                Text(project.name)
                     .lineLimit(2)
                     .font(.title3)
                     .fontWeight(.semibold)

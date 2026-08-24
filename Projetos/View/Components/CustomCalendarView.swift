@@ -8,17 +8,21 @@
 //  Edited by João Duque Nardelli Wandermuren
 //
 
-internal import CoreData
+import SwiftData
 import SwiftUI
 
 struct CustomCalendarView: View {
-
-    @Environment(\.managedObjectContext) var moc
-
+    
+    @Environment(\.modelContext) private var context
+    
     let daySelect: (_ selectedDate: Date) -> Void
 
     let projeto: Project
+    
+    var notes: [Note]
 
+    var tasks: [ProjectTask]
+    
     @State var vm: CustomCalendarViewModel
 
     @State var startDate: Date
@@ -27,20 +31,21 @@ struct CustomCalendarView: View {
     init(
         daySelect: @escaping (_ selectedDate: Date) -> Void,
         projeto: Project,
-        moc: NSManagedObjectContext
+        moc: ModelContext,
+        notes: [Note],
+        tasks: [ProjectTask]
     ) {
 
         self.daySelect = daySelect
         self.projeto = projeto
 
         _vm = State(
-            initialValue: CustomCalendarViewModel(
-                project: projeto,
-                context: moc
-            )
+            initialValue: CustomCalendarViewModel(moc: moc, project: projeto, notes: notes, tasks: tasks)
         )
-        _startDate = State(initialValue: projeto.getStart())
-        _endDate = State(initialValue: projeto.getEnd())
+        _startDate = State(initialValue: projeto.start)
+        _endDate = State(initialValue: projeto.end)
+        self.notes = notes
+        self.tasks = tasks
     }
 
     var body: some View {
@@ -149,13 +154,6 @@ struct CustomCalendarView: View {
             .padding(.top, 8)
         }
         .padding()
-        .onReceive(
-            NotificationCenter.default.publisher(
-                for: .NSManagedObjectContextDidSave
-            )
-        ) { _ in
-            vm.fetchProjectData()
-        }
     }
 
 }

@@ -5,12 +5,12 @@
 //  Created by João Duque Nardelli Wandermuren on 13/08/26.
 //
 
-internal import CoreData
+import SwiftData
 import SwiftUI
 
 struct ProjectView: View {
 
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.modelContext) var moc
     @Environment(\.dismiss) var dismiss
 
     @State private var selectedDate: Date = Date()
@@ -21,38 +21,16 @@ struct ProjectView: View {
 
     @State private var segmented = 0
 
-    @ObservedObject var project: Project
+    @State var project: Project
 
-    @FetchRequest
-    var notes: FetchedResults<Note>
-
-    @FetchRequest
-    var tasks: FetchedResults<Task>
-
-    var filteredTasks: [Task] {
-        tasks.filter { Int($0.status) == segmented }  //Devolve array somente com o tipo da task passada no segmented
+    var filteredTasks: [ProjectTask] {
+        project.tasks.filter { Int($0.status) == segmented }  //Devolve array somente com o tipo da task passada no segmented
     }
 
     var dailyNotes: [Note] {
-        notes.filter { note in
-            guard let noteDate = note.date else { return false }
-            return Calendar.current.isDate(selectedDate, inSameDayAs: noteDate)
+        project.notes.filter { note in
+            return Calendar.current.isDate(selectedDate, inSameDayAs: note.date)
         }
-    }
-
-    init(project: Project) {
-
-        self.project = project
-
-        _tasks = FetchRequest<Task>(
-            sortDescriptors: [NSSortDescriptor(keyPath: \Task.status, ascending: true)],
-            predicate: NSPredicate(format: "project == %@", project)
-        )
-
-        _notes = FetchRequest<Note>(
-            sortDescriptors: [],
-            predicate: NSPredicate(format: "project == %@", project)
-        )
     }
 
     var body: some View {
@@ -72,7 +50,9 @@ struct ProjectView: View {
                     CustomCalendarView(
                         daySelect: daySelect,
                         projeto: project,
-                        moc: moc
+                        moc: moc,
+                        notes: project.notes,
+                        tasks: project.tasks
                     )
                     .glassEffect(in: .rect(cornerRadius: 25.0))
                     .padding(.bottom, 10)
@@ -92,6 +72,7 @@ struct ProjectView: View {
                     Spacer()
 
                     if dailyNotes.isEmpty {
+                        Text("A")
                     } else {
                         let displayedNotes =
                             isNotesExpanded
@@ -105,9 +86,9 @@ struct ProjectView: View {
                                     VStack {
                                         HStack {
                                             VStack(alignment: .leading) {
-                                                Text(note.title ?? "Sem título")
+                                                Text(note.title)
 
-                                                Text(note.text ?? "")
+                                                Text(note.text)
                                                     .font(.subheadline)
                                                     .foregroundStyle(.secondary)
                                             }
@@ -214,7 +195,7 @@ struct ProjectView: View {
                     RoundedRectangle(cornerRadius: 26)
                 )
 
-                Text("Tarefas do projeto \(project.getName())")
+                Text("Tarefas do projeto \(project.name)")
                     .font(.title2.bold())
                     .padding(.vertical, 18)
 
@@ -278,7 +259,7 @@ struct ProjectView: View {
                 }
             }
         }
-        .navigationTitle(project.getName())
+        .navigationTitle(project.name)
         .navigationBarTitleDisplayMode(.inline)
         .toolbarTitleDisplayMode(.inlineLarge)
 
