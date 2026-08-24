@@ -27,5 +27,7 @@ extension Note {
 }
 
 extension Note : Identifiable {
-
+    func getDate() -> Date {
+        return date ?? Date()
+    }
 }

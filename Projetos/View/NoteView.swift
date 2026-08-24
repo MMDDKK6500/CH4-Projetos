@@ -10,18 +10,25 @@ import SwiftUI
 
 struct NoteView: View {
 
-    @Environment(\.managedObjectContext) private var moc
+    @Environment(\.dismiss) private var dismiss
+
+    @State private var vm: NoteViewModel
 
     let note: Note
+    let moc: NSManagedObjectContext
 
     @State var noteTitle: String
     @State var noteText: String
     @State var editError: Bool = false
+    @State var confirmationShown = false
 
-    init(note: Note) {
+    init(note: Note, moc: NSManagedObjectContext) {
         self.note = note
+        self.moc = moc
+
         _noteTitle = State(initialValue: note.title!)
         _noteText = State(initialValue: note.text!)
+        _vm = State(initialValue: NoteViewModel(moc: moc))
     }
 
     var body: some View {
@@ -29,7 +36,7 @@ struct NoteView: View {
             TextField("Título da anotação", text: $noteTitle)
                 .font(.title.bold())
 
-            Text(note.date!.formatted(date: .numeric, time: .shortened))
+            Text(note.getDate().formatted(date: .numeric, time: .shortened))
                 .font(.body)
                 .foregroundStyle(Color.secondary)
 
@@ -45,24 +52,12 @@ struct NoteView: View {
         .background(Color(.systemGroupedBackground))
 
         .onChange(of: [noteText, noteTitle]) {
-            if noteTitle.isEmpty || noteText.isEmpty {
-                noteTitle.isEmpty ? (noteTitle = note.date!.formatted()) : ()
-                noteText.isEmpty ? (noteText = note.date!.formatted()) : ()
-
+            if !vm.saveNote(
+                noteTitle: $noteTitle,
+                noteText: $noteText,
+                note: note
+            ) {
                 editError.toggle()
-            } else {
-
-                //                note.id_note = UUID()
-                //                note.date = Date()
-                note.title = noteTitle
-                note.text = noteText
-                //                note.project = project
-
-                do {
-                    try moc.save()
-                } catch {
-                    fatalError("Error saving context \(error)")
-                }
             }
         }
 
@@ -70,6 +65,21 @@ struct NoteView: View {
             Button("OK", role: .cancel) {}
         } message: {
             Text("Por favor preencher todos os campos no formulário")
+        }
+
+        .alert("Confirmação", isPresented: $confirmationShown) {
+            Button("Deletar", role: .destructive) {
+                // I should use throws > do try catch but its too close to deadline to update everything
+                // Why not use the old old way of error checking? Objective-C papa would be proud
+                if vm.deleteNote(note: note) {
+                    dismiss()
+                }
+            }
+            Button("Cancelar", role: .cancel) {
+
+            }
+        } message: {
+            Text("Você tem certeza que quer deletar essa anotação?")
         }
 
         .toolbar {
@@ -96,7 +106,12 @@ struct NoteView: View {
                 //       Label("Mudar modo de visualização", systemImage: colorScheme == .dark ? "moon.fill" : "sun.max.fill")
                 //  }
 
-                Button(role: .destructive, action: {}) {
+                Button(
+                    role: .destructive,
+                    action: {
+                        confirmationShown.toggle()
+                    }
+                ) {
                     Label("Excluir nota", systemImage: "trash")
                 }
                 .tint(.red)

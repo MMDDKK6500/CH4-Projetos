@@ -35,6 +35,7 @@ class CustomCalendarViewModel {
     private func fetchProjectData() {
         let taskRequest = Task.fetchRequest()
         taskRequest.predicate = NSPredicate(format: "project == %@", project)
+        // ignore warning, it DOES something, it forces the type!!!!!!
         self.tasks = (try? moc.fetch(taskRequest)) as? [Task] ?? []
 
         let noteRequest = Note.fetchRequest()
@@ -72,6 +73,12 @@ class CustomCalendarViewModel {
             equalTo: date(withDay: day),
             toGranularity: .day
         )
+        
+//        let isToday = calendar.isDate(Date(), inSameDayAs: date(withDay: day))
+//        if isToday && !isSelected && isCurrentMonth {
+//            return .blue.opacity(0.5)
+//        }
+        
         return isCurrentMonth && isSelected ? .blue : .clear
     }
 
@@ -79,7 +86,6 @@ class CustomCalendarViewModel {
 
         let targetDate = date(withDay: day)
 
-        let isToday = calendar.isDate(Date(), inSameDayAs: targetDate)
         let isCurrentMonth = calendar.isDate(
             selectedDate,
             equalTo: Date(),
@@ -87,23 +93,14 @@ class CustomCalendarViewModel {
         )
         let isSelected = calendar.isDate(selectedDate, inSameDayAs: targetDate)
 
+        let dayHasNote = hasNote(on: day)
+        
         if isCurrentMonth && isSelected {
             return .white
         }
-
-        if isToday && !isSelected && isCurrentMonth {
+        
+        if dayHasNote {
             return .blue
-        }
-
-        let dayHasTask = hasTask(on: day)
-        let dayHasNote = hasNote(on: day)
-
-        if dayHasTask && dayHasNote {
-            return .purple
-//        } else if dayHasTask {
-//            return .green
-        } else if dayHasNote {
-            return .orange
         }
 
         // 4. Default: Standard text color for empty days

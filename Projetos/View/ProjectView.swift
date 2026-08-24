@@ -90,7 +90,7 @@ struct ProjectView: View {
                         LazyVStack(alignment: .leading) {
                             ForEach(displayedNotes) { note in
                                 NavigationLink {
-                                    NoteView(note: note)
+                                    NoteView(note: note, moc: moc)
                                 } label: {
                                     VStack {
                                         HStack {
