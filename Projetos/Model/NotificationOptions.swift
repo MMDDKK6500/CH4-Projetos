@@ -13,7 +13,7 @@ enum NotificationOptions: Int, CaseIterable {
     case fortnightly
     case monthly
 
-    var toString : String {
+    var toString: String {
         switch self {
         case .never:
             return "Nunca"

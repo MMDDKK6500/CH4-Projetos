@@ -8,36 +8,40 @@
 import SwiftUI
 
 struct WelcomeView: View {
-    
-    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding: Bool = false
+
+    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding:
+        Bool = false
     @State private var showOnboarding: Bool = false
-    
-   
+
     var body: some View {
         ZStack {
             Color("geralBackground")
                 .ignoresSafeArea()
-            
+
             VStack(spacing: 45) {
                 Spacer()
-                
+
                 Image("logo")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 150)
                     .cornerRadius(24)
-                
+
                 Text("Bem-Vindo ao Zip")
                     .font(.largeTitle.bold())
-                
+
                 Spacer()
-                Text("Uma nova forma de organizar seus projetos, tarefas e ideias em um único espaço.")
-                    .font(.body)
-                Text("Planeje cada etapa, acompanhe o andamento das atividades e mantenha todas as informações importantes do seu projeto reunidas e organizadas no Zip.")
-                    .font(.body)
-                
+                Text(
+                    "Uma nova forma de organizar seus projetos, tarefas e ideias em um único espaço."
+                )
+                .font(.body)
+                Text(
+                    "Planeje cada etapa, acompanhe o andamento das atividades e mantenha todas as informações importantes do seu projeto reunidas e organizadas no Zip."
+                )
+                .font(.body)
+
                 Spacer()
-                
+
                 Button {
                     showOnboarding.toggle()
                 } label: {
@@ -51,7 +55,7 @@ struct WelcomeView: View {
                     .background(Color.accent)
                     .cornerRadius(30)
                 }
-                
+
             }
             .padding(20)
         }

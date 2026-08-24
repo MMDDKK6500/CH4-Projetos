@@ -6,21 +6,20 @@
 //
 
 import Foundation
-
-import SwiftUI
 import Observation
+import SwiftUI
 
 @Observable
 class HomeViewModel {
-    
+
     func checkProject(project: Project) -> ToggleSwitch {
-        if (project.end! < Date()) {
+        if project.end! < Date() {
             return .concluidos
-        } else if (project.start! > Date()) {
+        } else if project.start! > Date() {
             return .futuros
         } else {
             return .atuais
         }
     }
-    
+
 }

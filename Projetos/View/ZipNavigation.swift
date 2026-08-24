@@ -10,18 +10,16 @@ import SwiftUI
 struct ZipNavigation {
     @ViewBuilder static func viewShowed(rote: ZipNavigationEnum) -> some View {
         switch rote {
-            //     case .splash:
-            //         TelaSplash(aoTerminar: {})
-            
+
         case .welcomeView:
             WelcomeView()
-            
+
         case .onBoarding:
             SheetOnBoarding()
-            
+
         case .homeView:
             HomeView()
-            
+
         }
-     }
- }
+    }
+}

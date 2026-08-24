@@ -35,7 +35,6 @@ class CustomCalendarViewModel {
     func fetchProjectData() {
         let taskRequest = Task.fetchRequest()
         taskRequest.predicate = NSPredicate(format: "project == %@", project)
-        // ignore warning, it DOES something, it forces the type!!!!!!
         self.tasks = (try? moc.fetch(taskRequest)) as? [Task] ?? []
 
         let noteRequest = Note.fetchRequest()
@@ -73,8 +72,7 @@ class CustomCalendarViewModel {
             equalTo: date(withDay: day),
             toGranularity: .day
         )
-        
-        
+
         return isCurrentMonth && isSelected ? .blue : .clear
     }
 
@@ -87,21 +85,25 @@ class CustomCalendarViewModel {
             equalTo: Date(),
             toGranularity: .month
         )
-        
-        let isToday = calendar.isDate(Date(), equalTo: targetDate, toGranularity: .day)
-        
+
+        let isToday = calendar.isDate(
+            Date(),
+            equalTo: targetDate,
+            toGranularity: .day
+        )
+
         let isSelected = calendar.isDate(selectedDate, inSameDayAs: targetDate)
-        
+
         let hasNote = hasNote(on: day)
-        
+
         if isCurrentMonth && isSelected {
             return .white
         }
-        
+
         if isCurrentMonth && hasNote {
             return .blue
         }
-        
+
         return .primary
     }
 

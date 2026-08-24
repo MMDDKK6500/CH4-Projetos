@@ -69,8 +69,6 @@ struct NoteView: View {
 
         .alert("Confirmação", isPresented: $confirmationShown) {
             Button("Deletar", role: .destructive) {
-                // I should use throws > do try catch but its too close to deadline to update everything
-                // Why not use the old old way of error checking? Objective-C papa would be proud
                 if vm.deleteNote(note: note) {
                     dismiss()
                 }
@@ -84,9 +82,7 @@ struct NoteView: View {
 
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                //                Button(action: {}) {
-                //                    Image(systemName: "square.and.arrow.up")
-                //                }
+
                 ShareLink(
                     item: noteText,
                     label: {
@@ -94,17 +90,6 @@ struct NoteView: View {
                     }
                 )
                 .tint(.blue)
-
-                //                Menu {
-
-                // How to do this?
-                //                    Button(action: {}) {
-                //                        Label("Pesquisar", systemImage: "magnifyingglass")
-                //                    }
-
-                //   Button (action: {}) {
-                //       Label("Mudar modo de visualização", systemImage: colorScheme == .dark ? "moon.fill" : "sun.max.fill")
-                //  }
 
                 Button(
                     role: .destructive,
@@ -116,34 +101,7 @@ struct NoteView: View {
                 }
                 .tint(.red)
 
-                //                } label: {
-                //                    Image(systemName: "ellipsis")
-                //                }
-
             }
-
-            // If can make rich text work uncomment
-            //            ToolbarItemGroup(placement: .keyboard) {
-            //                HStack(spacing: 20) {
-            //                    Spacer()
-            //                    HStack(spacing: 18) {
-            //                        Button(action: {}) { Image(systemName: "paperclip") }
-            //                        Button(action: {}) {
-            //                            Image(systemName: "textformat.alt")
-            //                        }
-            //                        Button(action: {}) {
-            //                            Image(systemName: "bold")
-            //                        }
-            //                        Button(action: {}) {
-            //                            Image(systemName: "italic")
-            //                        }
-            //                    }
-            //                    .font(.title3)
-            //                    .foregroundStyle(
-            //                        .primary
-            //                    )
-            //                }
-            //            }
         }
     }
 }

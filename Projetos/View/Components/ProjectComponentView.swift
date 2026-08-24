@@ -17,7 +17,7 @@ struct ProjectComponentView: View {
 
     init(project: Project) {
         self.project = project
-        if (project.image == nil) {
+        if project.image == nil {
             uiImage = nil
         } else {
             uiImage = UIImage(data: project.image!)!

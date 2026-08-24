@@ -30,7 +30,7 @@ struct ProjectView: View {
     var tasks: FetchedResults<Task>
 
     var filteredTasks: [Task] {
-        tasks.filter { Int($0.status) == segmented }  //Devolve array somente com o tipo da task passada no segmented
+        tasks.filter { Int($0.status) == segmented }
     }
 
     var dailyNotes: [Note] {
@@ -45,7 +45,9 @@ struct ProjectView: View {
         self.project = project
 
         _tasks = FetchRequest<Task>(
-            sortDescriptors: [NSSortDescriptor(keyPath: \Task.status, ascending: true)],
+            sortDescriptors: [
+                NSSortDescriptor(keyPath: \Task.status, ascending: true)
+            ],
             predicate: NSPredicate(format: "project == %@", project)
         )
 
@@ -113,7 +115,6 @@ struct ProjectView: View {
                                             }
                                             Spacer()
                                             Image(systemName: "chevron.right")
-                                                //                                                .font(.title3)
                                                 .fontWeight(.medium)
                                                 .foregroundStyle(.secondary)
                                         }
@@ -155,7 +156,7 @@ struct ProjectView: View {
                                         y: 1
                                     )
                             }
-                            // This frame modifier naturally centers the button in the VStack
+
                             .frame(maxWidth: .infinity)
                             .padding(.top, 8)
                         }
@@ -163,7 +164,6 @@ struct ProjectView: View {
                 }
                 .padding()
                 .overlay(alignment: .bottom) {
-                    // Only show the blur and button if there are > 3 notes and it's collapsed
                     if dailyNotes.count > 3 && !isNotesExpanded {
                         ZStack(alignment: .bottom) {
                             VariableBlurView(
@@ -171,9 +171,8 @@ struct ProjectView: View {
                                 direction: .blurredBottomClearTop
                             )
                             .frame(height: 100)
-                            .allowsHitTesting(false)  // Ensures the blur doesn't block touches
+                            .allowsHitTesting(false)
 
-                            // The expand button
                             Button {
                                 withAnimation(.spring()) {
                                     isNotesExpanded = true

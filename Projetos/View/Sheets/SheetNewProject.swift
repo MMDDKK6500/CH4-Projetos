@@ -5,44 +5,46 @@
 //  Created by Maria Clara Fernandes Bessa on 17/08/26.
 //
 
-import SwiftUI
 internal import CoreData
 import PhotosUI
+import SwiftUI
 
 struct SheetNewProject: View {
-    
+
     @State private var titleProject: String = ""
     @State private var descriptionProject: String = ""
     @State private var startDate: Date = Date()
     @State private var endDate: Date = Date()
     @State private var isFavorite: Bool = false
-    
+
     @State private var color: Int = 0
-    
+
     @State var image: Image?
-    
+
     @State var imageData: Data?
-    
+
     @State var photoSelection: PhotosPickerItem?
-    
+
     let project: Project?
-    
+
     @State private var createError: Bool = false
-    
+
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var moc
-    
+
     init(project: Project? = nil) {
         self.project = project
-        
+
         if let project {
             _titleProject = State(initialValue: project.getName())
-            _descriptionProject = State(initialValue: project.getDescriptionText())
+            _descriptionProject = State(
+                initialValue: project.getDescriptionText()
+            )
             _startDate = State(initialValue: project.getStart())
             _endDate = State(initialValue: project.getEnd())
             _isFavorite = State(initialValue: project.getFavorite())
             _color = State(initialValue: Int(project.color))
-            
+
             if let data = project.image, let uiImage = UIImage(data: data) {
                 _imageData = State(initialValue: data)
                 _image = State(initialValue: Image(uiImage: uiImage))
@@ -50,7 +52,7 @@ struct SheetNewProject: View {
                 _imageData = State(initialValue: nil)
                 _image = State(initialValue: nil)
             }
-            
+
         } else {
             _titleProject = State(initialValue: "")
             _descriptionProject = State(initialValue: "")
@@ -58,38 +60,48 @@ struct SheetNewProject: View {
             _endDate = State(initialValue: Date())
             _isFavorite = State(initialValue: false)
             _color = State(initialValue: 0)
-            
+
             _imageData = State(initialValue: nil)
             _image = State(initialValue: nil)
         }
-        
+
         _createError = State(initialValue: false)
     }
-    
+
     var body: some View {
         NavigationStack {
             Form {
-                HStack{
+                HStack {
                     Spacer()
-                    PhotosPicker(selection: $photoSelection, matching: .images) {
+                    PhotosPicker(selection: $photoSelection, matching: .images)
+                    {
                         Group {
                             if let image {
-                                 image
-                                     .resizable()
-                                     .scaledToFill()
-                                     .frame(width: 200, height: 200)
-                                     .clipShape(
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 200, height: 200)
+                                    .clipShape(
                                         RoundedRectangle(cornerRadius: 26)
-                                     )
+                                    )
                             } else {
                                 Image(systemName: "photo.badge.plus")
                                     .font(.title.bold())
                                     .foregroundStyle(Color.lightBlue)
                                     .frame(width: 200, height: 200)
-                                    .background (
+                                    .background(
                                         RoundedRectangle(cornerRadius: 26)
-                                            .fill(Color(.secondarySystemBackground))
-                                            .shadow(color: Color.black.opacity(0.1), radius: 20, x: 0, y: 0)
+                                            .fill(
+                                                Color(
+                                                    .secondarySystemBackground
+                                                )
+                                            )
+                                            .shadow(
+                                                color: Color.black.opacity(0.1),
+                                                radius: 20,
+                                                x: 0,
+                                                y: 0
+                                            )
                                     )
                             }
                         }
@@ -102,34 +114,38 @@ struct SheetNewProject: View {
                     Spacer()
                 }
                 .listRowBackground(Color.clear)
-                
-                Section (header: Text("Título do Projeto")){
+
+                Section(header: Text("Título do Projeto")) {
                     TextField("Título", text: $titleProject)
                 }
-                
-                Section (header: Text("Descrição do Projeto")){
-                    TextField("Digite aqui a descrição do seu projeto.", text: $descriptionProject, axis: .vertical)
-                        .lineLimit(6...6)
+
+                Section(header: Text("Descrição do Projeto")) {
+                    TextField(
+                        "Digite aqui a descrição do seu projeto.",
+                        text: $descriptionProject,
+                        axis: .vertical
+                    )
+                    .lineLimit(6...6)
                 }
-                
-                Section (header: Text("Lembrete")){
+
+                Section(header: Text("Lembrete")) {
                     HStack {
                         Text("Favoritar")
                         Spacer()
                         Favorite(isFavorite: $isFavorite)
                     }
-                    if (image == nil) {
+                    if image == nil {
                         HStack {
                             Text("Cor")
                             Spacer()
                             ColorPickerView(colorValue: $color)
                         }
                     }
-                     HStack {
+                    HStack {
                         Text("Começa")
                         DatePicker("", selection: $startDate)
                             .onChange(of: startDate) {
-                                if (endDate < startDate) {
+                                if endDate < startDate {
                                     endDate = startDate
                                 }
                             }
@@ -139,46 +155,47 @@ struct SheetNewProject: View {
                         DatePicker("", selection: $endDate)
                     }
                 }
-                
+
             }
             .navigationTitle("Novo Projeto")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("", systemImage: "xmark", role: .cancel) {
-                        
+
                         dismiss()
-                        
+
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("", systemImage: "checkmark", role: .confirm) {
-                        
-                        if (titleProject.isEmpty || descriptionProject.isEmpty) {
+
+                        if titleProject.isEmpty || descriptionProject.isEmpty {
                             createError.toggle()
                         } else {
-                            
+
                             let projeto = project ?? Project(context: moc)
-                            
+
                             projeto.name = titleProject
                             projeto.descriptionText = descriptionProject
-                            projeto.id_project = project == nil ? UUID() : projeto.id_project
+                            projeto.id_project =
+                                project == nil ? UUID() : projeto.id_project
                             projeto.favorite = isFavorite
                             projeto.start = startDate
                             projeto.color = Int64(color)
-                            if (image == nil) {
+                            if image == nil {
                                 projeto.image = nil
                             } else {
                                 projeto.image = imageData
                             }
                             projeto.end = endDate
-                            
+
                             do {
                                 try moc.save()
                             } catch {
                                 fatalError("Error saving context \(error)")
                             }
-                            
+
                             dismiss()
                         }
                     }
@@ -186,20 +203,22 @@ struct SheetNewProject: View {
             }
             .presentationDragIndicator(.visible)
             .alert("Error", isPresented: $createError) {
-                Button("OK", role: .cancel) { }
+                Button("OK", role: .cancel) {}
             } message: {
                 Text("Por favor preencher todos os campos no formulário")
             }
         }
     }
-    
+
     func changeImage(to pickerItem: PhotosPickerItem) {
         Swift.Task {
             do {
-                self.imageData = try await pickerItem.loadTransferable(type: Data.self)
-                
+                self.imageData = try await pickerItem.loadTransferable(
+                    type: Data.self
+                )
+
                 guard let inputImage = UIImage(data: imageData!) else { return }
-                
+
                 self.image = Image(uiImage: inputImage)
             } catch {
                 print("Error converting image to ")

@@ -18,7 +18,7 @@ struct HomeView: View {
     @State var showFutureProjects: Bool = true
     @State var showCurrentProjects: Bool = false
     @State var showOldProjects: Bool = false
-    
+
     @State private var selectedOption: ToggleSwitch = .atuais
     @State var newProject = false
 
@@ -35,7 +35,13 @@ struct HomeView: View {
             } else {
                 ScrollView {
                     VStack(spacing: 10) {
-                        ForEach(projects.filter { $0.favorite == true && vm.checkProject(project: $0) == selectedOption}) { project in
+                        ForEach(
+                            projects.filter {
+                                $0.favorite == true
+                                    && vm.checkProject(project: $0)
+                                        == selectedOption
+                            }
+                        ) { project in
                             NavigationLink {
                                 ProjectView(project: project)
                             } label: {
@@ -44,22 +50,32 @@ struct HomeView: View {
                                         if project.image == nil {
                                             project.getColorPalette().background
                                         } else {
-                                            Image(uiImage: UIImage(data: project.image!)!)
-                                                .resizable()
-                                                .scaledToFill()
+                                            Image(
+                                                uiImage: UIImage(
+                                                    data: project.image!
+                                                )!
+                                            )
+                                            .resizable()
+                                            .scaledToFill()
                                         }
                                     }
                                     .clipShape(.rect(cornerRadius: 26))
                             }
                             .buttonStyle(.plain)
                         }
-                        
+
                         LazyVGrid(
                             columns: [GridItem(), GridItem()],
                             alignment: .center,
                             spacing: 10
                         ) {
-                            ForEach(projects.filter { $0.favorite == false && vm.checkProject(project: $0) == selectedOption }) { project in
+                            ForEach(
+                                projects.filter {
+                                    $0.favorite == false
+                                        && vm.checkProject(project: $0)
+                                            == selectedOption
+                                }
+                            ) { project in
                                 NavigationLink {
                                     ProjectView(project: project)
                                 } label: {
@@ -70,9 +86,13 @@ struct HomeView: View {
                                     if project.image == nil {
                                         project.getColorPalette().background
                                     } else {
-                                        Image(uiImage: UIImage(data: project.image!)!)
-                                            .resizable()
-                                            .scaledToFill()
+                                        Image(
+                                            uiImage: UIImage(
+                                                data: project.image!
+                                            )!
+                                        )
+                                        .resizable()
+                                        .scaledToFill()
                                     }
                                 }
                                 .clipShape(.rect(cornerRadius: 26))
@@ -89,9 +109,21 @@ struct HomeView: View {
                     newProject.toggle()
                 }
                 Menu {
-                    Toggle("Projetos concluidos", isOn: $selectedOption.equals(.concluidos, else: .concluidos))
-                    Toggle("Projetos atuais", isOn: $selectedOption.equals(.atuais, else: .atuais))
-                    Toggle("Projetos futuros", isOn: $selectedOption.equals(.futuros, else: .futuros))
+                    Toggle(
+                        "Projetos concluidos",
+                        isOn: $selectedOption.equals(
+                            .concluidos,
+                            else: .concluidos
+                        )
+                    )
+                    Toggle(
+                        "Projetos atuais",
+                        isOn: $selectedOption.equals(.atuais, else: .atuais)
+                    )
+                    Toggle(
+                        "Projetos futuros",
+                        isOn: $selectedOption.equals(.futuros, else: .futuros)
+                    )
                 } label: {
                     Image(systemName: "line.3.horizontal.decrease")
                 }

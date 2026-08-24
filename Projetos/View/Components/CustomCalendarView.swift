@@ -110,11 +110,6 @@ struct CustomCalendarView: View {
                         .clipShape(
                             .circle
                         )
-                        //                        .border(.accent, width: Calendar.current.isDate(
-                        //                            vm.selectedDate,
-                        //                            equalTo: Date(),
-                        //                            toGranularity: .month
-                        //                        ) && vm.hasNote(on: day) ? 1 : 0)
                         .overlay(
                             Circle().stroke(
                                 .blue,
@@ -122,10 +117,14 @@ struct CustomCalendarView: View {
                                     vm.selectedDate,
                                     equalTo: Date(),
                                     toGranularity: .month
-                                ) && Calendar.current.isDate(Date(), equalTo: vm.date(withDay: day), toGranularity: .day) ? 1 : 0
+                                )
+                                    && Calendar.current.isDate(
+                                        Date(),
+                                        equalTo: vm.date(withDay: day),
+                                        toGranularity: .day
+                                    ) ? 1 : 0
                             )
                         )
-                        //                        .padding(5)
 
                         .onTapGesture {
                             daySelect(vm.date(withDay: day))
