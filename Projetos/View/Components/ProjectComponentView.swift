@@ -32,10 +32,10 @@ struct ProjectComponentView: View {
                     Text("Prazo Final")
                         .font(.caption)
                         .fontWeight(.semibold)
-                    Text(project.end!.formatted(.dateTime.day()))
+                    Text(project.getEnd().formatted(.dateTime.day()))
                         .font(.system(size: 48))
                         .fontWeight(.semibold)
-                    Text(project.end!.formatted(.dateTime.month().year()))
+                    Text(project.getEnd().formatted(.dateTime.month().year()))
                         .font(.caption)
                         .fontWeight(.semibold)
                 }
