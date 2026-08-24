@@ -59,6 +59,16 @@ struct ProjectView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
+                    Text("Cronograma")
+                        .font(.title3)
+                        .bold()
+                        .foregroundStyle(
+                            project.image == nil
+                                ? .black
+                                : getBrightness(
+                                    for: UIImage(data: project.getImage())!
+                                )! > 128 ? .black : .white
+                        )
                     CustomCalendarView(
                         daySelect: daySelect,
                         projeto: project,
@@ -236,7 +246,7 @@ struct ProjectView: View {
         }
 
         .sheet(isPresented: $creatingNewTask) {
-            SheetCreation(project: project)
+            SheetCreation(project: project, selectedDate: selectedDate)
         }
         .sheet(isPresented: $editProject) {
             SheetNewProject(project: project)

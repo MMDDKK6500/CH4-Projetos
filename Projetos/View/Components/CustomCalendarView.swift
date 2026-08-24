@@ -122,7 +122,7 @@ struct CustomCalendarView: View {
                                     vm.selectedDate,
                                     equalTo: Date(),
                                     toGranularity: .month
-                                ) && vm.hasNote(on: day) ? 1 : 0
+                                ) && Calendar.current.isDate(Date(), equalTo: vm.date(withDay: day), toGranularity: .day) ? 1 : 0
                             )
                         )
                         //                        .padding(5)
@@ -149,6 +149,13 @@ struct CustomCalendarView: View {
             .padding(.top, 8)
         }
         .padding()
+        .onReceive(
+            NotificationCenter.default.publisher(
+                for: .NSManagedObjectContextDidSave
+            )
+        ) { _ in
+            vm.fetchProjectData()
+        }
     }
 
 }

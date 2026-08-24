@@ -12,6 +12,8 @@ struct SheetCreation: View {
     @State private var segmented = 0
 
     let project: Project
+    
+    let selectedDate: Date
 
     @Environment(\.dismiss) private var dismiss
 
@@ -31,7 +33,7 @@ struct SheetCreation: View {
                 if segmented == 0 {
                     NewTask(project: project)
                 } else {
-                    NewNote(project: project)
+                    NewNote(project: project, selectedDate: selectedDate)
                 }
             }
         }

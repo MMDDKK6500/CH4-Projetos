@@ -20,6 +20,8 @@ struct NewNote: View {
     
     let project: Project
     
+    let selectedDate: Date
+    
     var body: some View {
         Form {
             Section (header: Text("Título da Anotação")){
@@ -53,7 +55,7 @@ struct NewNote: View {
                         let note = Note(context: moc)
                         
                         note.id_note = UUID()
-                        note.date = Date()
+                        note.date = selectedDate
                         note.title = titleNote
                         note.text = descriptionNote
                         note.project = project

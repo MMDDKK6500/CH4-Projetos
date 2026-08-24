@@ -32,7 +32,7 @@ class CustomCalendarViewModel {
         fetchProjectData()
     }
 
-    private func fetchProjectData() {
+    func fetchProjectData() {
         let taskRequest = Task.fetchRequest()
         taskRequest.predicate = NSPredicate(format: "project == %@", project)
         // ignore warning, it DOES something, it forces the type!!!!!!
@@ -74,10 +74,6 @@ class CustomCalendarViewModel {
             toGranularity: .day
         )
         
-//        let isToday = calendar.isDate(Date(), inSameDayAs: date(withDay: day))
-//        if isToday && !isSelected && isCurrentMonth {
-//            return .blue.opacity(0.5)
-//        }
         
         return isCurrentMonth && isSelected ? .blue : .clear
     }
@@ -91,19 +87,21 @@ class CustomCalendarViewModel {
             equalTo: Date(),
             toGranularity: .month
         )
+        
+        let isToday = calendar.isDate(Date(), equalTo: targetDate, toGranularity: .day)
+        
         let isSelected = calendar.isDate(selectedDate, inSameDayAs: targetDate)
-
-        let dayHasNote = hasNote(on: day)
+        
+        let hasNote = hasNote(on: day)
         
         if isCurrentMonth && isSelected {
             return .white
         }
         
-        if dayHasNote {
+        if isCurrentMonth && hasNote {
             return .blue
         }
-
-        // 4. Default: Standard text color for empty days
+        
         return .primary
     }
 
