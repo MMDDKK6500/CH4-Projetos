@@ -17,32 +17,33 @@ struct SheetOnBoarding: View {
                 Color("geralBackground")
                     .ignoresSafeArea()
 
-                VStack(spacing: 60) {
-                    Spacer()
+                VStack(spacing: 50) {
 
-                    Text("Descubra tudo que o Zip oferece")
-                        .font(.largeTitle.bold())
-                        .multilineTextAlignment(.center)
-
-                    //Spacer()
-                    TextOnBoarding(
-                        text:
-                            "Organize seus prazos e encontros. Visualize as datas importantes do projeto e saiba o que vem pela frente.",
-                        icon: "calendar"
-                    )
-                    TextOnBoarding(
-                        text:
-                            "Não deixe nenhuma tarefa para trás. Crie lembretes para acompanhar o que precisa ser feito e quando.",
-                        icon: "checklist"
-                    )
-                    TextOnBoarding(
-                        text:
-                            "Registre suas ideias e informações. Anote detalhes, referências e tudo o que for importante para o projeto.",
-                        icon: "pencil.line"
-                    )
-
-                    Spacer()
-
+                        Text("Descubra tudo que o Zip oferece")
+                            .font(.largeTitle.bold())
+                            .multilineTextAlignment(.center)
+                            .padding(.top, 50)
+                    
+                    VStack (spacing: 40) {
+                                                
+                        TextOnBoarding(
+                            text:
+                                "Organize seus prazos e encontros. Visualize as datas importantes do projeto e saiba o que vem pela frente.",
+                            icon: "calendar"
+                        )
+                        TextOnBoarding(
+                            text:
+                                "Não deixe nenhuma tarefa para trás. Crie lembretes para acompanhar o que precisa ser feito e quando.",
+                            icon: "checklist"
+                        )
+                        TextOnBoarding(
+                            text:
+                                "Registre suas ideias e informações. Anote detalhes, referências e tudo o que for importante para o projeto.",
+                            icon: "pencil.line"
+                        )
+                    }
+                    .padding(.bottom, 70)
+                    
                     Button {
                         onComplete()
                         dismiss()
@@ -60,7 +61,8 @@ struct SheetOnBoarding: View {
                     .padding(.horizontal, 10)
 
                 }
-                .padding(18)
+                .padding(30
+                )
             }
             .navigationBarTitleDisplayMode(.inline)
             .presentationDragIndicator(.visible)

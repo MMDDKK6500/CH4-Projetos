@@ -36,12 +36,12 @@ struct SheetCreation: View {
                     NewNote(project: project, selectedDate: selectedDate)
                 }
             }
+            .navigationTitle(segmented == 0 ? "Nova Tarefa" : "Nova Anotação")
+            .navigationBarTitleDisplayMode(.inline)
         }
         .background(
             Color(uiColor: UIColor.systemGroupedBackground)
         )
-        .navigationTitle(segmented == 0 ? "Nova Tarefa" : "Nova Anotação")
-        .navigationBarTitleDisplayMode(.inline)
         .presentationDragIndicator(.visible)
     }
 }

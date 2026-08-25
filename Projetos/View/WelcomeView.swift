@@ -36,7 +36,7 @@ struct WelcomeView: View {
                 )
                 .font(.body)
                 Text(
-                    "Planeje cada etapa, acompanhe o andamento das atividades e mantenha todas as informações importantes do seu projeto reunidas e organizadas no Zip."
+                    "Planeje cada etapa, acompanhe o andamento das atividades e mantenha todas as informações importantes do seu projeto reunidas e organizadas."
                 )
                 .font(.body)
 
@@ -57,7 +57,7 @@ struct WelcomeView: View {
                 }
 
             }
-            .padding(20)
+            .padding(30)
         }
         .sheet(isPresented: $showOnboarding) {
             SheetOnBoarding {

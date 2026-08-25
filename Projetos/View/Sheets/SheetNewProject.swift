@@ -4,7 +4,6 @@
 //
 //  Created by Maria Clara Fernandes Bessa on 17/08/26.
 //
-
 import PhotosUI
 import SwiftData
 import SwiftUI
@@ -18,13 +17,10 @@ struct SheetNewProject: View {
     @State private var startDate: Date = Date()
     @State private var endDate: Date = Date()
     @State private var isFavorite: Bool = false
-
     @State private var color: Int = 0
 
     @State var image: Image?
-
     @State var imageData: Data?
-
     @State var photoSelection: PhotosPickerItem?
 
     let project: Project?
@@ -52,7 +48,6 @@ struct SheetNewProject: View {
                 _imageData = State(initialValue: nil)
                 _image = State(initialValue: nil)
             }
-
         } else {
             _titleProject = State(initialValue: "")
             _descriptionProject = State(initialValue: "")
@@ -73,8 +68,7 @@ struct SheetNewProject: View {
             Form {
                 HStack {
                     Spacer()
-                    PhotosPicker(selection: $photoSelection, matching: .images)
-                    {
+                    PhotosPicker(selection: $photoSelection, matching: .images) {
                         Group {
                             if let image {
                                 image
@@ -106,7 +100,6 @@ struct SheetNewProject: View {
                             }
                         }
                     }
-                    // https://stackoverflow.com/questions/79331226/how-to-use-a-photo-picker-and-display-the-selected-photo-within-a-single-sheet-i
                     .onChange(of: photoSelection) { oldValue, newValue in
                         guard let newValue else { return }
                         changeImage(to: newValue)
@@ -155,25 +148,20 @@ struct SheetNewProject: View {
                         DatePicker("", selection: $endDate)
                     }
                 }
-
             }
             .navigationTitle("Novo Projeto")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("", systemImage: "xmark", role: .cancel) {
-
                         dismiss()
-
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("", systemImage: "checkmark", role: .confirm) {
-
                         if titleProject.isEmpty || descriptionProject.isEmpty {
                             createError.toggle()
                         } else {
-
                             if let novoProjeto = vm.handleProject(
                                 project: project,
                                 titleProject: titleProject,
@@ -186,15 +174,9 @@ struct SheetNewProject: View {
                                 image: image
                             ) {
                                 moc.insert(novoProjeto)
-                            }
 
-                            do {
-                                try moc.save()
-                            } catch {
-                                fatalError("Error saving context \(error)")
+                                dismiss()
                             }
-
-                            dismiss()
                         }
                     }
                 }
@@ -219,7 +201,7 @@ struct SheetNewProject: View {
 
                 self.image = Image(uiImage: inputImage)
             } catch {
-                print("Error converting image to ")
+                print("Error converting image")
             }
         }
     }
