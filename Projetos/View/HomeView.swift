@@ -24,6 +24,20 @@ struct HomeView: View {
     @State private var selectedOption: ToggleSwitch = .atuais
     @State var newProject = false
 
+    var favoriteProjects: [Project] {
+        projects.filter {
+            $0.favorite == true
+                && vm.checkProject(project: $0) == selectedOption
+        }
+    }
+
+    var normalProjects: [Project] {
+        projects.filter {
+            $0.favorite == false
+                && vm.checkProject(project: $0) == selectedOption
+        }
+    }
+
     var body: some View {
         Group {
             if projects.isEmpty {
@@ -38,14 +52,10 @@ struct HomeView: View {
                 ScrollView {
                     VStack(spacing: 10) {
                         ForEach(
-                            projects.filter {
-                                $0.favorite == true
-                                    && vm.checkProject(project: $0)
-                                        == selectedOption
-                            }
+                            favoriteProjects
                         ) { project in
                             NavigationLink {
-                                ProjectView(project: project)
+                                ProjectView(project: project, moc: context)
                             } label: {
                                 ProjectComponentView(project: project)
                                     .background {
@@ -72,14 +82,10 @@ struct HomeView: View {
                             spacing: 10
                         ) {
                             ForEach(
-                                projects.filter {
-                                    $0.favorite == false
-                                        && vm.checkProject(project: $0)
-                                            == selectedOption
-                                }
+                                normalProjects
                             ) { project in
                                 NavigationLink {
-                                    ProjectView(project: project)
+                                    ProjectView(project: project, moc: context)
                                 } label: {
                                     ProjectComponentView(project: project)
                                 }
@@ -132,7 +138,7 @@ struct HomeView: View {
             }
         }
         .navigationDestination(for: Project.self) { project in
-            ProjectView(project: project)
+            ProjectView(project: project, moc: context)
         }
         .navigationTitle("Meus Projetos")
         .toolbarTitleDisplayMode(.inlineLarge)

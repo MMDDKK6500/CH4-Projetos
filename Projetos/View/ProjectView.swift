@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ProjectView: View {
 
-    @Environment(\.modelContext) var moc
+    let moc: ModelContext
     @Environment(\.dismiss) var dismiss
 
     @State var vm: ProjectViewModel
@@ -18,9 +18,12 @@ struct ProjectView: View {
     @State var creatingNewTask: Bool = false
     @State var editProject: Bool = false
     @State var isNotesExpanded: Bool = false
+    
+    @State var confirmationShown: Bool = false
 
-    init(project: Project) {
-        _vm = State(initialValue: ProjectViewModel(project: project))
+    init(project: Project, moc: ModelContext) {
+        self.moc = moc
+        _vm = State(initialValue: ProjectViewModel(project: project, moc: moc))
     }
 
     var body: some View {
@@ -205,6 +208,19 @@ struct ProjectView: View {
             SheetNewProject(project: vm.project)
         }
 
+        .alert("Confirmação", isPresented: $confirmationShown) {
+            Button("Deletar", role: .destructive) {
+                if vm.deleteProject() {
+                    dismiss()
+                }
+            }
+            Button("Cancelar", role: .cancel) {
+
+            }
+        } message: {
+            Text("Você tem certeza que quer deletar esse projeto?")
+        }
+        
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
                 Button("", systemImage: "plus") {
@@ -221,14 +237,7 @@ struct ProjectView: View {
                         systemImage: "trash",
                         role: .destructive
                     ) {
-                        do {
-                            moc.delete(vm.project)
-                            try moc.save()
-                            dismiss()
-                        } catch {
-                            print("Failed to delete project: \(error)")
-                            // If it fails, the view won't dismiss, and you'll see the error in Xcode
-                        }
+                        confirmationShown.toggle()
                     }
                 }
             }
