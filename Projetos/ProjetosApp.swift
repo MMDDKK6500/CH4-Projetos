@@ -31,22 +31,21 @@ struct ProjetosApp: App {
 
     var body: some Scene {
         WindowGroup {
-            Group {
                 if hasCompletedOnboarding {
                     NavigationStack {
                         HomeView()
-                            .modelContainer(for: [
-                                AttatchmentNote.self,
-                                AttatchmentTask.self,
-                                Note.self,
-                                Project.self,
-                                ProjectTask.self
-                            ])
                     }
                 } else {
                     WelcomeView()
                 }
-            }
         }
+        .modelContainer(for: [
+            AttatchmentNote.self,
+            AttatchmentTask.self,
+            Note.self,
+            Project.self,
+            ProjectTask.self
+        ])
+        
     }
 }

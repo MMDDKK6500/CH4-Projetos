@@ -38,7 +38,7 @@ struct SheetCreation: View {
             }
         }
         .background(
-            Color("geralBackground")
+            Color(uiColor: UIColor.systemGroupedBackground)
         )
         .navigationTitle(segmented == 0 ? "Nova Tarefa" : "Nova Anotação")
         .navigationBarTitleDisplayMode(.inline)

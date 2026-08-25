@@ -5,8 +5,8 @@
 //  Created by Maria Clara Fernandes Bessa on 18/08/26.
 //
 
-import SwiftUI
 internal import SwiftData
+import SwiftUI
 
 struct NewNote: View {
 
@@ -60,12 +60,14 @@ struct NewNote: View {
                             date: selectedDate,
                             id_note: UUID(),
                             text: descriptionNote,
-                            title: titleNote,
-                            project: project
+                            title: titleNote
                         )
 
                         do {
                             context.insert(note)
+
+                            project.notes.append(note)
+
                             try context.save()
                         } catch {
                             fatalError("Error saving context \(error)")

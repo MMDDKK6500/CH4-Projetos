@@ -15,13 +15,12 @@ public import SwiftData
     var id_note: UUID
     var text: String
     var title: String
-    var project: Project
-    public init(date: Date, id_note: UUID, text: String, title: String, project: Project) {
+    
+    public init(date: Date, id_note: UUID, text: String, title: String) {
         self.date = date
         self.id_note = id_note
         self.text = text
         self.title = title
-        self.project = project
 
     }
     

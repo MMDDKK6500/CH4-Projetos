@@ -8,6 +8,10 @@
 import SwiftData
 import SwiftUI
 
+// TODO: Investigate why app stutters with images
+// possibly because of uiimage and image and all
+// because projects without image dont stutter
+
 struct ProjectView: View {
 
     @Environment(\.modelContext) var moc
@@ -19,12 +23,12 @@ struct ProjectView: View {
     @State private var editProject: Bool = false
     @State private var isNotesExpanded: Bool = false
 
-    @State private var segmented = 0
+    @State private var segmented: TaskStatus = .toDo
 
     @State var project: Project
 
     var filteredTasks: [ProjectTask] {
-        project.tasks.filter { Int($0.status) == segmented }  //Devolve array somente com o tipo da task passada no segmented
+        project.tasks.filter { $0.status == segmented }  //Devolve array somente com o tipo da task passada no segmented
     }
 
     var dailyNotes: [Note] {
@@ -72,7 +76,7 @@ struct ProjectView: View {
                     Spacer()
 
                     if dailyNotes.isEmpty {
-                        Text("A")
+                        
                     } else {
                         let displayedNotes =
                             isNotesExpanded
@@ -200,9 +204,9 @@ struct ProjectView: View {
                     .padding(.vertical, 18)
 
                 Picker("", selection: $segmented) {
-                    Text("A Fazer").tag(0)
-                    Text("Em Andamento").tag(1)
-                    Text("Concluído").tag(2)
+                    Text("A Fazer").tag(TaskStatus.toDo)
+                    Text("Em Andamento").tag(TaskStatus.inProgress)
+                    Text("Concluído").tag(TaskStatus.completed)
                 }
                 .pickerStyle(.segmented)
                 .padding(.horizontal)
@@ -249,12 +253,14 @@ struct ProjectView: View {
                         systemImage: "trash",
                         role: .destructive
                     ) {
-
-                        dismiss()
-
-                        moc.delete(project)
-
-                        try? moc.save()
+                        do {
+                                moc.delete(project)
+                                try moc.save()
+                                dismiss()
+                            } catch {
+                                print("Failed to delete project: \(error)")
+                                // If it fails, the view won't dismiss, and you'll see the error in Xcode
+                            }
                     }
                 }
             }

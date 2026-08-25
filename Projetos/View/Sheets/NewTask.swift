@@ -127,26 +127,31 @@ struct NewTask: View {
                         let taskId = UUID()
 
                         let task = ProjectTask(
+                            color: colorValue,
                             end: endDate,
                             id_task: UUID(),
                             isAllDay: toggleAllDay,
                             start: startDate,
                             text: descriptionTask,
                             title: titleTask,
-                            project: project
+                            status: selectionStatus
                         )
-                        
+
                         moc.insert(task)
-                        
+
+                        project.tasks.append(task)
+
+                        NotificationManager.shared.scheduleTaskNotification(
+                            taskId: taskId,
+                            title: titleTask,
+                            endDate: endDate,
+                            option: selectionNotification
+                        )
+
                         do {
+
                             try moc.save()
 
-                            NotificationManager.shared.scheduleTaskNotification(
-                                taskId: taskId,
-                                title: titleTask,
-                                endDate: endDate,
-                                option: selectionNotification
-                            )
                         } catch {
                             fatalError("Error saving context \(error)")
                         }
