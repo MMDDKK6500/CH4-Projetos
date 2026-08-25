@@ -8,10 +8,13 @@
 import Foundation
 import Observation
 import SwiftUI
+import SwiftData
 
 @Observable
 class ProjectViewModel {
 
+    let moc: ModelContext
+    
     var selectedDate: Date = Date()
 
     var segmented: TaskStatus = .toDo
@@ -31,8 +34,9 @@ class ProjectViewModel {
         }
     }
 
-    init(project: Project) {
+    init(project: Project, moc: ModelContext) {
         self.project = project
+        self.moc = moc
         
         // Cache colors to help
         self.backgroundColor = project.getColorPalette().background
@@ -48,6 +52,17 @@ class ProjectViewModel {
         }
     }
 
+    func deleteProject() -> Bool {
+        moc.delete(project)
+        do {
+            try moc.save()
+            return true
+        } catch {
+            fatalError("Error saving context \(error)")
+            //            return false
+        }
+    }
+    
     func daySelect(_ date: Date) {
         self.selectedDate = date
     }
