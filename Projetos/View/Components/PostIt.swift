@@ -1,17 +1,17 @@
-import SwiftUI
 import Observation
 import SwiftData
+import SwiftUI
 
 struct PostIt: View {
 
     @State var viewModel: PostItViewModel
     @Environment(\.modelContext) var moc
     @Environment(\.dismiss) var dismiss
-    
+
     @State var task: ProjectTask
-    
+
     let cornerRadius: CGFloat = 26
-    
+
     private func updateTaskStatus(to newStatus: TaskStatus) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             withAnimation(.spring()) {
@@ -25,7 +25,7 @@ struct PostIt: View {
         self.viewModel = PostItViewModel(task: task)
         self.task = task
     }
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -34,11 +34,11 @@ struct PostIt: View {
                         .foregroundStyle(task.getColorPalette().title)
                         .font(.title3.bold())
                         .lineLimit(1)
-                    
+
                     Text(viewModel.subtitle)
                         .foregroundStyle(task.getColorPalette().subtitle)
                         .font(.caption.bold())
-                    
+
                     Text(task.text)
                         .foregroundStyle(Color.black)
                         .font(.caption)
@@ -61,7 +61,7 @@ struct PostIt: View {
         }
         // calling padding() makes app brick, ok cool great I absolutely love SwiftUI
         .padding()
-//        .frame(width: 200, height: 200)
+        //        .frame(width: 200, height: 200)
         .background(
             CutCornerRectangle(cornerRadius: cornerRadius)
                 .foregroundColor(task.getColorPalette().background)
@@ -77,7 +77,7 @@ struct PostIt: View {
                 Button("Concluído") { updateTaskStatus(to: .completed) }
             }
             Divider()
-                
+
             Button(role: .destructive) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                     withAnimation(.spring()) {
@@ -88,9 +88,9 @@ struct PostIt: View {
             } label: {
                 Label("Deletar Tarefa", systemImage: "trash")
             }
-        
+
         }
-    
+
     }
-        
+
 }

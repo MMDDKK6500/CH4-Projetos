@@ -76,7 +76,7 @@ struct ProjectView: View {
                     Spacer()
 
                     if dailyNotes.isEmpty {
-                        
+
                     } else {
                         let displayedNotes =
                             isNotesExpanded
@@ -254,13 +254,13 @@ struct ProjectView: View {
                         role: .destructive
                     ) {
                         do {
-                                moc.delete(project)
-                                try moc.save()
-                                dismiss()
-                            } catch {
-                                print("Failed to delete project: \(error)")
-                                // If it fails, the view won't dismiss, and you'll see the error in Xcode
-                            }
+                            moc.delete(project)
+                            try moc.save()
+                            dismiss()
+                        } catch {
+                            print("Failed to delete project: \(error)")
+                            // If it fails, the view won't dismiss, and you'll see the error in Xcode
+                        }
                     }
                 }
             }

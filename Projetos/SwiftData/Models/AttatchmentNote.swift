@@ -9,7 +9,6 @@
 public import Foundation
 public import SwiftData
 
-
 @Model public class AttatchmentNote {
     var id_attatchment: UUID
     @Attribute(.externalStorage) var image: Data
@@ -20,5 +19,5 @@ public import SwiftData
         self.note = note
 
     }
-    
+
 }

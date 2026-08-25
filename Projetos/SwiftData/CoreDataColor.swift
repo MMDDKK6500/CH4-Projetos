@@ -47,7 +47,7 @@ enum CoreDataColor: Int, CaseIterable {
         case .yellow: return Color.Yellow.subtitle
         }
     }
-    
+
     var tag: Color {
         switch self {
         case .blue: return Color.Blue.tag

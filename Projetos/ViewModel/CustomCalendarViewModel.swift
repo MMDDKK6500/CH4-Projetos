@@ -5,9 +5,9 @@
 //  Created by João Duque Nardelli Wandermuren on 23/08/26.
 //
 
-import SwiftData
 import Foundation
 import Observation
+import SwiftData
 import SwiftUI
 
 @Observable
@@ -25,8 +25,13 @@ class CustomCalendarViewModel {
     let notes: [Note]
 
     let tasks: [ProjectTask]
-    
-    init(moc: ModelContext, project: Project, notes: [Note], tasks: [ProjectTask]) {
+
+    init(
+        moc: ModelContext,
+        project: Project,
+        notes: [Note],
+        tasks: [ProjectTask]
+    ) {
         self.moc = moc
         self.project = project
         self.notes = notes
@@ -63,8 +68,7 @@ class CustomCalendarViewModel {
             equalTo: date(withDay: day),
             toGranularity: .day
         )
-        
-        
+
         return isCurrentMonth && isSelected ? .blue : .clear
     }
 
@@ -77,19 +81,19 @@ class CustomCalendarViewModel {
             equalTo: Date(),
             toGranularity: .month
         )
-        
+
         let isSelected = calendar.isDate(selectedDate, inSameDayAs: targetDate)
-        
+
         let hasNote = hasNote(on: day)
-        
+
         if isCurrentMonth && isSelected {
             return .white
         }
-        
+
         if isCurrentMonth && hasNote {
             return .blue
         }
-        
+
         return .primary
     }
 
