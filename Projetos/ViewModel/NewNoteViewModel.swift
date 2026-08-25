@@ -5,40 +5,42 @@
 //  Created by Mirella Bransford Lourenço on 25/08/26.
 //
 
-import SwiftUI
 import Observation
-import CoreData
+import SwiftData
+import SwiftUI
 
 @Observable
 class NewNoteViewModel {
-    
+
     var titleNote: String = ""
     var descriptionNote: String = ""
-    var createError: Bool = false
-    
-    func createNote (
-        project : Project,
-        selectedDate : Date,
-        moc: NSManagedObjectContext
-    ) {
-        
-        if titleNote.isEmpty || descriptionNote.isEmpty {
-            createError = true
-        } else {
-            let note = Note(context: moc)
 
-               note.id_note = UUID()
-               note.date = selectedDate
-               note.title = titleNote
-               note.text = descriptionNote
-               note.project = project
+    func createNote(
+        project: Project,
+        selectedDate: Date,
+        moc: ModelContext
+    ) -> Bool {
+
+        if titleNote.isEmpty || descriptionNote.isEmpty {
+            return false
+        } else {
+            let note = Note(
+                date: selectedDate,
+                id_note: UUID(),
+                text: descriptionNote,
+                title: titleNote
+            )
+
+            moc.insert(note)
+            
+            project.notes.append(note)
+            
             do {
                 try moc.save()
+                return true
             } catch {
                 fatalError("Error saving context \(error)")
             }
         }
     }
 }
-
-
