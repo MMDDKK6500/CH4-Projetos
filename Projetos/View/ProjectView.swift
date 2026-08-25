@@ -8,33 +8,19 @@
 import SwiftData
 import SwiftUI
 
-// TODO: Investigate why app stutters with images
-// possibly because of uiimage and image and all
-// because projects without image dont stutter
-
 struct ProjectView: View {
 
     @Environment(\.modelContext) var moc
     @Environment(\.dismiss) var dismiss
 
-    @State private var selectedDate: Date = Date()
+    @State var vm: ProjectViewModel
 
-    @State private var creatingNewTask: Bool = false
-    @State private var editProject: Bool = false
-    @State private var isNotesExpanded: Bool = false
+    @State var creatingNewTask: Bool = false
+    @State var editProject: Bool = false
+    @State var isNotesExpanded: Bool = false
 
-    @State private var segmented: TaskStatus = .toDo
-
-    @State var project: Project
-
-    var filteredTasks: [ProjectTask] {
-        project.tasks.filter { $0.status == segmented }  //Devolve array somente com o tipo da task passada no segmented
-    }
-
-    var dailyNotes: [Note] {
-        project.notes.filter { note in
-            return Calendar.current.isDate(selectedDate, inSameDayAs: note.date)
-        }
+    init(project: Project) {
+        _vm = State(initialValue: ProjectViewModel(project: project))
     }
 
     var body: some View {
@@ -44,43 +30,31 @@ struct ProjectView: View {
                     Text("Cronograma")
                         .font(.title3)
                         .bold()
-                        .foregroundStyle(
-                            project.image == nil
-                                ? .black
-                                : getBrightness(
-                                    for: UIImage(data: project.getImage())!
-                                )! > 128 ? .black : .white
-                        )
+                        .foregroundStyle(vm.textColor)
                     CustomCalendarView(
-                        daySelect: daySelect,
-                        projeto: project,
+                        daySelect: vm.daySelect,
+                        projeto: vm.project,
                         moc: moc,
-                        notes: project.notes,
-                        tasks: project.tasks
+                        notes: vm.project.notes,
+                        tasks: vm.project.tasks
                     )
                     .glassEffect(in: .rect(cornerRadius: 25.0))
                     .padding(.bottom, 10)
                     Text(
-                        "Anotações do dia: \(selectedDate.formatted(date: .numeric, time: .omitted))"
+                        "Anotações do dia: \(vm.selectedDate.formatted(date: .numeric, time: .omitted))"
                     )
                     .font(.headline)
                     .fontWeight(.semibold)
-                    .foregroundStyle(
-                        project.image == nil
-                            ? .black
-                            : getBrightness(
-                                for: UIImage(data: project.getImage())!
-                            )! > 128 ? .black : .white
-                    )
+                    .foregroundStyle(vm.textColor)
 
                     Spacer()
 
-                    if dailyNotes.isEmpty {
+                    if vm.dailyNotes.isEmpty {
 
                     } else {
                         let displayedNotes =
                             isNotesExpanded
-                            ? dailyNotes : Array(dailyNotes.prefix(3))
+                            ? vm.dailyNotes : Array(vm.dailyNotes.prefix(3))
 
                         LazyVStack(alignment: .leading) {
                             ForEach(displayedNotes) { note in
@@ -91,8 +65,10 @@ struct ProjectView: View {
                                         HStack {
                                             VStack(alignment: .leading) {
                                                 Text(note.title)
+                                                    .lineLimit(1)
 
                                                 Text(note.text)
+                                                    .lineLimit(3)
                                                     .font(.subheadline)
                                                     .foregroundStyle(.secondary)
                                             }
@@ -102,7 +78,7 @@ struct ProjectView: View {
                                                 .fontWeight(.medium)
                                                 .foregroundStyle(.secondary)
                                         }
-                                        if dailyNotes.last != note {
+                                        if vm.dailyNotes.last != note {
                                             Rectangle()
                                                 .fill(.tertiary)
                                                 .frame(height: 1)
@@ -118,7 +94,7 @@ struct ProjectView: View {
                             .background.opacity(0.5)
                         )
                         .clipShape(RoundedRectangle(cornerRadius: 26))
-                        if isNotesExpanded && dailyNotes.count > 3 {
+                        if isNotesExpanded && vm.dailyNotes.count > 3 {
                             Button {
                                 withAnimation(.spring()) {
                                     // Collapse the list back to 3 items
@@ -149,7 +125,7 @@ struct ProjectView: View {
                 .padding()
                 .overlay(alignment: .bottom) {
                     // Only show the blur and button if there are > 3 notes and it's collapsed
-                    if dailyNotes.count > 3 && !isNotesExpanded {
+                    if vm.dailyNotes.count > 3 && !isNotesExpanded {
                         ZStack(alignment: .bottom) {
                             VariableBlurView(
                                 maxBlurRadius: 5,
@@ -185,25 +161,17 @@ struct ProjectView: View {
                 }
                 .background(
                     Rectangle()
-                        .fill(
-                            project.image == nil
-                                ? project.getColorPalette().background
-                                : Color(
-                                    uiColor: UIImage(
-                                        data: project.image!
-                                    )!.dominantColor()!
-                                )
-                        )
+                        .fill(vm.backgroundColor)
                 )
                 .clipShape(
                     RoundedRectangle(cornerRadius: 26)
                 )
 
-                Text("Tarefas do projeto \(project.name)")
+                Text("Tarefas do projeto \(vm.project.name)")
                     .font(.title2.bold())
                     .padding(.vertical, 18)
 
-                Picker("", selection: $segmented) {
+                Picker("", selection: $vm.segmented) {
                     Text("A Fazer").tag(TaskStatus.toDo)
                     Text("Em Andamento").tag(TaskStatus.inProgress)
                     Text("Concluído").tag(TaskStatus.completed)
@@ -220,21 +188,21 @@ struct ProjectView: View {
                     alignment: .center,
                     spacing: 10
                 ) {
-                    ForEach(filteredTasks) { task in
+                    ForEach(vm.filteredTasks) { task in
                         PostIt(task: task)
                     }
                 }
-                .animation(.spring(), value: filteredTasks)
+                .animation(.spring(), value: vm.filteredTasks)
                 Spacer()
             }
             .padding()
         }
 
         .sheet(isPresented: $creatingNewTask) {
-            SheetCreation(project: project, selectedDate: selectedDate)
+            SheetCreation(project: vm.project, selectedDate: vm.selectedDate)
         }
         .sheet(isPresented: $editProject) {
-            SheetNewProject(project: project)
+            SheetNewProject(project: vm.project)
         }
 
         .toolbar {
@@ -254,7 +222,7 @@ struct ProjectView: View {
                         role: .destructive
                     ) {
                         do {
-                            moc.delete(project)
+                            moc.delete(vm.project)
                             try moc.save()
                             dismiss()
                         } catch {
@@ -265,15 +233,9 @@ struct ProjectView: View {
                 }
             }
         }
-        .navigationTitle(project.name)
+        .navigationTitle(vm.project.name)
         .navigationBarTitleDisplayMode(.inline)
         .toolbarTitleDisplayMode(.inlineLarge)
 
-    }
-}
-
-extension ProjectView {
-    func daySelect(_ date: Date) {
-        selectedDate = date
     }
 }
