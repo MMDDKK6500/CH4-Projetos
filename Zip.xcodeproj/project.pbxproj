@@ -15,9 +15,9 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		604EEED1302E4C2C009A0F94 /* Projetos */ = {
+		604EEED1302E4C2C009A0F94 /* Zip */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Projetos;
+			path = Zip;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -36,7 +36,7 @@
 		604EEEC6302E4C2C009A0F94 = {
 			isa = PBXGroup;
 			children = (
-				604EEED1302E4C2C009A0F94 /* Projetos */,
+				604EEED1302E4C2C009A0F94 /* Zip */,
 				604EEED0302E4C2C009A0F94 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -65,7 +65,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				604EEED1302E4C2C009A0F94 /* Projetos */,
+				604EEED1302E4C2C009A0F94 /* Zip */,
 			);
 			name = Zip;
 			packageProductDependencies = (
@@ -89,7 +89,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 604EEECA302E4C2C009A0F94 /* Build configuration list for PBXProject "Projetos" */;
+			buildConfigurationList = 604EEECA302E4C2C009A0F94 /* Build configuration list for PBXProject "Zip" */;
 			developmentRegion = "pt-BR";
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -343,7 +343,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		604EEECA302E4C2C009A0F94 /* Build configuration list for PBXProject "Projetos" */ = {
+		604EEECA302E4C2C009A0F94 /* Build configuration list for PBXProject "Zip" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				604EEED8302E4C2D009A0F94 /* Debug */,
