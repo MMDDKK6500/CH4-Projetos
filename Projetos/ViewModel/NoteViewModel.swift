@@ -7,8 +7,8 @@
 
 import Foundation
 import Observation
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 @Observable
 class NoteViewModel {

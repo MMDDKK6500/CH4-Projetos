@@ -12,17 +12,17 @@ import SwiftData
 import SwiftUI
 
 struct CustomCalendarView: View {
-    
+
     @Environment(\.modelContext) private var context
-    
+
     let daySelect: (_ selectedDate: Date) -> Void
 
     let projeto: Project
-    
+
     var notes: [Note]
 
     var tasks: [ProjectTask]
-    
+
     @State var vm: CustomCalendarViewModel
 
     @State var startDate: Date
@@ -40,7 +40,12 @@ struct CustomCalendarView: View {
         self.projeto = projeto
 
         _vm = State(
-            initialValue: CustomCalendarViewModel(moc: moc, project: projeto, notes: notes, tasks: tasks)
+            initialValue: CustomCalendarViewModel(
+                moc: moc,
+                project: projeto,
+                notes: notes,
+                tasks: tasks
+            )
         )
         _startDate = State(initialValue: projeto.start)
         _endDate = State(initialValue: projeto.end)
@@ -127,7 +132,12 @@ struct CustomCalendarView: View {
                                     vm.selectedDate,
                                     equalTo: Date(),
                                     toGranularity: .month
-                                ) && Calendar.current.isDate(Date(), equalTo: vm.date(withDay: day), toGranularity: .day) ? 1 : 0
+                                )
+                                    && Calendar.current.isDate(
+                                        Date(),
+                                        equalTo: vm.date(withDay: day),
+                                        toGranularity: .day
+                                    ) ? 1 : 0
                             )
                         )
                         //                        .padding(5)

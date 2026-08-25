@@ -10,20 +10,20 @@ import SwiftUI
 struct CutCornerRectangle: Shape {
 
     var cornerRadius: CGFloat = 26
-//    var foldSize: CGFloat = 48
+    //    var foldSize: CGFloat = 48
 
     func path(in rect: CGRect) -> Path {
         var path = Path()
 
         // top-left
         path.move(to: CGPoint(x: rect.minX + cornerRadius, y: rect.minY))
-        
+
         // right top
         path.addLine(to: CGPoint(x: rect.maxX - rect.width / 5, y: rect.minY))
-        
+
         // right mid
         path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY + rect.width / 5))
-        
+
         // right bottom
         path.addArc(
             center: CGPoint(
@@ -35,7 +35,7 @@ struct CutCornerRectangle: Shape {
             endAngle: .degrees(90),
             clockwise: false
         )
-        
+
         // bottom
         path.addLine(to: CGPoint(x: rect.minX + cornerRadius, y: rect.maxY))
 

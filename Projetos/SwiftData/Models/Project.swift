@@ -9,7 +9,6 @@
 public import Foundation
 public import SwiftData
 
-
 @Model public class Project {
     var color: Int64 = 0
     var descriptionText: String
@@ -18,13 +17,19 @@ public import SwiftData
     var id_project: UUID
     var name: String
     var start: Date
-    
+
     @Attribute(.externalStorage) var image: Data?
-    
+
     @Relationship(deleteRule: .cascade) var tasks: [ProjectTask]
     @Relationship(deleteRule: .cascade) var notes: [Note]
-    
-    public init(descriptionText: String, end: Date, id_project: UUID, name: String, start: Date) {
+
+    public init(
+        descriptionText: String,
+        end: Date,
+        id_project: UUID,
+        name: String,
+        start: Date
+    ) {
         self.descriptionText = descriptionText
         self.end = end
         self.id_project = id_project
@@ -33,11 +38,11 @@ public import SwiftData
         self.tasks = []
         self.notes = []
     }
-    
+
     func getImage() -> Data {
         return self.image ?? Data()
     }
-    
+
     func getColorPalette() -> CoreDataColor {
         return CoreDataColor(rawValue: Int(self.color))!
     }
