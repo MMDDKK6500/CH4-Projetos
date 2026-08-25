@@ -5,7 +5,7 @@
 //  Created by Maria Clara Fernandes Bessa on 18/08/26.
 //
 
-enum TaskStatus: Int, CaseIterable {
+public enum TaskStatus: Int, CaseIterable, Codable {
     case toDo
     case inProgress
     case completed

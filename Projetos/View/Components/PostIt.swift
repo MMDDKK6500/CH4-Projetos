@@ -15,7 +15,7 @@ struct PostIt: View {
     private func updateTaskStatus(to newStatus: TaskStatus) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             withAnimation(.spring()) {
-                task.status = Int64(newStatus.rawValue)
+                task.status = newStatus
                 try? moc.save()
             }
         }
@@ -48,7 +48,7 @@ struct PostIt: View {
             }
             HStack {
                 Spacer()
-                Text(TaskStatus(rawValue: Int(task.status))!.toString)
+                Text(task.status.toString)
                     .font(.footnote)
                     .bold()
                     .foregroundColor(.white)

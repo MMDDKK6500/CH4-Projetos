@@ -16,19 +16,22 @@ public import SwiftData
     var end: Date
     var favorite: Bool = false
     var id_project: UUID
-    @Attribute(.externalStorage) var image: Data?
     var name: String
     var start: Date
-    var tasks: [ProjectTask]
-    var notes: [Note]
-    public init(descriptionText: String, end: Date, id_project: UUID, name: String, start: Date, projectTasks: [ProjectTask] = [], notes: [Note] = []) {
+    
+    @Attribute(.externalStorage) var image: Data?
+    
+    @Relationship(deleteRule: .cascade) var tasks: [ProjectTask]
+    @Relationship(deleteRule: .cascade) var notes: [Note]
+    
+    public init(descriptionText: String, end: Date, id_project: UUID, name: String, start: Date) {
         self.descriptionText = descriptionText
         self.end = end
         self.id_project = id_project
         self.name = name
         self.start = start
-        self.tasks = projectTasks
-        self.notes = notes
+        self.tasks = []
+        self.notes = []
     }
     
     func getImage() -> Data {
