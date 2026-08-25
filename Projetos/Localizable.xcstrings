@@ -401,12 +401,12 @@
         }
       }
     },
-    "Planeje cada etapa, acompanhe o andamento das atividades e mantenha todas as informações importantes do seu projeto reunidas e organizadas no Zip." : {
+    "Planeje cada etapa, acompanhe o andamento das atividades e mantenha todas as informações importantes do seu projeto reunidas e organizadas." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Plan every stage, track the progress of activities, and keep all important project information gathered and organized in Zip."
+            "value" : "Plan every stage, track the progress of activities, and keep all important project information gathered and organized."
           }
         }
       }
