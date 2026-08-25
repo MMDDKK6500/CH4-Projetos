@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-internal import CoreData
+import SwiftData
 
 struct NewTask: View {
     
@@ -16,7 +16,7 @@ struct NewTask: View {
     
     let project: Project
     
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.modelContext) var moc
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
