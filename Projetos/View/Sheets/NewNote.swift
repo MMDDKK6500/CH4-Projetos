@@ -6,17 +6,18 @@
 //
 
 import SwiftUI
-internal import CoreData
+import SwiftData
 
 struct NewNote: View {
     
     @Environment(\.dismiss) var dismiss
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.modelContext) var moc
     
     @State var vm = NewNoteViewModel ()
     
     let project: Project
     let selectedDate: Date
+    @State var createError: Bool = false
     
     var body: some View {
         Form {
@@ -26,12 +27,12 @@ struct NewNote: View {
             
             Section (header: Text("Descrição da Anotação")){
                 TextField("Digite aqui o conteúdo da sua anotação.", text: $vm.descriptionNote, axis: .vertical)
-                    .lineLimit(10...10)
+                    .lineLimit(10, reservesSpace: true)
                 
             }
         }
         
-        .alert("Error", isPresented: $vm.createError) {
+        .alert("Error", isPresented: $createError) {
             Button("OK", role: .cancel) { }
         } message: {
             Text("Por favor preencher todos os campos no formulário")
@@ -43,11 +44,14 @@ struct NewNote: View {
             }
             ToolbarItem(placement: .confirmationAction) {
                 Button("", systemImage: "checkmark", role: .confirm) {
-                    vm.createNote(
+                    if !vm.createNote(
                         project: project,
                         selectedDate: selectedDate,
                         moc: moc
-                    )
+                    ) {
+                        createError.toggle()
+                    }
+                    dismiss()
                 }
             }
         }
