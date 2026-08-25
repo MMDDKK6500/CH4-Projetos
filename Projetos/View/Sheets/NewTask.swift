@@ -5,157 +5,98 @@
 //  Created by Maria Clara Fernandes Bessa on 17/08/26.
 //
 
-import SwiftData
 import SwiftUI
+internal import CoreData
 
 struct NewTask: View {
-
-    @State var titleTask: String = ""
-    @State var descriptionTask: String = ""
-    @State var startDate: Date = Date()
-    @State var endDate: Date = Date()
-    @State var toggleAllDay: Bool = false
-    @State var colorValue: Int = 0
-
+    
+    @State var vm = NewTaskViewModel()
+    
     var textLengh: Int = 128
-
-    @State var selectionStatus: TaskStatus = .toDo
-    @State var selectionNotification: NotificationOptions = .never
-
-    @State var createError: Bool = false
-
+    
     let project: Project
-
-    @Environment(\.modelContext) var moc
+    
+    @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
-
+    
     var body: some View {
         Form {
-            Section(header: Text("Título da Tarefa")) {
-                TextField("Título", text: $titleTask)
+            Section (header: Text("Título da Tarefa")){
+                TextField("Título", text: $vm.titleTask)
             }
-
-            Section(header: Text("Descrição da Tarefa")) {
-                TextField(
-                    "Fale brevemente sobre sua tarefa.",
-                    text: $descriptionTask,
-                    axis: .vertical
-                )
-                .lineLimit(6...6)
-                .onChange(
-                    of: descriptionTask,
-                    {
-                        descriptionTask = String(
-                            descriptionTask.prefix(textLengh)
-                        )
-                    }
-                )
-
+            
+            Section (header: Text("Descrição da Tarefa")){
+                TextField("Fale brevemente sobre sua tarefa.", text: $vm.descriptionTask, axis: .vertical)
+                    .lineLimit(6...6)
+                    .onChange(of: vm.descriptionTask, {
+                        vm.descriptionTask = String(vm.descriptionTask.prefix(textLengh))
+                    })
+                
             }
-            Section(header: Text("Lembrete")) {
+            Section (header: Text("Lembrete")) {
                 HStack {
                     Text("Dia Inteiro")
                     Spacer()
-                    Toggle(isOn: $toggleAllDay) {}
+                    Toggle(isOn: $vm.toggleAllDay) {}
                         .tint(Color.lightBlue)
                 }
                 HStack {
                     Text("Começa")
                     Spacer()
-                    DatePicker(
-                        "",
-                        selection: $startDate,
-                        displayedComponents: toggleAllDay
-                            ? [.date] : [.date, .hourAndMinute]
-                    )
+                    DatePicker("", selection: $vm.startDate, displayedComponents: vm.toggleAllDay ? [.date] : [.date, .hourAndMinute])
                 }
                 .onAppear {
                     NotificationManager.shared.requestAuthorization()
                 }
-
+                
                 HStack {
                     Text("Termina")
                     Spacer()
-                    DatePicker(
-                        "",
-                        selection: $endDate,
-                        displayedComponents: toggleAllDay
-                            ? [.date] : [.date, .hourAndMinute]
-                    )
+                    DatePicker("", selection: $vm.endDate, displayedComponents: vm.toggleAllDay ? [.date] : [.date, .hourAndMinute])
                 }
-
-                Picker("Notificação", selection: $selectionNotification) {
-                    ForEach(NotificationOptions.allCases, id: \.self) {
-                        option in
+                
+                Picker("Notificação", selection: $vm.selectionNotification) {
+                    ForEach (NotificationOptions.allCases, id: \.self) { option in
                         Text(option.toString)
                     }
                 }
-
+                
+                
             }
-
-            Section(header: Text("Personalização")) {
+            
+            Section (header: Text("Personalização")) {
                 HStack {
                     Text("Cor da Tarefa")
                     Spacer()
-                    ColorPickerView(colorValue: $colorValue)
+                    ColorPickerView(colorValue: $vm.colorValue)
                 }
-                Picker("Status da Tarefa", selection: $selectionStatus) {
-                    ForEach(TaskStatus.allCases, id: \.self) { option in
+                Picker("Status da Tarefa", selection: $vm.selectionStatus) {
+                    ForEach (TaskStatus.allCases, id: \.self) { option in
                         Text(option.toString)
                     }
                 }
             }
         }
-
-        .alert("Error", isPresented: $createError) {
-            Button("OK", role: .cancel) {}
+        
+        .alert("Error", isPresented: $vm.createError) {
+            Button("OK", role: .cancel) { }
         } message: {
             Text("Por favor preencher todos os campos no formulário")
         }
-
+        
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("", systemImage: "xmark", role: .cancel) { dismiss() }
             }
             ToolbarItem(placement: .confirmationAction) {
                 Button("", systemImage: "checkmark", role: .confirm) {
-
-                    if titleTask.isEmpty || descriptionTask.isEmpty {
-                        createError.toggle()
-                    } else {
-
-                        let taskId = UUID()
-
-                        let task = ProjectTask(
-                            color: colorValue,
-                            end: endDate,
-                            id_task: UUID(),
-                            isAllDay: toggleAllDay,
-                            start: startDate,
-                            text: descriptionTask,
-                            title: titleTask,
-                            status: selectionStatus
-                        )
-
-                        moc.insert(task)
-
-                        project.tasks.append(task)
-
-                        NotificationManager.shared.scheduleTaskNotification(
-                            taskId: taskId,
-                            title: titleTask,
-                            endDate: endDate,
-                            option: selectionNotification
-                        )
-
-                        do {
-
-                            try moc.save()
-
-                        } catch {
-                            fatalError("Error saving context \(error)")
-                        }
-
+                    
+                    vm.createTask(
+                        project: project,
+                        moc: moc
+                    )
+                    
+                    if !vm.createError {
                         dismiss()
                     }
                 }
