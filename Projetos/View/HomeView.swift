@@ -12,6 +12,7 @@ struct HomeView: View {
 
     @State var vm = HomeViewModel()
     @Environment(\.modelContext) private var context
+    @State var showStarAnimation = false
 
     @Query(sort: \Project.start, order: .forward)
     var projects: [Project]
@@ -137,6 +138,35 @@ struct HomeView: View {
         .toolbarTitleDisplayMode(.inlineLarge)
         .sheet(isPresented: $newProject) {
             SheetNewProject()
+        }
+        .onChange(of: projects.count) { oldCount, newCount in
+            if newCount > oldCount {
+                withAnimation {
+                    showStarAnimation = true
+                }
+            }
+        }
+        .overlay {
+            if showStarAnimation {
+                ZStack {
+                    Color.black.opacity(0.4)
+                        .ignoresSafeArea()
+                    
+                    AnimationView(
+                        imageName: "estrela_",
+                        totalFrames: 30,
+                        fps: 15.0,
+                        holdFrame: 25,
+                        holdDuration: 0.5,  
+                        onComplete: {
+                            withAnimation {
+                                showStarAnimation = false
+                            }
+                        }
+                    )
+                    .frame(width: 400, height: 400)
+                }
+            }
         }
     }
 }

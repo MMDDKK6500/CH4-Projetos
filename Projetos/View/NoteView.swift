@@ -93,7 +93,7 @@ struct NoteView: View {
                         Label("Share", systemImage: "square.and.arrow.up")
                     }
                 )
-                .tint(.blue)
+                .tint(.primary)
 
                 //                Menu {
 
