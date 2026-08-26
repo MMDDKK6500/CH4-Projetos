@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct TextOnBoarding: View {
-    let text: String
+    let text: LocalizedStringKey
     let icon: String
 
     @ScaledMetric(relativeTo: .title) var tamanhoIcon: CGFloat = 27

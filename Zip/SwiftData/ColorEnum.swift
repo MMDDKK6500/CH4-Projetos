@@ -12,7 +12,7 @@ import SwiftUI
 // https://www.reddit.com/r/SwiftUI/comments/hjnd8k/use_a_string_from_coredata_to_set_a_color
 // https://www.reddit.com/r/SwiftUI/comments/hjnd8k/comment/fwnnjhl
 
-enum CoreDataColor: Int, CaseIterable {
+enum ColorEnum: Int, CaseIterable {
     case blue, cyan, green, pink, purple, yellow
 
     var background: Color {

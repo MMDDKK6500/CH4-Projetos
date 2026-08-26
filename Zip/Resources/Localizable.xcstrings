@@ -341,6 +341,17 @@
         }
       }
     },
+    "Não deixe nenhuma tarefa para trás. Crie lembretes para acompanhar o que precisa ser feito e quando." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don’t let any task left behind. Create reminders to track what needs to be done and when."
+          }
+        }
+      }
+    },
     "Notificação" : {
       "localizations" : {
         "en" : {
@@ -387,6 +398,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
+          }
+        }
+      }
+    },
+    "Organize seus prazos e encontros. Visualize as datas importantes do projeto e saiba o que vem pela frente." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Organize your deadlines and meetings. Visualize the project’s important dates and know what comes next."
           }
         }
       }
@@ -457,6 +479,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Future Projects"
+          }
+        }
+      }
+    },
+    "Registre suas ideias e informações. Anote detalhes, referências e tudo o que for importante para o projeto." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Register your ideas and informations. Write down details, references and everything that is important for the project."
           }
         }
       }

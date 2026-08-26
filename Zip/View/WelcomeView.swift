@@ -14,51 +14,50 @@ struct WelcomeView: View {
     @State private var showOnboarding: Bool = false
 
     var body: some View {
-        ZStack {
-            Color("geralBackground")
-                .ignoresSafeArea()
 
-            VStack(spacing: 45) {
-                Spacer()
+        VStack(spacing: 45) {
+            Spacer()
 
-                Image("logo")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 150, height: 150)
-                    .cornerRadius(24)
+            Image("logo")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+                .cornerRadius(24)
 
-                Text("Bem-Vindo ao Zip")
-                    .font(.largeTitle.bold())
+            Text("Bem-Vindo ao Zip")
+                .font(.largeTitle.bold())
 
-                Spacer()
-                Text(
-                    "Uma nova forma de organizar seus projetos, tarefas e ideias em um único espaço."
-                )
-                .font(.body)
-                Text(
-                    "Planeje cada etapa, acompanhe o andamento das atividades e mantenha todas as informações importantes do seu projeto reunidas e organizadas."
-                )
-                .font(.body)
+            Spacer()
+            Text(
+                "Uma nova forma de organizar seus projetos, tarefas e ideias em um único espaço."
+            )
+            .font(.body)
+            Text(
+                "Planeje cada etapa, acompanhe o andamento das atividades e mantenha todas as informações importantes do seu projeto reunidas e organizadas."
+            )
+            .font(.body)
 
-                Spacer()
+            Spacer()
 
-                Button {
-                    showOnboarding.toggle()
-                } label: {
-                    HStack(spacing: 8) {
-                        Text("Continuar")
-                            .font(.body.weight(.bold))
-                    }
-                    .foregroundColor(.white)
-                    .padding(.vertical, 18)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.accent)
-                    .cornerRadius(30)
+            Button {
+                showOnboarding.toggle()
+            } label: {
+                HStack(spacing: 8) {
+                    Text("Continuar")
+                        .font(.body.weight(.bold))
                 }
-
+                .foregroundColor(.white)
+                .padding(.vertical, 18)
+                .frame(maxWidth: .infinity)
+                .background(Color.accent)
+                .cornerRadius(30)
             }
-            .padding(30)
+
         }
+        .padding(30)
+        .background(
+            Color(uiColor: UIColor.systemGroupedBackground)
+        )
         .sheet(isPresented: $showOnboarding) {
             SheetOnBoarding {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {

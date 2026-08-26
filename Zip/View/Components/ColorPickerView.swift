@@ -15,18 +15,18 @@ struct ColorPickerView: View {
         HStack {
             Spacer()
             Menu {
-                ForEach(CoreDataColor.allCases, id: \.self) { color in
+                ForEach(ColorEnum.allCases, id: \.self) { color in
                     Button(action: {
                         colorValue = color.rawValue
                     }) {
                         Label(
-                            CoreDataColor(rawValue: color.rawValue)!.name,
+                            ColorEnum(rawValue: color.rawValue)!.name,
                             systemImage: "circle.fill"
                         )
                         //https://stackoverflow.com/questions/75856718/swiftui-how-to-color-a-menu-button-icon-in-macos
                         .symbolRenderingMode(.palette)
                         .foregroundStyle(
-                            CoreDataColor(rawValue: color.rawValue)!.background
+                            ColorEnum(rawValue: color.rawValue)!.background
                         )
                     }
                 }
@@ -34,7 +34,7 @@ struct ColorPickerView: View {
                 Circle()
                     .frame(maxWidth: 44, maxHeight: 44)
                     .foregroundStyle(
-                        CoreDataColor(rawValue: colorValue)!.background
+                        ColorEnum(rawValue: colorValue)!.background
                     )
                     .glassEffect()
             }

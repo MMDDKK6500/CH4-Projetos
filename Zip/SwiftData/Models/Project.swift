@@ -43,7 +43,7 @@ public import SwiftData
         return self.image ?? Data()
     }
 
-    func getColorPalette() -> CoreDataColor {
-        return CoreDataColor(rawValue: Int(self.color))!
+    func getColorPalette() -> ColorEnum {
+        return ColorEnum(rawValue: Int(self.color))!
     }
 }

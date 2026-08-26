@@ -51,8 +51,6 @@ struct ProjetosApp: App {
             }
         }
         .modelContainer(for: [
-            AttatchmentNote.self,
-            AttatchmentTask.self,
             Note.self,
             Project.self,
             ProjectTask.self,
