@@ -9,17 +9,10 @@ struct PostIt: View {
     @Environment(\.dismiss) var dismiss
 
     @State var task: ProjectTask
+    
+    @State var editTask = false
 
     let cornerRadius: CGFloat = 26
-
-    private func updateTaskStatus(to newStatus: TaskStatus) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            withAnimation(.spring()) {
-                task.status = newStatus
-                try? moc.save()
-            }
-        }
-    }
 
     init(task: ProjectTask) {
         self.viewModel = PostItViewModel(task: task)
@@ -77,7 +70,11 @@ struct PostIt: View {
                 Button("Concluído") { updateTaskStatus(to: .completed) }
             }
             Divider()
-
+            
+            Button("Editar tarefa", systemImage: "pencil") {
+                editTask.toggle()
+            }
+            
             Button(role: .destructive) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                     withAnimation(.spring()) {
@@ -90,7 +87,19 @@ struct PostIt: View {
             }
 
         }
+        .sheet(isPresented: $editTask) {
+            EditTask(project: task.project, task: task)
+        }
 
     }
 
+    private func updateTaskStatus(to newStatus: TaskStatus) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            withAnimation(.spring()) {
+                task.status = newStatus
+                try? moc.save()
+            }
+        }
+    }
+    
 }

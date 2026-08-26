@@ -16,7 +16,7 @@
         <attribute name="name" attributeType="String"/>
         <attribute name="start" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="notes" maxCount="1" deletionRule="Nullify" destinationEntity="Note"/>
-        <relationship name="tasks" toMany="YES" deletionRule="Nullify" destinationEntity="ProjectTask"/>
+        <relationship name="tasks" toMany="YES" deletionRule="Nullify" destinationEntity="ProjectTask" inverseName="project" inverseEntity="ProjectTask"/>
     </entity>
     <entity name="ProjectTask" representedClassName="ProjectTask" syncable="YES">
         <attribute name="color" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" customClassName="UIColor"/>
@@ -27,5 +27,6 @@
         <attribute name="status" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" customClassName="TaskStatusEnum"/>
         <attribute name="text" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
+        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="tasks" inverseEntity="Project"/>
     </entity>
 </model>

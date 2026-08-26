@@ -18,6 +18,7 @@ public import SwiftData
     var status: TaskStatus
     var text: String
     var title: String
+    var project: Project
 
     public init(
         color: Int,
@@ -27,7 +28,8 @@ public import SwiftData
         start: Date,
         text: String,
         title: String,
-        status: TaskStatus
+        status: TaskStatus,
+        project: Project
     ) {
         self.end = end
         self.id_task = id_task
@@ -36,6 +38,7 @@ public import SwiftData
         self.text = text
         self.title = title
         self.status = status
+        self.project = project
         if color > 5 {
             self.color = 5
         } else if color < 0 {

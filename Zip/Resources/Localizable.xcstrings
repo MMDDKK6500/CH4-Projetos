@@ -287,7 +287,17 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Edit Project"
+            "value" : "Edit project"
+          }
+        }
+      }
+    },
+    "Editar tarefa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit task"
           }
         }
       }

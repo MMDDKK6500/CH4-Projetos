@@ -4,7 +4,6 @@
 //
 //  Created by Maria Clara Fernandes Bessa on 18/08/26.
 //
-
 import Observation
 import SwiftUI
 
@@ -13,36 +12,48 @@ class PostItViewModel {
 
     var task: ProjectTask
 
-    public private(set) var subtitle: String
-
     init(task: ProjectTask) {
         self.task = task
-
-        if Calendar.current.isDate(task.start, inSameDayAs: task.end) {
-
-            if task.isAllDay {
-                self.subtitle = "Hoje"
-                return
-            }
-
-            self.subtitle =
-                task.start.formatted(.dateTime.month(.abbreviated).day())
-                + " " + task.start.formatted(.dateTime.hour().minute())
-                + " - " + task.end.formatted(.dateTime.hour().minute())
-        } else if task.isAllDay {
-            self.subtitle =
-                task.start.formatted(.dateTime.month(.abbreviated).day())
-                + " - "
-                + task.end.formatted(.dateTime.month(.abbreviated).day())
-        } else {
-            self.subtitle =
-                task.start.formatted(.dateTime.month(.abbreviated).day())
-                + " " + task.start.formatted(.dateTime.hour().minute())
-                + " - "
-                + task.end.formatted(.dateTime.month(.abbreviated).day())
-                + " " + task.end.formatted(.dateTime.hour().minute())
-        }
-
     }
 
+    var subtitle: String {
+        let calendar = Calendar.current
+        
+        let startComponents = calendar.dateComponents([.year, .month, .day], from: task.start)
+        let endComponents = calendar.dateComponents([.year, .month, .day], from: task.end)
+        
+        guard let startDate = calendar.date(from: startComponents),
+              let endDate = calendar.date(from: endComponents) else {
+            return ""
+        }
+        
+        let isToday = calendar.isDateInToday(startDate)
+        let isSameDay = startDate == endDate
+
+        if task.isAllDay {
+            if isToday {
+                return "Hoje"
+                
+            } else if isSameDay {
+                return startDate.formatted(.dateTime.month(.abbreviated).day())
+                
+            } else {
+                return startDate.formatted(.dateTime.month(.abbreviated).day())
+                    + " - "
+                    + endDate.formatted(.dateTime.month(.abbreviated).day())
+            }
+        } else {
+            if isSameDay {
+                return task.start.formatted(.dateTime.month(.abbreviated).day())
+                    + " " + task.start.formatted(.dateTime.hour().minute())
+                    + " - " + task.end.formatted(.dateTime.hour().minute())
+            } else {
+                return task.start.formatted(.dateTime.month(.abbreviated).day())
+                    + " " + task.start.formatted(.dateTime.hour().minute())
+                    + " - "
+                    + task.end.formatted(.dateTime.month(.abbreviated).day())
+                    + " " + task.end.formatted(.dateTime.hour().minute())
+            }
+        }
+    }
 }

@@ -8,19 +8,27 @@
 import SwiftData
 import SwiftUI
 
-struct NewTask: View {
+struct EditTask: View {
 
-    @State var vm = NewTaskViewModel(task: nil)
+    @State var vm: NewTaskViewModel
 
     var textLengh: Int = 128
 
     let project: Project
+
+    let task: ProjectTask?
     
     @Environment(\.modelContext) var moc
     @Environment(\.dismiss) var dismiss
+    
+    init(project: Project, task: ProjectTask?) {
+        self.task = task
+        self.project = project
+        _vm = State(initialValue: NewTaskViewModel(task: task))
+    }
 
     var body: some View {
-        NavigationView{
+        NavigationView {
             Form {
                 Section(header: Text("Título da Tarefa")) {
                     TextField("Título", text: $vm.titleTask)
@@ -102,30 +110,29 @@ struct NewTask: View {
                     }
                 }
             }
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("", systemImage: "xmark", role: .cancel) { dismiss() }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("", systemImage: "checkmark", role: .confirm) {
+
+                        vm.editTask(
+                            moc: moc
+                        )
+
+                        if !vm.createError {
+                            dismiss()
+                        }
+                    }
+                }
+            }
         }
 
         .alert("Error", isPresented: $vm.createError) {
             Button("OK", role: .cancel) {}
         } message: {
             Text("Por favor preencher todos os campos no formulário")
-        }
-        .toolbar {
-            ToolbarItem(placement: .cancellationAction) {
-                Button("", systemImage: "xmark", role: .cancel) { dismiss() }
-            }
-            ToolbarItem(placement: .confirmationAction) {
-                Button("", systemImage: "checkmark", role: .confirm) {
-
-                    vm.createTask(
-                        project: project,
-                        moc: moc
-                    )
-
-                    if !vm.createError {
-                        dismiss()
-                    }
-                }
-            }
         }
     }
 }
