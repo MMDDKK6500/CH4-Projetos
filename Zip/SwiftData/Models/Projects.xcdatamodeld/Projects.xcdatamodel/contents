@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="24902" systemVersion="25G83" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Note" representedClassName="Note" syncable="YES">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id_note" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="text" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+    </entity>
+    <entity name="Project" representedClassName="Project" syncable="YES">
+        <attribute name="color" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="descriptionText" attributeType="String"/>
+        <attribute name="end" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="favorite" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="id_project" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="start" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="notes" maxCount="1" deletionRule="Nullify" destinationEntity="Note"/>
+        <relationship name="tasks" toMany="YES" deletionRule="Nullify" destinationEntity="ProjectTask" inverseName="project" inverseEntity="ProjectTask"/>
+    </entity>
+    <entity name="ProjectTask" representedClassName="ProjectTask" syncable="YES">
+        <attribute name="color" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" customClassName="UIColor"/>
+        <attribute name="end" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id_task" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isAllDay" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="start" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="status" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" customClassName="TaskStatusEnum"/>
+        <attribute name="text" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="tasks" inverseEntity="Project"/>
+    </entity>
+</model>
