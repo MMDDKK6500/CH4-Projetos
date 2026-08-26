@@ -88,7 +88,7 @@ struct CustomCalendarView: View {
 
             HStack {
                 ForEach(vm.daysOfWeek, id: \.self) { day in
-                    Text(day.uppercased())
+                    Text(LocalizedStringKey(day))
                         .font(.footnote)
                         .bold()
                         .foregroundStyle(.secondary)

@@ -4,6 +4,7 @@
 //
 //  Created by Maria Clara Fernandes Bessa on 21/08/26.
 //
+import SwiftUI
 
 enum NotificationOptions: Int, CaseIterable {
     case never
@@ -13,7 +14,7 @@ enum NotificationOptions: Int, CaseIterable {
     case fortnightly
     case monthly
 
-    var toString : String {
+    var toString: LocalizedStringKey {
         switch self {
         case .never:
             return "Nunca"

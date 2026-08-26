@@ -231,6 +231,26 @@
         }
       }
     },
+    "Diariamente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daily"
+          }
+        }
+      }
+    },
+    "Dias de Semana" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weeekdays"
+          }
+        }
+      }
+    },
     "Digite aqui a descrição do seu projeto." : {
       "localizations" : {
         "en" : {
@@ -247,6 +267,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Type the note description here."
+          }
+        }
+      }
+    },
+    "DOM" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SUN"
           }
         }
       }
@@ -311,12 +342,32 @@
         }
       }
     },
+    "Finais de Semana" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weekends"
+          }
+        }
+      }
+    },
     "Lembrete" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reminder"
+          }
+        }
+      }
+    },
+    "Mensalmente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Monthly"
           }
         }
       }
@@ -388,6 +439,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "New Project"
+          }
+        }
+      }
+    },
+    "Nunca" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Never"
           }
         }
       }
@@ -483,6 +544,38 @@
         }
       }
     },
+    "QUA" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "WED"
+          }
+        }
+      }
+    },
+    "QUI" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "THU"
+          }
+        }
+      }
+    },
+    "Quinzenalmente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every two weeks"
+          }
+        }
+      }
+    },
     "Registre suas ideias e informações. Anote detalhes, referências e tudo o que for importante para o projeto." : {
       "extractionState" : "manual",
       "localizations" : {
@@ -494,12 +587,45 @@
         }
       }
     },
+    "SAB" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SAT"
+          }
+        }
+      }
+    },
+    "SEG" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MON"
+          }
+        }
+      }
+    },
     "Seus projetos criados aparecerão aqui" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your created projects will appear here"
+          }
+        }
+      }
+    },
+    "SEX" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FRI"
           }
         }
       }
@@ -540,6 +666,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tasks from project %@"
+          }
+        }
+      }
+    },
+    "TER" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TUE"
           }
         }
       }

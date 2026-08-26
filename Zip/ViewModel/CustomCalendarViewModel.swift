@@ -20,7 +20,7 @@ class CustomCalendarViewModel {
     var selectedDate: Date = Date()
 
     let calendar = Calendar.current
-    let daysOfWeek = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"]
+    let daysOfWeek = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SAB"]
 
     let notes: [Note]
 
