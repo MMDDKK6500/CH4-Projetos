@@ -24,8 +24,6 @@ class NoteViewModel {
         noteText: Binding<String>,
         note: Note
     ) -> Bool {
-        // Access the actual string values using .wrappedValue
-        // that was the problem :c
         if noteTitle.wrappedValue.isEmpty || noteText.wrappedValue.isEmpty {
 
             if noteTitle.wrappedValue.isEmpty {
@@ -59,7 +57,6 @@ class NoteViewModel {
             return true
         } catch {
             fatalError("Error saving context \(error)")
-            //            return false
         }
     }
 }

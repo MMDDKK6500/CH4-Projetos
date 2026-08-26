@@ -17,10 +17,10 @@ struct EditTask: View {
     let project: Project
 
     let task: ProjectTask?
-    
+
     @Environment(\.modelContext) var moc
     @Environment(\.dismiss) var dismiss
-    
+
     init(project: Project, task: ProjectTask?) {
         self.task = task
         self.project = project
@@ -33,7 +33,7 @@ struct EditTask: View {
                 Section(header: Text("Título da Tarefa")) {
                     TextField("Título", text: $vm.titleTask)
                 }
-                
+
                 Section(header: Text("Descrição da Tarefa")) {
                     TextField(
                         "Fale brevemente sobre sua tarefa.",
@@ -49,7 +49,7 @@ struct EditTask: View {
                             )
                         }
                     )
-                    
+
                 }
                 Section(header: Text("Lembrete")) {
                     HStack {
@@ -65,13 +65,13 @@ struct EditTask: View {
                             "",
                             selection: $vm.startDate,
                             displayedComponents: vm.toggleAllDay
-                            ? [.date] : [.date, .hourAndMinute]
+                                ? [.date] : [.date, .hourAndMinute]
                         )
                     }
                     .onAppear {
                         NotificationManager.shared.requestAuthorization()
                     }
-                    
+
                     HStack {
                         Text("Termina")
                         Spacer()
@@ -79,24 +79,25 @@ struct EditTask: View {
                             "",
                             selection: $vm.endDate,
                             displayedComponents: vm.toggleAllDay
-                            ? [.date] : [.date, .hourAndMinute]
+                                ? [.date] : [.date, .hourAndMinute]
                         )
                     }
-                    
-                    Picker("Notificação", selection: $vm.selectionNotification) {
+
+                    Picker("Notificação", selection: $vm.selectionNotification)
+                    {
                         ForEach(NotificationOptions.allCases, id: \.self) {
                             option in
                             Text(option.toString)
                         }
                     }
-                    
+
                 }
                 .onChange(of: [vm.endDate, vm.startDate]) {
                     if vm.endDate < vm.startDate {
                         vm.endDate = vm.startDate
                     }
                 }
-                
+
                 Section(header: Text("Personalização")) {
                     HStack {
                         Text("Cor da Tarefa")
@@ -114,7 +115,9 @@ struct EditTask: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("", systemImage: "xmark", role: .cancel) { dismiss() }
+                    Button("", systemImage: "xmark", role: .cancel) {
+                        dismiss()
+                    }
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("", systemImage: "checkmark", role: .confirm) {

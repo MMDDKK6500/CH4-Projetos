@@ -32,9 +32,9 @@ class NewNoteViewModel {
             )
 
             moc.insert(note)
-            
+
             project.notes.append(note)
-            
+
             do {
                 try moc.save()
                 return true

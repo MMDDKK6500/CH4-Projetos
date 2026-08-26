@@ -18,7 +18,7 @@ struct ProjectView: View {
     @State var creatingNewTask: Bool = false
     @State var editProject: Bool = false
     @State var isNotesExpanded: Bool = false
-    
+
     @State var confirmationShown: Bool = false
 
     init(project: Project, moc: ModelContext) {
@@ -37,9 +37,7 @@ struct ProjectView: View {
                     CustomCalendarView(
                         daySelect: vm.daySelect,
                         projeto: vm.project,
-                        moc: moc,
-//                        notes: vm.project.notes,
-//                        tasks: vm.project.tasks
+                        moc: moc
                     )
                     .glassEffect(in: .rect(cornerRadius: 25.0))
                     .padding(.bottom, 10)
@@ -78,7 +76,6 @@ struct ProjectView: View {
                                             }
                                             Spacer()
                                             Image(systemName: "chevron.right")
-                                                //                                                .font(.title3)
                                                 .fontWeight(.medium)
                                                 .foregroundStyle(.secondary)
                                         }
@@ -101,7 +98,6 @@ struct ProjectView: View {
                         if isNotesExpanded && vm.dailyNotes.count > 3 {
                             Button {
                                 withAnimation(.spring()) {
-                                    // Collapse the list back to 3 items
                                     isNotesExpanded = false
                                 }
                             } label: {
@@ -120,7 +116,6 @@ struct ProjectView: View {
                                         y: 1
                                     )
                             }
-                            // This frame modifier naturally centers the button in the VStack
                             .frame(maxWidth: .infinity)
                             .padding(.top, 8)
                         }
@@ -128,7 +123,6 @@ struct ProjectView: View {
                 }
                 .padding()
                 .overlay(alignment: .bottom) {
-                    // Only show the blur and button if there are > 3 notes and it's collapsed
                     if vm.dailyNotes.count > 3 && !isNotesExpanded {
                         ZStack(alignment: .bottom) {
                             VariableBlurView(
@@ -136,9 +130,8 @@ struct ProjectView: View {
                                 direction: .blurredBottomClearTop
                             )
                             .frame(height: 100)
-                            .allowsHitTesting(false)  // Ensures the blur doesn't block touches
+                            .allowsHitTesting(false)
 
-                            // The expand button
                             Button {
                                 withAnimation(.spring()) {
                                     isNotesExpanded = true
@@ -221,7 +214,7 @@ struct ProjectView: View {
         } message: {
             Text("Você tem certeza que quer deletar esse projeto?")
         }
-        
+
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
                 Button("", systemImage: "plus") {

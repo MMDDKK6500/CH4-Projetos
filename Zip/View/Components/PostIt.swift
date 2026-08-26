@@ -9,9 +9,9 @@ struct PostIt: View {
     @Environment(\.dismiss) var dismiss
 
     @State var task: ProjectTask
-    
+
     @State var editTask = false
-    
+
     @State var confirmationShown = false
 
     let cornerRadius: CGFloat = 26
@@ -55,9 +55,7 @@ struct PostIt: View {
                     )
             }
         }
-        // calling padding() makes app brick, ok cool great I absolutely love SwiftUI
         .padding()
-        //        .frame(width: 200, height: 200)
         .background(
             CutCornerRectangle(cornerRadius: cornerRadius)
                 .foregroundColor(task.getColorPalette().background)
@@ -73,11 +71,11 @@ struct PostIt: View {
                 Button("Concluído") { updateTaskStatus(to: .completed) }
             }
             Divider()
-            
+
             Button("Editar tarefa", systemImage: "pencil") {
                 editTask.toggle()
             }
-            
+
             Button(role: .destructive) {
                 confirmationShown.toggle()
             } label: {
@@ -114,5 +112,5 @@ struct PostIt: View {
             }
         }
     }
-    
+
 }

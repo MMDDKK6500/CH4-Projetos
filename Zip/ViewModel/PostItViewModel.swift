@@ -18,25 +18,32 @@ class PostItViewModel {
 
     var subtitle: String {
         let calendar = Calendar.current
-        
-        let startComponents = calendar.dateComponents([.year, .month, .day], from: task.start)
-        let endComponents = calendar.dateComponents([.year, .month, .day], from: task.end)
-        
+
+        let startComponents = calendar.dateComponents(
+            [.year, .month, .day],
+            from: task.start
+        )
+        let endComponents = calendar.dateComponents(
+            [.year, .month, .day],
+            from: task.end
+        )
+
         guard let startDate = calendar.date(from: startComponents),
-              let endDate = calendar.date(from: endComponents) else {
+            let endDate = calendar.date(from: endComponents)
+        else {
             return ""
         }
-        
+
         let isToday = calendar.isDateInToday(startDate)
         let isSameDay = startDate == endDate
 
         if task.isAllDay {
             if isToday {
                 return "Hoje"
-                
+
             } else if isSameDay {
                 return startDate.formatted(.dateTime.month(.abbreviated).day())
-                
+
             } else {
                 return startDate.formatted(.dateTime.month(.abbreviated).day())
                     + " - "

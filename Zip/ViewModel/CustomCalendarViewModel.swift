@@ -22,20 +22,20 @@ class CustomCalendarViewModel {
     let calendar = Calendar.current
     let daysOfWeek = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SAB"]
 
-//    let notes: [Note]
-//
-//    let tasks: [ProjectTask]
+    //    let notes: [Note]
+    //
+    //    let tasks: [ProjectTask]
 
     init(
         moc: ModelContext,
         project: Project,
-//        notes: [Note],
-//        tasks: [ProjectTask]
+        //        notes: [Note],
+        //        tasks: [ProjectTask]
     ) {
         self.moc = moc
         self.project = project
-//        self.notes = notes
-//        self.tasks = tasks
+        //        self.notes = notes
+        //        self.tasks = tasks
     }
 
     func selectDate(day: Int) {
@@ -89,7 +89,7 @@ class CustomCalendarViewModel {
         if isCurrentMonth && isSelected {
             return .white
         }
-        
+
         if isCurrentMonth && hasNote {
             return .blue
         }

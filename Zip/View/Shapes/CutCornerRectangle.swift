@@ -10,7 +10,6 @@ import SwiftUI
 struct CutCornerRectangle: Shape {
 
     var cornerRadius: CGFloat = 26
-    //    var foldSize: CGFloat = 48
 
     func path(in rect: CGRect) -> Path {
         var path = Path()
