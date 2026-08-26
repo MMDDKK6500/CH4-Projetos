@@ -58,10 +58,10 @@ struct SheetOnBoarding: View {
                 .padding(.horizontal, 10)
 
             }
+            .padding(30)
             .background(
                 Color(uiColor: UIColor.systemGroupedBackground)
             )
-            .padding(30)
             .navigationBarTitleDisplayMode(.inline)
             .presentationDragIndicator(.visible)
 

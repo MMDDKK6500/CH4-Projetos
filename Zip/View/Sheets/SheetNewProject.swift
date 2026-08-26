@@ -19,9 +19,9 @@ struct SheetNewProject: View {
     @State private var isFavorite: Bool = false
     @State private var color: Int = 0
 
-    @State var image: Image?
-    @State var imageData: Data?
-    @State var photoSelection: PhotosPickerItem?
+    @State var image: Image? = nil
+    @State var imageData: Data? = nil
+    @State var photoSelection: PhotosPickerItem? = nil
 
     let project: Project?
 
@@ -49,15 +49,15 @@ struct SheetNewProject: View {
                 _image = State(initialValue: nil)
             }
         } else {
-            _titleProject = State(initialValue: "")
-            _descriptionProject = State(initialValue: "")
-            _startDate = State(initialValue: Date())
-            _endDate = State(initialValue: Date())
-            _isFavorite = State(initialValue: false)
-            _color = State(initialValue: 0)
-
-            _imageData = State(initialValue: nil)
-            _image = State(initialValue: nil)
+//            _titleProject = State(initialValue: "")
+//            _descriptionProject = State(initialValue: "")
+//            _startDate = State(initialValue: Date())
+//            _endDate = State(initialValue: Date())
+//            _isFavorite = State(initialValue: false)
+//            _color = State(initialValue: 0)
+//
+//            _imageData = State(initialValue: nil)
+//            _image = State(initialValue: nil)
         }
 
         _createError = State(initialValue: false)
@@ -174,9 +174,8 @@ struct SheetNewProject: View {
                                 image: image
                             ) {
                                 moc.insert(novoProjeto)
-
-                                dismiss()
                             }
+                            dismiss()
                         }
                     }
                 }

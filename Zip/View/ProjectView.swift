@@ -38,8 +38,8 @@ struct ProjectView: View {
                         daySelect: vm.daySelect,
                         projeto: vm.project,
                         moc: moc,
-                        notes: vm.project.notes,
-                        tasks: vm.project.tasks
+//                        notes: vm.project.notes,
+//                        tasks: vm.project.tasks
                     )
                     .glassEffect(in: .rect(cornerRadius: 25.0))
                     .padding(.bottom, 10)
@@ -53,7 +53,8 @@ struct ProjectView: View {
                     Spacer()
 
                     if vm.dailyNotes.isEmpty {
-
+                        Text("Nenhuma anotação feita para este dia ainda")
+                            .font(.callout)
                     } else {
                         let displayedNotes =
                             isNotesExpanded

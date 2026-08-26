@@ -403,6 +403,16 @@
         }
       }
     },
+    "Nenhuma anotação feita para este dia ainda" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No notes made for this day yet"
+          }
+        }
+      }
+    },
     "Notificação" : {
       "localizations" : {
         "en" : {

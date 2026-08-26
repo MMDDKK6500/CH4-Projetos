@@ -43,10 +43,10 @@ struct HomeView: View {
             if projects.isEmpty {
                 ContentUnavailableView {
                     Text("Você ainda não possui nenhum projeto")
-                        .font(Font.title2.bold())
+                        .font(.title2.bold())
                 } description: {
                     Text("Seus projetos criados aparecerão aqui")
-                        .font(Font.body)
+                        .font(.body)
                 }
             } else {
                 ScrollView {

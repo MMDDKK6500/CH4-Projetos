@@ -19,9 +19,9 @@ struct CustomCalendarView: View {
 
     let projeto: Project
 
-    var notes: [Note]
-
-    var tasks: [ProjectTask]
+//    var notes: [Note]
+//
+//    var tasks: [ProjectTask]
 
     @State var vm: CustomCalendarViewModel
 
@@ -32,8 +32,8 @@ struct CustomCalendarView: View {
         daySelect: @escaping (_ selectedDate: Date) -> Void,
         projeto: Project,
         moc: ModelContext,
-        notes: [Note],
-        tasks: [ProjectTask]
+//        notes: [Note],
+//        tasks: [ProjectTask]
     ) {
 
         self.daySelect = daySelect
@@ -43,14 +43,14 @@ struct CustomCalendarView: View {
             initialValue: CustomCalendarViewModel(
                 moc: moc,
                 project: projeto,
-                notes: notes,
-                tasks: tasks
+//                notes: notes,
+//                tasks: tasks
             )
         )
         _startDate = State(initialValue: projeto.start)
         _endDate = State(initialValue: projeto.end)
-        self.notes = notes
-        self.tasks = tasks
+//        self.notes = notes
+//        self.tasks = tasks
     }
 
     var body: some View {
