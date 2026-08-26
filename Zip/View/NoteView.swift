@@ -36,7 +36,7 @@ struct NoteView: View {
             TextField("Título da anotação", text: $noteTitle)
                 .font(.title.bold())
 
-            Text(note.date.formatted(date: .numeric, time: .shortened))
+            Text(note.date.formatted(date: .numeric, time: .omitted))
                 .font(.body)
                 .foregroundStyle(Color.secondary)
 
@@ -114,7 +114,7 @@ struct NoteView: View {
                 ) {
                     Label("Excluir nota", systemImage: "trash")
                 }
-                .tint(.red)
+//                .tint(.red)
 
                 //                } label: {
                 //                    Image(systemName: "ellipsis")

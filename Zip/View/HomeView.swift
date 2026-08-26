@@ -10,7 +10,7 @@ import SwiftUI
 
 struct HomeView: View {
 
-    @State var vm = HomeViewModel()
+    @State var vm: HomeViewModel = HomeViewModel()
     @Environment(\.modelContext) private var context
     @State var showStarAnimation = false
 
@@ -58,22 +58,22 @@ struct HomeView: View {
                                 ProjectView(project: project, moc: context)
                             } label: {
                                 ProjectComponentView(project: project)
-                                    .background {
-                                        if project.getImage() == Data() {
-                                            project.getColorPalette().background
-                                        } else {
-                                            Image(
-                                                uiImage: UIImage(
-                                                    data: project.image!
-                                                )!
-                                            )
-                                            .resizable()
-                                            .scaledToFill()
-                                        }
-                                    }
-                                    .clipShape(.rect(cornerRadius: 26))
                             }
                             .buttonStyle(.plain)
+                            .background {
+                                if project.getImage() == Data() {
+                                    project.getColorPalette().background
+                                } else {
+                                    Image(
+                                        uiImage: UIImage(
+                                            data: project.image!
+                                        )!
+                                    )
+                                    .resizable()
+                                    .scaledToFill()
+                                }
+                            }
+                            .clipShape(.rect(cornerRadius: 26))
                         }
 
                         LazyVGrid(
@@ -152,18 +152,36 @@ struct HomeView: View {
                 }
             }
         }
+        .onChange(of: [
+            vm.getPastProjects(projects: projects),
+            vm.getCurrentProjects(projects: projects),
+            vm.getFutureProjects(projects: projects),
+        ]) { oldValues, newValues in
+            for index in 0...2 {
+                if oldValues[index] != newValues[index] {
+//                    if index == 0 {
+//                        print("past change")
+//                    } else if index == 1 {
+//                        print("current change")
+//                    } else {
+//                        print("future change")
+//                    }
+                    selectedOption = .init(rawValue: index)!
+                }
+            }
+        }
         .overlay {
             if showStarAnimation {
                 ZStack {
                     Color.black.opacity(0.4)
                         .ignoresSafeArea()
-                    
+
                     AnimationView(
                         imageName: "estrela_",
                         totalFrames: 30,
                         fps: 15.0,
                         holdFrame: 25,
-                        holdDuration: 0.5,  
+                        holdDuration: 0.5,
                         onComplete: {
                             withAnimation {
                                 showStarAnimation = false

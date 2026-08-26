@@ -13,7 +13,7 @@ struct NewNote: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var moc
     
-    @State var vm = NewNoteViewModel ()
+    @State var vm = NewNoteViewModel()
     
     let project: Project
     let selectedDate: Date

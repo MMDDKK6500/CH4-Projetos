@@ -137,7 +137,7 @@ struct SheetNewProject: View {
                     HStack {
                         Text("Começa")
                         DatePicker("", selection: $startDate)
-                            .onChange(of: startDate) {
+                            .onChange(of: [startDate, endDate]) {
                                 if endDate < startDate {
                                     endDate = startDate
                                 }

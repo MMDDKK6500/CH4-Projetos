@@ -41,7 +41,7 @@ struct ProjectComponentView: View {
                 }
 
                 Text(project.name)
-                    .lineLimit(2)
+                    .lineLimit(1)
                     .font(.title3)
                     .fontWeight(.semibold)
             }
