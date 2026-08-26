@@ -114,7 +114,7 @@ struct NoteView: View {
                 ) {
                     Label("Excluir nota", systemImage: "trash")
                 }
-//                .tint(.red)
+                .tint(.primary)
 
                 //                } label: {
                 //                    Image(systemName: "ellipsis")

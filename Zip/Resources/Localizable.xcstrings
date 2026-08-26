@@ -801,6 +801,16 @@
         }
       }
     },
+    "Você tem certeza que quer deletar essa tarefa?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this task?"
+          }
+        }
+      }
+    },
     "Você tem certeza que quer deletar esse projeto?" : {
       "localizations" : {
         "en" : {

@@ -11,6 +11,8 @@ struct PostIt: View {
     @State var task: ProjectTask
     
     @State var editTask = false
+    
+    @State var confirmationShown = false
 
     let cornerRadius: CGFloat = 26
 
@@ -31,6 +33,7 @@ struct PostIt: View {
                     Text(viewModel.subtitle)
                         .foregroundStyle(task.getColorPalette().subtitle)
                         .font(.caption.bold())
+                        .lineLimit(2, reservesSpace: true)
 
                     Text(task.text)
                         .foregroundStyle(Color.black)
@@ -76,12 +79,7 @@ struct PostIt: View {
             }
             
             Button(role: .destructive) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                    withAnimation(.spring()) {
-                        moc.delete(task)
-                        try? moc.save()
-                    }
-                }
+                confirmationShown.toggle()
             } label: {
                 Label("Deletar Tarefa", systemImage: "trash")
             }
@@ -89,6 +87,21 @@ struct PostIt: View {
         }
         .sheet(isPresented: $editTask) {
             EditTask(project: task.project, task: task)
+        }
+        .alert("Confirmação", isPresented: $confirmationShown) {
+            Button("Deletar", role: .destructive) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    withAnimation(.spring()) {
+                        moc.delete(task)
+                        try? moc.save()
+                    }
+                }
+            }
+            Button("Cancelar", role: .cancel) {
+
+            }
+        } message: {
+            Text("Você tem certeza que quer deletar essa tarefa?")
         }
 
     }

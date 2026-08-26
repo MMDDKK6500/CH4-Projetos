@@ -110,6 +110,8 @@ struct EditTask: View {
                     }
                 }
             }
+            .navigationTitle("Editar tarefa")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("", systemImage: "xmark", role: .cancel) { dismiss() }
