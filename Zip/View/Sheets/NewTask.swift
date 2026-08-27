@@ -115,7 +115,7 @@ struct NewTask: View {
                 Button("", systemImage: "xmark", role: .cancel) { dismiss() }
             }
             ToolbarItem(placement: .confirmationAction) {
-                Button("", systemImage: "checkmark", role: .confirm) {
+                Button("", systemImage: "checkmark") {
 
                     vm.createTask(
                         project: project,

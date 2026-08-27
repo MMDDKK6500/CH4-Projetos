@@ -52,6 +52,12 @@ struct ProjectComponentView: View {
         )
         .padding()
         .contentShape(Rectangle())
-        .glassEffect(.clear, in: RoundedRectangle(cornerRadius: 26))
+        .modifier { content in
+            if #available(iOS 26, *) {
+                content.glassEffect(.clear, in: RoundedRectangle(cornerRadius: 26))
+            } else {
+                content.background(.ultraThinMaterial, in: .rect(cornerRadius: 16))
+            }
+        }
     }
 }

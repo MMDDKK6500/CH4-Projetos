@@ -47,7 +47,7 @@ struct NewNote: View {
                 Button("", systemImage: "xmark", role: .cancel) { dismiss() }
             }
             ToolbarItem(placement: .confirmationAction) {
-                Button("", systemImage: "checkmark", role: .confirm) {
+                Button("", systemImage: "checkmark") {
                     if !vm.createNote(
                         project: project,
                         selectedDate: selectedDate,

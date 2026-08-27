@@ -39,7 +39,13 @@ struct ProjectView: View {
                         projeto: vm.project,
                         moc: moc
                     )
-                    .glassEffect(in: .rect(cornerRadius: 25.0))
+                    .modifier { content in
+                        if #available(iOS 26, *) {
+                            content.glassEffect(.clear, in: RoundedRectangle(cornerRadius: 26))
+                        } else {
+                            content.background(.regularMaterial, in: .rect(cornerRadius: 16))
+                        }
+                    }
                     .padding(.bottom, 10)
                     Text(
                         "Anotações do dia: \(vm.selectedDate.formatted(date: .numeric, time: .omitted))"
@@ -53,6 +59,7 @@ struct ProjectView: View {
                     if vm.dailyNotes.isEmpty {
                         Text("Nenhuma anotação feita para este dia ainda")
                             .font(.callout)
+                            .foregroundStyle(vm.textColor)
                     } else {
                         let displayedNotes =
                             isNotesExpanded

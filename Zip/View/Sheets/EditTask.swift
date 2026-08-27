@@ -120,7 +120,7 @@ struct EditTask: View {
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("", systemImage: "checkmark", role: .confirm) {
+                    Button("", systemImage: "checkmark") {
 
                         vm.editTask(
                             moc: moc

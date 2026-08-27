@@ -149,7 +149,7 @@ struct SheetNewProject: View {
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("", systemImage: "checkmark", role: .confirm) {
+                    Button("", systemImage: "checkmark") {
                         if titleProject.isEmpty || descriptionProject.isEmpty {
                             createError.toggle()
                         } else {

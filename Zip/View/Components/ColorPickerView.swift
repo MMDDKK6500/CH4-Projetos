@@ -36,7 +36,13 @@ struct ColorPickerView: View {
                     .foregroundStyle(
                         ColorEnum(rawValue: colorValue)!.background
                     )
-                    .glassEffect()
+                    .modifier { content in
+                        if #available(iOS 26, *) {
+                            content.glassEffect()
+                        } else {
+                            content.background(.regularMaterial)
+                        }
+                    }
             }
         }
     }
