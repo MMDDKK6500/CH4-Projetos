@@ -7,14 +7,14 @@
 
 import Foundation
 import Observation
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 @Observable
 class ProjectViewModel {
 
     let moc: ModelContext
-    
+
     var selectedDate: Date = Date()
 
     var segmented: TaskStatus = .toDo
@@ -25,7 +25,7 @@ class ProjectViewModel {
     var backgroundColor: Color = .clear
 
     var filteredTasks: [ProjectTask] {
-        project.tasks.filter { $0.status == segmented }  //Devolve array somente com o tipo da task passada no segmented
+        project.tasks.filter { $0.status == segmented }
     }
 
     var dailyNotes: [Note] {
@@ -37,8 +37,7 @@ class ProjectViewModel {
     init(project: Project, moc: ModelContext) {
         self.project = project
         self.moc = moc
-        
-        // Cache colors to help
+
         self.backgroundColor = project.getColorPalette().background
 
         if let imageData = project.image, let uiImage = UIImage(data: imageData)
@@ -59,10 +58,9 @@ class ProjectViewModel {
             return true
         } catch {
             fatalError("Error saving context \(error)")
-            //            return false
         }
     }
-    
+
     func daySelect(_ date: Date) {
         self.selectedDate = date
     }

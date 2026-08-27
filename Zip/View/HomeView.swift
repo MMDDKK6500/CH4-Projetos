@@ -159,13 +159,6 @@ struct HomeView: View {
         ]) { oldValues, newValues in
             for index in 0...2 {
                 if oldValues[index] != newValues[index] {
-//                    if index == 0 {
-//                        print("past change")
-//                    } else if index == 1 {
-//                        print("current change")
-//                    } else {
-//                        print("future change")
-//                    }
                     selectedOption = .init(rawValue: index)!
                 }
             }

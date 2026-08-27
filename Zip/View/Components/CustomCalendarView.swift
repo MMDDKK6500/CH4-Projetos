@@ -19,10 +19,6 @@ struct CustomCalendarView: View {
 
     let projeto: Project
 
-//    var notes: [Note]
-//
-//    var tasks: [ProjectTask]
-
     @State var vm: CustomCalendarViewModel
 
     @State var startDate: Date
@@ -31,9 +27,7 @@ struct CustomCalendarView: View {
     init(
         daySelect: @escaping (_ selectedDate: Date) -> Void,
         projeto: Project,
-        moc: ModelContext,
-//        notes: [Note],
-//        tasks: [ProjectTask]
+        moc: ModelContext
     ) {
 
         self.daySelect = daySelect
@@ -42,15 +36,11 @@ struct CustomCalendarView: View {
         _vm = State(
             initialValue: CustomCalendarViewModel(
                 moc: moc,
-                project: projeto,
-//                notes: notes,
-//                tasks: tasks
+                project: projeto
             )
         )
         _startDate = State(initialValue: projeto.start)
         _endDate = State(initialValue: projeto.end)
-//        self.notes = notes
-//        self.tasks = tasks
     }
 
     var body: some View {
@@ -58,9 +48,6 @@ struct CustomCalendarView: View {
             HStack {
                 Text(vm.monthYearFormatter.string(from: vm.selectedDate))
                     .font(.headline)
-                //.padding(.bottom, 10)
-
-                // TODO: Month/Year Select
 
                 Spacer()
 
@@ -120,11 +107,6 @@ struct CustomCalendarView: View {
                         .clipShape(
                             .circle
                         )
-                        //                        .border(.accent, width: Calendar.current.isDate(
-                        //                            vm.selectedDate,
-                        //                            equalTo: Date(),
-                        //                            toGranularity: .month
-                        //                        ) && vm.hasNote(on: day) ? 1 : 0)
                         .overlay(
                             Circle().stroke(
                                 .blue,
@@ -140,7 +122,6 @@ struct CustomCalendarView: View {
                                     ) ? 1 : 0
                             )
                         )
-                        //                        .padding(5)
 
                         .onTapGesture {
                             daySelect(vm.date(withDay: day))

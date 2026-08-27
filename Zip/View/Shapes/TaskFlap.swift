@@ -10,8 +10,6 @@ import SwiftUI
 
 struct TaskFlap: Shape {
 
-    //    var cornerRadius: CGFloat = 26
-
     func path(in rect: CGRect) -> Path {
         var path = Path()
 
@@ -24,8 +22,6 @@ struct TaskFlap: Shape {
                 y: rect.minY + rect.width / 5 / 2
             )
         )
-
-        //        path.addLine(to: CGPoint(x: rect.maxX - rect.width / 5 / 2, y: rect.minY + rect.width / 5))
 
         path.addCurve(
             to: CGPoint(
@@ -43,15 +39,6 @@ struct TaskFlap: Shape {
         )
 
         path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY + rect.width / 5))
-
-        //        path.addArc(
-        //            tangent1End: CGPoint(
-        //                x: rect.maxX - rect.width / 5,
-        //                y: rect.minY + rect.width / 5
-        //            ),
-        //            tangent2End: CGPoint(x: rect.maxX, y: rect.minY + rect.width / 5),
-        //            radius: cornerRadius
-        //
 
         path.closeSubpath()
         return path

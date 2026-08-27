@@ -7,10 +7,8 @@
 import Foundation
 
 enum ZipNavigationEnum: Hashable, Identifiable {
-                                              
-                                               
+
     var id: Self { self }
-  //  case splashscreen
     case welcomeView
     case onBoarding
     case homeView

@@ -23,13 +23,13 @@ class NewTaskViewModel {
     var selectionNotification: NotificationOptions = .never
 
     var createError: Bool = false
-    
+
     let task: ProjectTask?
-    
+
     init(task: ProjectTask?) {
         self.task = task
         if task != nil {
-               
+
             self.titleTask = task!.title
             self.descriptionTask = task!.text
             self.startDate = task!.start
@@ -63,9 +63,9 @@ class NewTaskViewModel {
             status: selectionStatus,
             project: project
         )
-        
+
         moc.insert(task)
-        
+
         project.tasks.append(task)
 
         do {
@@ -82,16 +82,16 @@ class NewTaskViewModel {
             fatalError("Error saving context \(error)")
         }
     }
-    
+
     func editTask(
         moc: ModelContext
     ) {
-        
+
         if titleTask.isEmpty || descriptionTask.isEmpty {
             createError = true
             return
         }
-        
+
         task?.color = Int64(colorValue)
         task?.end = endDate
         task?.start = startDate
@@ -99,7 +99,7 @@ class NewTaskViewModel {
         task?.text = descriptionTask
         task?.title = titleTask
         task?.status = selectionStatus
-        
+
         do {
             try moc.save()
         } catch {

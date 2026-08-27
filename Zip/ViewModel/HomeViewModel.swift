@@ -11,19 +11,22 @@ import SwiftUI
 
 @Observable
 class HomeViewModel {
-    
+
     func getPastProjects(projects: [Project]) -> [Project] {
-        projects.filter {project in checkProject(project: project) == .concluidos}
+        projects.filter { project in
+            checkProject(project: project) == .concluidos
+        }
     }
-    
+
     func getFutureProjects(projects: [Project]) -> [Project] {
-        projects.filter {project in checkProject(project: project) == .futuros}
+        projects.filter { project in checkProject(project: project) == .futuros
+        }
     }
-    
+
     func getCurrentProjects(projects: [Project]) -> [Project] {
-        projects.filter {project in checkProject(project: project) == .atuais}
+        projects.filter { project in checkProject(project: project) == .atuais }
     }
-    
+
     func checkProject(project: Project) -> ToggleSwitch {
         if project.end < Date() {
             return .concluidos

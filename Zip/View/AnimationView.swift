@@ -12,7 +12,7 @@ struct AnimationView: View {
     let fps: Double
     var holdFrame: Int? = nil
     var holdDuration: Double = 0.0
-    
+
     var onComplete: (() -> Void)? = nil
 
     @State private var currentFrame = 1
@@ -32,11 +32,12 @@ struct AnimationView: View {
 
     private func runAnimation() {
         let interval = 1.0 / fps
-        
-        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { _ in
+
+        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true)
+        { _ in
             if let hold = holdFrame, currentFrame == hold {
                 stopTimer()
-                
+
                 DispatchQueue.main.asyncAfter(deadline: .now() + holdDuration) {
                     currentFrame += 1
                     runAnimation()

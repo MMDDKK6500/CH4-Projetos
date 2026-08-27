@@ -5,8 +5,6 @@
 //  Created by João Duque Nardelli Wandermuren on 21/08/26.
 //
 
-// idk where to put this so it'll stay in the root ig
-
 import Foundation
 import UIKit
 

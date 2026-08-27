@@ -48,16 +48,6 @@ struct SheetNewProject: View {
                 _imageData = State(initialValue: nil)
                 _image = State(initialValue: nil)
             }
-        } else {
-//            _titleProject = State(initialValue: "")
-//            _descriptionProject = State(initialValue: "")
-//            _startDate = State(initialValue: Date())
-//            _endDate = State(initialValue: Date())
-//            _isFavorite = State(initialValue: false)
-//            _color = State(initialValue: 0)
-//
-//            _imageData = State(initialValue: nil)
-//            _image = State(initialValue: nil)
         }
 
         _createError = State(initialValue: false)
@@ -68,7 +58,8 @@ struct SheetNewProject: View {
             Form {
                 HStack {
                     Spacer()
-                    PhotosPicker(selection: $photoSelection, matching: .images) {
+                    PhotosPicker(selection: $photoSelection, matching: .images)
+                    {
                         Group {
                             if let image {
                                 image
