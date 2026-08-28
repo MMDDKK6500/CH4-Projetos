@@ -41,7 +41,7 @@ struct ProjectView: View {
                     )
                     .modifier { content in
                         if #available(iOS 26, *) {
-                            content.glassEffect(.clear, in: RoundedRectangle(cornerRadius: 26))
+                            content.glassEffect(.regular, in: RoundedRectangle(cornerRadius: 26))
                         } else {
                             content.background(.regularMaterial, in: .rect(cornerRadius: 16))
                         }

@@ -28,14 +28,17 @@ struct WelcomeView: View {
                 .font(.largeTitle.bold())
 
             Spacer()
-            Text(
-                "Uma nova forma de organizar seus projetos, tarefas e ideias em um único espaço."
-            )
-            .font(.body)
-            Text(
-                "Planeje cada etapa, acompanhe o andamento das atividades e mantenha todas as informações importantes do seu projeto reunidas e organizadas."
-            )
-            .font(.body)
+            VStack(alignment: .leading, spacing: 45) {
+                Text(
+                    "Uma nova forma de organizar seus projetos, tarefas e ideias em um único espaço."
+                )
+                .font(.body)
+                Text(
+                    "Planeje cada etapa, acompanhe o andamento das atividades e mantenha todas as informações importantes do seu projeto reunidas e organizadas."
+                )
+                .font(.body)
+            }
+            .padding(.horizontal)
 
             Spacer()
 

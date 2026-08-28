@@ -25,23 +25,51 @@ struct SheetOnBoarding: View {
                         .multilineTextAlignment(.center)
                         .padding(.top, 50)
 
-                    VStack(spacing: 40) {
-
-                        TextOnBoarding(
-                            text:
-                                "Organize seus prazos e encontros. Visualize as datas importantes do projeto e saiba o que vem pela frente.",
-                            icon: "calendar"
-                        )
-                        TextOnBoarding(
-                            text:
-                                "Não deixe nenhuma tarefa para trás. Crie lembretes para acompanhar o que precisa ser feito e quando.",
-                            icon: "checklist"
-                        )
-                        TextOnBoarding(
-                            text:
-                                "Registre suas ideias e informações. Anote detalhes, referências e tudo o que for importante para o projeto.",
-                            icon: "pencil.line"
-                        )
+                    VStack(alignment: .leading, spacing: 40) {
+                        HStack {
+                            Image(systemName: "calendar")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundStyle(Color.accent)
+                                .frame(width: 60, height: 60)
+                            
+                            Text(
+                                "Organize seus prazos e encontros. Visualize as datas importantes do projeto e saiba o que vem pela frente."
+                            )
+                            .font(.body.weight(.regular))
+                            .foregroundColor(.primary)
+                            .lineSpacing(3)
+                            .multilineTextAlignment(.leading)
+                        }
+                        
+                        HStack {
+                            Image(systemName: "checklist")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundStyle(Color.accent)
+                                .frame(width: 60, height: 60)
+                            Text(
+                                "Não deixe nenhuma tarefa para trás. Crie lembretes para acompanhar o que precisa ser feito e quando."
+                            )
+                            .font(.body.weight(.regular))
+                            .foregroundColor(.primary)
+                            .lineSpacing(3)
+                            .multilineTextAlignment(.leading)
+                        }
+                        HStack {
+                            Image(systemName: "pencil.line")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundStyle(Color.accent)
+                                .frame(width: 60, height: 60)
+                            Text(
+                                "Registre suas ideias e informações. Anote detalhes, referências e tudo o que for importante para o projeto."
+                            )
+                            .font(.body.weight(.regular))
+                            .foregroundColor(.primary)
+                            .lineSpacing(3)
+                            .multilineTextAlignment(.leading)
+                        }
                     }
                     .padding(.bottom, 70)
 
